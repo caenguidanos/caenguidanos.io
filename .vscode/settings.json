@@ -1,0 +1,29 @@
+{
+   "search.mode": "newEditor",
+
+   "workbench.iconTheme": "vs-minimal",
+   "workbench.colorTheme": "GitHub Light",
+   "workbench.sideBar.location": "right",
+   "workbench.startupEditor": "none",
+
+   "explorer.sortOrder": "default",
+   "explorer.compactFolders": false,
+
+   "editor.fontFamily": "'SF-Mono Regular', 'JetBrains Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+   "editor.fontSize": 14,
+   "editor.formatOnSave": true,
+   "editor.fontLigatures": false,
+   "editor.lineHeight": 26,
+   "editor.cursorStyle": "line",
+   "editor.cursorBlinking": "phase",
+   "editor.cursorWidth": 2,
+   "editor.tabSize": 3,
+   "editor.suggestSelection": "first",
+   "editor.bracketPairColorization.enabled": true,
+   "editor.defaultFormatter": "esbenp.prettier-vscode",
+   "editor.guides.bracketPairs": true,
+   "editor.guides.highlightActiveIndentation": true,
+   "editor.guides.indentation": false,
+   "editor.lineNumbers": "interval",
+   "editor.rulers": [101]
+}

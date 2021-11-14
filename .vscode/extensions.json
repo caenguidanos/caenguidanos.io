@@ -1,0 +1,15 @@
+{
+   "recommendations": [
+      "mikestead.dotenv",
+      "github.github-vscode-theme",
+      "naumovs.color-highlight",
+      "dbaeumer.vscode-eslint",
+      "firsttris.vscode-jest-runner",
+      "esbenp.prettier-vscode",
+      "visualstudioexptteam.vscodeintellicode",
+      "kisstkondoros.vscode-codemetrics",
+      "zh9528.file-size",
+      "wix.vscode-import-cost",
+      "foxundermoon.shell-format"
+   ]
+}
