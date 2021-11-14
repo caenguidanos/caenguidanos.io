@@ -1,7 +1,9 @@
-import type { NextPage } from "next";
+import { PageWithLayout, DefaultLayout } from "$shared/layout";
 
-const Index: NextPage = () => {
+const IndexPage: PageWithLayout = () => {
    return <h1>Index page</h1>;
 };
 
-export default Index;
+IndexPage.layout = DefaultLayout;
+
+export default IndexPage;

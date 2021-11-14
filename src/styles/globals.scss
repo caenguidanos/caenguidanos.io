@@ -1,3 +1,13 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+::selection {
+   background-color: #fbff0d;
+   color: black;
+}
+
+html {
+   min-width: 360px;
+   scroll-behavior: smooth;
+}

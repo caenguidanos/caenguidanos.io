@@ -1,9 +1,11 @@
-import type { AppProps } from "next/app";
+import { getLayout, AppPropsWithLayout } from "$shared/layout";
 
 import "$styles/globals.scss";
 
-function MyApp({ Component, pageProps }: AppProps) {
-   return <Component {...pageProps} />;
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+   const dynamicLayout = getLayout(Component);
+
+   return dynamicLayout({ page: <Component {...pageProps} /> });
 }
 
 export default MyApp;
