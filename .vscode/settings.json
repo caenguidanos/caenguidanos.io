@@ -2,7 +2,7 @@
    "search.mode": "newEditor",
 
    "workbench.iconTheme": "vs-minimal",
-   "workbench.colorTheme": "GitHub Light",
+   "workbench.colorTheme": "GitHub Dark",
    "workbench.sideBar.location": "right",
    "workbench.startupEditor": "none",
 
