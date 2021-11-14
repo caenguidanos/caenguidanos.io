@@ -1,0 +1,8 @@
+/node_modules
+/dist
+/out
+/.next
+
+*-lock.yaml
+*-lock.json
+*.log
