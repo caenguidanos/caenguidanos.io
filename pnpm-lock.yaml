@@ -6,6 +6,7 @@ specifiers:
   autoprefixer: 10.4.0
   eslint: 7.32.0
   eslint-config-next: 12.0.3
+  husky: 7.0.4
   next: 12.0.3
   postcss: 8.3.11
   react: 17.0.2
@@ -25,6 +26,7 @@ devDependencies:
   autoprefixer: 10.4.0_postcss@8.3.11
   eslint: 7.32.0
   eslint-config-next: 12.0.3_f1f8405fe2323de6c036095b8b1e40f0
+  husky: 7.0.4
   postcss: 8.3.11
   sass: 1.43.4
   tailwindcss: 3.0.0-alpha.2_0c54bdadaf9d9c9c6c134cb2c6c061a3
@@ -1702,6 +1704,12 @@ packages:
   /https-browserify/1.0.0:
     resolution: {integrity: sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=}
     dev: false
+
+  /husky/7.0.4:
+    resolution: {integrity: sha512-vbaCKN2QLtP/vD4yvs6iz6hBEo6wkSzs8HpRah1Z6aGmF2KW5PdYuAd7uX5a+OyBZHBhd+TFLqgjUgytQr4RvQ==}
+    engines: {node: '>=12'}
+    hasBin: true
+    dev: true
 
   /iconv-lite/0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
