@@ -2,6 +2,8 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "./fonts/JetBrainsMono/index.scss";
+
 ::selection {
    background-color: #fbff0d;
    color: black;
@@ -10,4 +12,10 @@
 html {
    min-width: 360px;
    scroll-behavior: smooth;
+}
+
+pre {
+   @apply text-sm leading-relaxed font-medium;
+
+   filter: saturate(1.2);
 }

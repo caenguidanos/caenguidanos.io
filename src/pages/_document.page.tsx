@@ -11,6 +11,14 @@ class MyDocument extends Document {
       return (
          <Html lang="es">
             <Head>
+               <link
+                  rel="preload"
+                  href="/static/fonts/JetBrainsMono/JetBrainsMono-Medium.woff2"
+                  as="font"
+                  type="font/woff2"
+                  crossOrigin="anonymous"
+               />
+
                <link href="/static/favicons/favicon.ico" rel="shortcut icon" />
 
                <meta content="#ffffff" name="theme-color" />
