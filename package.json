@@ -1,6 +1,18 @@
 {
    "name": "blog",
-   "private": true,
+   "description": "My blog",
+   "version": "0.0.1",
+   "repository": {
+      "url": "https://github.com/caenguidanos"
+   },
+   "homepage": "https://caenguidanos.dev",
+   "author": {
+      "name": "Cristian A. Enguídanos Nebot"
+   },
+   "engines": {
+      "node": "17.1.0"
+   },
+   "engineStrict": true,
    "scripts": {
       "dev": "next dev",
       "start": "next start",
@@ -35,5 +47,21 @@
       "sass": "1.43.4",
       "tailwindcss": "3.0.0-alpha.2",
       "typescript": "4.4.4"
-   }
+   },
+   "keywords": [
+      "blog",
+      "post",
+      "node",
+      "next",
+      "tailwindcss",
+      "react",
+      "playwright",
+      "jest",
+      "eslint",
+      "testing-library",
+      "husky",
+      "typescript",
+      "prettier",
+      "e2e"
+   ]
 }
