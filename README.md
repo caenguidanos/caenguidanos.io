@@ -4,7 +4,7 @@ Welcome to my personal site.
 
 #### Engine:
 
--  Node recommended version: `v17.1.0`
+-  Node version: `v17.1.0`
 
 #### Stack:
 
@@ -19,6 +19,20 @@ Welcome to my personal site.
 -  :zap: [typescript](https://www.typescriptlang.org/)
 -  :zap: [husky](https://github.com/typicode/husky)
 -  :zap: [eslint](https://eslint.org/)
+
+#### Infra:
+
+-  :zap: [vercel](https://vercel.com/)
+-  :zap: [supabase](https://supabase.io/)
+
+#### CI/CD
+
+-  :zap: [sonarcloud](https://sonarcloud.io/)
+-  :zap: [github actions](https://github.com/features/actions)
+
+#### Extra
+
+-  :zap: [fathom](https://usefathom.com/)
 
 ## Install
 
