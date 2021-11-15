@@ -2,6 +2,10 @@
 
 Welcome to my personal site.
 
+#### Engine:
+
+-  Node recommended version: `v17.1.0`
+
 #### Stack:
 
 -  :zap: [react](https://reactjs.org/)
