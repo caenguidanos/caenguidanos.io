@@ -7,7 +7,7 @@ module.exports = {
          fontFamily: {
             sans: [...fontFamily.sans],
             serif: [...fontFamily.serif],
-            mono: ["JetBrains Mono", ...fontFamily.mono]
+            mono: ["SF Mono", "JetBrains Mono", ...fontFamily.mono]
          },
          fontSize: {
             "3xs": ".58rem",
