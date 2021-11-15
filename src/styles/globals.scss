@@ -15,7 +15,7 @@ html {
 }
 
 pre {
-   @apply text-sm leading-relaxed font-medium;
+   @apply text-sm leading-relaxed font-medium font-mono;
 
    filter: saturate(1.2);
 }

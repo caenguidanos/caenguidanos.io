@@ -1,3 +1,4 @@
+```tsx
 import path from "path";
 import fs from "fs";
 
@@ -39,3 +40,4 @@ export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext)
 IndexPage.layout = DefaultLayout;
 
 export default IndexPage;
+```

@@ -2,7 +2,9 @@
 module.exports = {
    reactStrictMode: true,
    pageExtensions: ["page.tsx", "page.ts"],
-
+   experimental: {
+      esmExternals: true
+   },
    webpack: (config, { dev, isServer }) => {
       if (!dev && !isServer) {
          const preactAlias = {
