@@ -1,13 +1,13 @@
 {
-   "name": "caenguidanos.dev",
-   "description": "My personal blog",
+   "name": "caenguidanos.io",
+   "description": "My personal site",
    "version": "0.0.1",
    "private": true,
    "license": "MIT",
    "repository": {
       "url": "https://github.com/caenguidanos"
    },
-   "homepage": "https://caenguidanos.dev",
+   "homepage": "https://caenguidanos.io",
    "author": {
       "name": "Cristian A. Enguídanos Nebot"
    },
