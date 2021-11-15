@@ -35,7 +35,7 @@ specifiers:
   tailwindcss: 3.0.0-alpha.2
   typescript: 4.4.4
   unified: 9.2.2
-  unist-util-visit: 4.1.0
+  unist-util-visit: 2.0.3
 
 dependencies:
   next: 12.0.4-canary.11_0c41f19aae22112e9f1896e888ec7296
@@ -71,7 +71,7 @@ devDependencies:
   tailwindcss: 3.0.0-alpha.2_0c54bdadaf9d9c9c6c134cb2c6c061a3
   typescript: 4.4.4
   unified: 9.2.2
-  unist-util-visit: 4.1.0
+  unist-util-visit: 2.0.3
 
 packages:
 
@@ -6417,10 +6417,6 @@ packages:
     resolution: {integrity: sha512-ZOQSsnce92GrxSqlnEEseX0gi7GH9zTJZ0p9dtu87WRb/37mMPO2Ilx1s/t9vBHrFhbgweUwb+t7cIn5dxPhZg==}
     dev: true
 
-  /unist-util-is/5.1.1:
-    resolution: {integrity: sha512-F5CZ68eYzuSvJjGhCLPL3cYx45IxkqXSetCcRgUXtbcm50X2L9oOWQlfUfDdAf+6Pd27YDblBfdtmsThXmwpbQ==}
-    dev: true
-
   /unist-util-position/3.1.0:
     resolution: {integrity: sha512-w+PkwCbYSFw8vpgWD0v7zRCl1FpY3fjDSQ3/N/wNd9Ffa4gPi8+4keqt99N3XW6F99t/mUzp2xAhNmfKWp95QA==}
     dev: true
@@ -6438,27 +6434,12 @@ packages:
       unist-util-is: 4.1.0
     dev: true
 
-  /unist-util-visit-parents/5.1.0:
-    resolution: {integrity: sha512-y+QVLcY5eR/YVpqDsLf/xh9R3Q2Y4HxkZTp7ViLDU6WtJCEcPmRzW1gpdWDCDIqIlhuPDXOgttqPlykrHYDekg==}
-    dependencies:
-      '@types/unist': 2.0.6
-      unist-util-is: 5.1.1
-    dev: true
-
   /unist-util-visit/2.0.3:
     resolution: {integrity: sha512-iJ4/RczbJMkD0712mGktuGpm/U4By4FfDonL7N/9tATGIF4imikjOuagyMY53tnZq3NP6BcmlrHhEKAfGWjh7Q==}
     dependencies:
       '@types/unist': 2.0.6
       unist-util-is: 4.1.0
       unist-util-visit-parents: 3.1.1
-    dev: true
-
-  /unist-util-visit/4.1.0:
-    resolution: {integrity: sha512-n7lyhFKJfVZ9MnKtqbsqkQEk5P1KShj0+//V7mAcoI6bpbUjh3C/OG8HVD+pBihfh6Ovl01m8dkcv9HNqYajmQ==}
-    dependencies:
-      '@types/unist': 2.0.6
-      unist-util-is: 5.1.1
-      unist-util-visit-parents: 5.1.0
     dev: true
 
   /universalify/0.1.2:
