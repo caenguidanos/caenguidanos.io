@@ -4,7 +4,7 @@ Welcome to my personal site.
 
 #### Engine:
 
--  Node version: `v17.1.0`
+-  Node version: `v16.13.0`
 
 #### Stack:
 

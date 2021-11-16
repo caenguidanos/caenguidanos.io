@@ -1,14 +1,9 @@
 import { PlaywrightTestConfig, devices } from "@playwright/test";
 
 const config: PlaywrightTestConfig = {
-   testDir: "src",
-   testMatch: "**/*.e2e.ts",
-   retries: 2,
-   timeout: 30000,
-   use: { baseURL: "http://0.0.0.0:3000" },
-   preserveOutput: "failures-only",
    globalSetup: require.resolve("./playwright.global.ts"),
    globalTeardown: require.resolve("./playwright.teardown.ts"),
+   preserveOutput: "failures-only",
    projects: [
       {
          name: "Desktop Edge",
@@ -50,7 +45,17 @@ const config: PlaywrightTestConfig = {
             ...devices["Pixel 5"]
          }
       }
-   ]
+   ],
+   retries: 2,
+   testMatch: "**/*.e2e.ts",
+   timeout: 30000,
+   use: { baseURL: "http://0.0.0.0:3000" },
+   webServer: {
+      command: "pnpm start",
+      port: 3000,
+      timeout: 120 * 1000,
+      reuseExistingServer: !process.env.CI
+   }
 };
 
 export default config;
