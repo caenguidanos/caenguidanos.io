@@ -1,3 +1,5 @@
+import path from "path";
+
 import { PlaywrightTestConfig, devices } from "@playwright/test";
 
 const config: PlaywrightTestConfig = {
@@ -47,14 +49,15 @@ const config: PlaywrightTestConfig = {
       }
    ],
    retries: 2,
+   testDir: path.resolve(process.cwd(), "src"),
    testMatch: "**/*.e2e.ts",
    timeout: 30000,
    use: { baseURL: "http://0.0.0.0:3000" },
    webServer: {
-      command: "pnpm start",
+      command: "pnpm dev",
       port: 3000,
       timeout: 120 * 1000,
-      reuseExistingServer: !process.env.CI
+      reuseExistingServer: false
    }
 };
 

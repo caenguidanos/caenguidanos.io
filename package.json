@@ -20,8 +20,11 @@
       "start": "next start",
       "build": "next build",
       "lint": "next lint",
-      "test": "jest",
+      "test": "jest --coverage",
+      "test:coverage": "serve coverage",
       "e2e": "playwright test",
+      "e2e:dev": "playwright test --config=config/e2e/dev/playwright.config.ts",
+      "e2e:ci": "playwright test --config=config/e2e/ci/playwright.config.ts",
       "format": "prettier --write .",
       "prepare": "husky install"
    },
@@ -32,6 +35,7 @@
       "react-dom": "17.0.2"
    },
    "devDependencies": {
+      "@jest/globals": "27.3.1",
       "@playwright/test": "1.16.3",
       "@swc-node/jest": "1.4.1",
       "@testing-library/react": "12.1.2",
@@ -55,6 +59,7 @@
       "remark-parse": "9.0.0",
       "remark-rehype": "8.1.0",
       "sass": "1.43.4",
+      "serve": "13.0.2",
       "shiki": "0.9.12",
       "tailwindcss": "3.0.0-alpha.2",
       "typescript": "4.4.4",

@@ -1,3 +1,5 @@
+import { expect, describe, it } from "@jest/globals";
+
 import { transformToHtml } from "./transform-to-html";
 
 describe("SharedMarkdown :: Util transformToHtml", () => {

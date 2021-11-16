@@ -1,6 +1,7 @@
 /**
  * @jest-environment jsdom
  */
+import { expect, describe, it } from "@jest/globals";
 import { render } from "@testing-library/react";
 
 import { DefaultLayout } from "./shared-layout-default";
@@ -10,7 +11,7 @@ import type { PageWithLayout } from "../entity/shared-layout.entity";
 const PageMock: PageWithLayout = () => {
    return (
       <div data-testid="page">
-         <h1>Hello World</h1>
+         <h1>Hello World!</h1>
       </div>
    );
 };
