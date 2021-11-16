@@ -1,6 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-pnpm test
-pnpm build
-pnpm e2e
+pnpm affected:test
+pnpm affected:e2e

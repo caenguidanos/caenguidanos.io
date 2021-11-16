@@ -25,14 +25,14 @@ const IndexPage: PageWithLayout<IndexPageProps> = ({ html }) => {
 };
 
 export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext) => {
-   const blogSource = fs.readFileSync(
+   const src = fs.readFileSync(
       path.resolve(process.cwd(), "data/blog/programing/hello_ES.md"),
       "utf8"
    );
 
    return {
       props: {
-         html: await transformToHtml({ input: blogSource })
+         html: await transformToHtml({ input: src })
       }
    };
 };
