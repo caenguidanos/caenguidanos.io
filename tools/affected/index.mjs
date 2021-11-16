@@ -7,23 +7,22 @@ async function main() {
    const target = process.argv[2];
 
    const affected = await subprocessFiles();
-   console.log(affected);
 
-   // if (affected.length) {
-   //    if (target === "--test") {
-   //       await subprocessTest(affected);
-   //    }
+   if (affected.length) {
+      if (target === "--test") {
+         await subprocessTest(affected);
+      }
 
-   //    if (target === "--e2e") {
-   //       const prepareDataE2E = affected.filter((k) => !!k.match(".e2e."));
+      if (target === "--e2e") {
+         const prepareDataE2E = affected.filter((k) => !!k.match(".e2e."));
 
-   //       if (prepareDataE2E.length) {
-   //          await subprocessE2E(prepareDataE2E);
-   //       } else {
-   //          console.log(`\t${chalk.bgYellowBright(` ${chalk.black("Not found affected e2e")} `)}\n`);
-   //       }
-   //    }
-   // }
+         if (prepareDataE2E.length) {
+            await subprocessE2E(prepareDataE2E);
+         } else {
+            console.log(`\t${chalk.bgYellowBright(` ${chalk.black("Not found affected e2e")} `)}\n`);
+         }
+      }
+   }
 }
 
 function subprocessTest(files) {
