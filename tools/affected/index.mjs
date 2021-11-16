@@ -108,7 +108,6 @@ function subprocessFiles() {
 
       staged.stdout.on("data", (chunk) => {
          const parsed = parseData(chunk);
-         console.log(source);
 
          if (Array.isArray(parsed)) {
             for (const file of parsed) {
