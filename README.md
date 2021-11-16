@@ -60,12 +60,6 @@ pnpm test
 
 ### E2E
 
-Start desired server:
-
-```bash
-pnpm dev
-```
-
 Run **Playwright** tests:
 
 ```bash
