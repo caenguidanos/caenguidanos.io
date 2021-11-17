@@ -51,7 +51,7 @@ function subprocessE2E(files) {
    console.log(`\n\t${chalk.bgGreenBright(` ${chalk.black("Runnnig affected e2e")} `)}\n`);
 
    return new Promise((resolve, reject) => {
-      const jest = child_process.spawn("pnpm", ["e2e:dev", "--", ...files], {
+      const jest = child_process.spawn("pnpm", ["e2e:local", "--", ...files], {
          stdio: "inherit",
          cwd: process.cwd()
       });
