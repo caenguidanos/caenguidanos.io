@@ -11,7 +11,10 @@ jobs:
          - uses: pnpm/action-setup@v2.0.1
            with:
               version: 6.22.2
-              run_install: true
+         - name: Show info
+           run: echo ${{ github.event.deployment_status.target_url }} && echo ${{ github.event.deployment_status.state }}
+         - name: Install deps
+           run: pnpm install
          - name: Run Jest tests
            run: pnpm test:coverage
          - name: Build app
