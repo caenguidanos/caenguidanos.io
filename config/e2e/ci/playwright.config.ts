@@ -8,12 +8,6 @@ const config: PlaywrightTestConfig = {
    preserveOutput: "failures-only",
    projects: [
       {
-         name: "Desktop Edge",
-         use: {
-            ...devices["Desktop Edge"]
-         }
-      },
-      {
          name: "Desktop Chrome",
          use: {
             ...devices["Desktop Chrome"]
