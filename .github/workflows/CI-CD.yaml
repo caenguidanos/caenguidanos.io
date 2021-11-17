@@ -1,7 +1,7 @@
 name: CI/CD
 on: [push]
 jobs:
-   generate_and_deploy_coverage_reports:
+   coverage-reports:
       runs-on: ubuntu-latest
       steps:
          - uses: actions/checkout@v2
@@ -10,7 +10,7 @@ jobs:
               node-version: "14.18.1"
          - name: Install deps
            run: npm install
-          - name: Install operating system dependencies for E2E
+         - name: Install operating system dependencies for E2E
            run: npx playwright install-deps chromium
          - name: Run Jest tests
            run: npm test:coverage
