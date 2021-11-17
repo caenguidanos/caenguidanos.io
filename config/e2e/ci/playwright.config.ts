@@ -26,7 +26,7 @@ const config: PlaywrightTestConfig = {
          }
       }
    ],
-   reporter: [["html", { outputFolder: "coverage-e2e" }], ["list"]],
+   reporter: [["html", { outputFolder: "docs/coverage-e2e-testing" }], ["list"]],
    retries: 2,
    testDir: path.resolve(process.cwd(), "src"),
    testMatch: "**/*.e2e.ts",

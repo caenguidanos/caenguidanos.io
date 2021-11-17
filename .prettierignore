@@ -2,9 +2,8 @@
 /dist
 /out
 /.next
-/coverage
+/docs
 /test-results
-/coverage-e2e
 .github/**/*.yaml
 
 *-lock.yaml

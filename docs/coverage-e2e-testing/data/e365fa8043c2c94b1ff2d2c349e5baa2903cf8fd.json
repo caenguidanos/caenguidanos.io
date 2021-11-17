@@ -1,0 +1,310 @@
+{
+   "fileId": "e365fa8043c2c94b1ff2d2c349e5baa2903cf8fd",
+   "fileName": "pages/index.page.e2e.ts",
+   "tests": [
+      {
+         "testId": "e365fa8043c2c94b1ff2d2c349e5baa2903cf8fd-e1aa59410faf1704f1536d413437d37269e61af9",
+         "title": "should navigate",
+         "projectName": "Desktop Edge",
+         "location": {
+            "file": "pages/index.page.e2e.ts",
+            "line": 3,
+            "column": 1
+         },
+         "duration": 3149,
+         "outcome": "expected",
+         "path": ["pages/index.page.e2e.ts:3"],
+         "results": [
+            {
+               "duration": 3149,
+               "startTime": "2021-11-17T23:40:06.873Z",
+               "retry": 0,
+               "steps": [
+                  {
+                     "title": "Before Hooks",
+                     "startTime": "2021-11-17T23:40:06.873Z",
+                     "duration": 323,
+                     "steps": [
+                        {
+                           "title": "browserContext.newPage",
+                           "startTime": "2021-11-17T23:40:07.032Z",
+                           "duration": 164,
+                           "steps": []
+                        }
+                     ]
+                  },
+                  {
+                     "title": "page.goto(/)",
+                     "startTime": "2021-11-17T23:40:07.197Z",
+                     "duration": 2189,
+                     "snippet": "\u001b[0m \u001b[90m 3 |\u001b[39m test(\u001b[32m\"should navigate\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 4 |\u001b[39m    \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"/\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m              ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 5 |\u001b[39m\u001b[0m",
+                     "steps": [],
+                     "location": {
+                        "file": "pages/index.page.e2e.ts",
+                        "line": 4,
+                        "column": 15
+                     }
+                  },
+                  {
+                     "title": "expect.toContainText",
+                     "startTime": "2021-11-17T23:40:09.387Z",
+                     "duration": 21,
+                     "snippet": "\u001b[0m \u001b[90m 5 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 6 |\u001b[39m    \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m\"h1\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Blog\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m                                    ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 7 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m",
+                     "steps": [],
+                     "location": {
+                        "file": "pages/index.page.e2e.ts",
+                        "line": 6,
+                        "column": 37
+                     }
+                  },
+                  {
+                     "title": "After Hooks",
+                     "startTime": "2021-11-17T23:40:09.408Z",
+                     "duration": 614,
+                     "steps": [
+                        {
+                           "title": "browserContext.close",
+                           "startTime": "2021-11-17T23:40:09.529Z",
+                           "duration": 492,
+                           "steps": []
+                        }
+                     ]
+                  }
+               ],
+               "error": "",
+               "status": "passed",
+               "attachments": []
+            }
+         ],
+         "ok": true
+      },
+      {
+         "testId": "e365fa8043c2c94b1ff2d2c349e5baa2903cf8fd-4d5faced1e1da6d6df1677e8ef4acf7bce93f8b2",
+         "title": "should navigate",
+         "projectName": "Desktop Chrome",
+         "location": {
+            "file": "pages/index.page.e2e.ts",
+            "line": 3,
+            "column": 1
+         },
+         "duration": 2756,
+         "outcome": "expected",
+         "path": ["pages/index.page.e2e.ts:3"],
+         "results": [
+            {
+               "duration": 2756,
+               "startTime": "2021-11-17T23:40:07.165Z",
+               "retry": 0,
+               "steps": [
+                  {
+                     "title": "Before Hooks",
+                     "startTime": "2021-11-17T23:40:07.165Z",
+                     "duration": 292,
+                     "steps": [
+                        {
+                           "title": "browserContext.newPage",
+                           "startTime": "2021-11-17T23:40:07.265Z",
+                           "duration": 192,
+                           "steps": []
+                        }
+                     ]
+                  },
+                  {
+                     "title": "page.goto(/)",
+                     "startTime": "2021-11-17T23:40:07.458Z",
+                     "duration": 1927,
+                     "snippet": "\u001b[0m \u001b[90m 3 |\u001b[39m test(\u001b[32m\"should navigate\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 4 |\u001b[39m    \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"/\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m              ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 5 |\u001b[39m\u001b[0m",
+                     "steps": [],
+                     "location": {
+                        "file": "pages/index.page.e2e.ts",
+                        "line": 4,
+                        "column": 15
+                     }
+                  },
+                  {
+                     "title": "expect.toContainText",
+                     "startTime": "2021-11-17T23:40:09.386Z",
+                     "duration": 23,
+                     "snippet": "\u001b[0m \u001b[90m 5 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 6 |\u001b[39m    \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m\"h1\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Blog\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m                                    ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 7 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m",
+                     "steps": [],
+                     "location": {
+                        "file": "pages/index.page.e2e.ts",
+                        "line": 6,
+                        "column": 37
+                     }
+                  },
+                  {
+                     "title": "After Hooks",
+                     "startTime": "2021-11-17T23:40:09.409Z",
+                     "duration": 512,
+                     "steps": [
+                        {
+                           "title": "browserContext.close",
+                           "startTime": "2021-11-17T23:40:09.530Z",
+                           "duration": 390,
+                           "steps": []
+                        }
+                     ]
+                  }
+               ],
+               "error": "",
+               "status": "passed",
+               "attachments": []
+            }
+         ],
+         "ok": true
+      },
+      {
+         "testId": "e365fa8043c2c94b1ff2d2c349e5baa2903cf8fd-3abd28490b563ba6fdee96b27cb0396b96c672ad",
+         "title": "should navigate",
+         "projectName": "Desktop Firefox",
+         "location": {
+            "file": "pages/index.page.e2e.ts",
+            "line": 3,
+            "column": 1
+         },
+         "duration": 2113,
+         "outcome": "expected",
+         "path": ["pages/index.page.e2e.ts:3"],
+         "results": [
+            {
+               "duration": 2113,
+               "startTime": "2021-11-17T23:40:08.680Z",
+               "retry": 0,
+               "steps": [
+                  {
+                     "title": "Before Hooks",
+                     "startTime": "2021-11-17T23:40:08.680Z",
+                     "duration": 1193,
+                     "steps": [
+                        {
+                           "title": "browserContext.newPage",
+                           "startTime": "2021-11-17T23:40:09.582Z",
+                           "duration": 291,
+                           "steps": []
+                        }
+                     ]
+                  },
+                  {
+                     "title": "page.goto(/)",
+                     "startTime": "2021-11-17T23:40:09.874Z",
+                     "duration": 776,
+                     "snippet": "\u001b[0m \u001b[90m 3 |\u001b[39m test(\u001b[32m\"should navigate\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 4 |\u001b[39m    \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"/\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m              ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 5 |\u001b[39m\u001b[0m",
+                     "steps": [],
+                     "location": {
+                        "file": "pages/index.page.e2e.ts",
+                        "line": 4,
+                        "column": 15
+                     }
+                  },
+                  {
+                     "title": "expect.toContainText",
+                     "startTime": "2021-11-17T23:40:10.651Z",
+                     "duration": 31,
+                     "snippet": "\u001b[0m \u001b[90m 5 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 6 |\u001b[39m    \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m\"h1\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Blog\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m                                    ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 7 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m",
+                     "steps": [],
+                     "location": {
+                        "file": "pages/index.page.e2e.ts",
+                        "line": 6,
+                        "column": 37
+                     }
+                  },
+                  {
+                     "title": "After Hooks",
+                     "startTime": "2021-11-17T23:40:10.683Z",
+                     "duration": 110,
+                     "steps": [
+                        {
+                           "title": "browserContext.close",
+                           "startTime": "2021-11-17T23:40:10.742Z",
+                           "duration": 51,
+                           "steps": []
+                        }
+                     ]
+                  }
+               ],
+               "error": "",
+               "status": "passed",
+               "attachments": []
+            }
+         ],
+         "ok": true
+      },
+      {
+         "testId": "e365fa8043c2c94b1ff2d2c349e5baa2903cf8fd-2c9bdfd55c654bede7c54ef51f21273cbc57fe43",
+         "title": "should navigate",
+         "projectName": "Mobile Android",
+         "location": {
+            "file": "pages/index.page.e2e.ts",
+            "line": 3,
+            "column": 1
+         },
+         "duration": 1439,
+         "outcome": "expected",
+         "path": ["pages/index.page.e2e.ts:3"],
+         "results": [
+            {
+               "duration": 1439,
+               "startTime": "2021-11-17T23:40:08.866Z",
+               "retry": 0,
+               "steps": [
+                  {
+                     "title": "Before Hooks",
+                     "startTime": "2021-11-17T23:40:08.866Z",
+                     "duration": 373,
+                     "steps": [
+                        {
+                           "title": "browserContext.newPage",
+                           "startTime": "2021-11-17T23:40:08.987Z",
+                           "duration": 252,
+                           "steps": []
+                        }
+                     ]
+                  },
+                  {
+                     "title": "page.goto(/)",
+                     "startTime": "2021-11-17T23:40:09.240Z",
+                     "duration": 836,
+                     "snippet": "\u001b[0m \u001b[90m 3 |\u001b[39m test(\u001b[32m\"should navigate\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 4 |\u001b[39m    \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"/\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m              ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 5 |\u001b[39m\u001b[0m",
+                     "steps": [],
+                     "location": {
+                        "file": "pages/index.page.e2e.ts",
+                        "line": 4,
+                        "column": 15
+                     }
+                  },
+                  {
+                     "title": "expect.toContainText",
+                     "startTime": "2021-11-17T23:40:10.076Z",
+                     "duration": 12,
+                     "snippet": "\u001b[0m \u001b[90m 5 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 6 |\u001b[39m    \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m\"h1\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Blog\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m                                    ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 7 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m",
+                     "steps": [],
+                     "location": {
+                        "file": "pages/index.page.e2e.ts",
+                        "line": 6,
+                        "column": 37
+                     }
+                  },
+                  {
+                     "title": "After Hooks",
+                     "startTime": "2021-11-17T23:40:10.088Z",
+                     "duration": 217,
+                     "steps": [
+                        {
+                           "title": "browserContext.close",
+                           "startTime": "2021-11-17T23:40:10.219Z",
+                           "duration": 85,
+                           "steps": []
+                        }
+                     ]
+                  }
+               ],
+               "error": "",
+               "status": "passed",
+               "attachments": []
+            }
+         ],
+         "ok": true
+      }
+   ]
+}
