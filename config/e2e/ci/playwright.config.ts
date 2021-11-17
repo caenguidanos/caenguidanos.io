@@ -53,7 +53,7 @@ const config: PlaywrightTestConfig = {
    testDir: path.resolve(process.cwd(), "src"),
    testMatch: "**/*.e2e.ts",
    timeout: 30000,
-   use: { baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL + ":3000" },
+   use: { baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL },
    webServer: {
       command: "./node_modules/next/dist/bin/next start",
       port: 3000,
