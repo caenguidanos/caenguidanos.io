@@ -58,7 +58,7 @@ const config: PlaywrightTestConfig = {
       command: "./node_modules/next/dist/bin/next dev",
       port: 3000,
       timeout: 120 * 1000,
-      reuseExistingServer: false
+      reuseExistingServer: true
    }
 };
 

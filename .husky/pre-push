@@ -1,6 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-pnpm build
 pnpm test:coverage
-pnpm e2e:ci
+pnpm e2e:local

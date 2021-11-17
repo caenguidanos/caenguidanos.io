@@ -4,6 +4,7 @@
 /.next
 /coverage
 /test-results
+/coverage-e2e
 
 *-lock.yaml
 *-lock.json

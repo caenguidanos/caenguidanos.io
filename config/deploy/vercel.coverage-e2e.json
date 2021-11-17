@@ -1,0 +1,27 @@
+{
+   "version": 2,
+   "public": true,
+   "scope": "caenguidanos",
+   "builds": [
+      {
+         "src": "coverage-e2e/**",
+         "use": "@vercel/static"
+      }
+   ],
+   "routes": [
+      {
+         "src": "/(.*).(js.map|js|css|txt|html|png|json)",
+         "dest": "/coverage-e2e/$1.$2",
+         "headers": {
+            "cache-control": "no-cache"
+         }
+      },
+      {
+         "src": "/(.*)",
+         "dest": "/coverage-e2e/index.html",
+         "headers": {
+            "Cache-Control": "no-cache"
+         }
+      }
+   ]
+}
