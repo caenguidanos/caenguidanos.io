@@ -5,6 +5,9 @@ jobs:
       runs-on: ubuntu-latest
       steps:
          - uses: actions/checkout@v2
+         - uses: actions/setup-node@v2
+           with:
+              node-version: "14.18.1"
          - uses: pnpm/action-setup@v2.0.1
            with:
               version: 6.22.2
@@ -14,7 +17,7 @@ jobs:
          - name: Build app
            run: pnpm build
          - name: Install operating system dependencies for E2E
-           run: pnpx playwright install-deps
+           run: npx playwright install-deps
          - name: Run E2E tests
            run: pnpm e2e:ci
            env:
