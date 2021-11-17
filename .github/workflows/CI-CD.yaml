@@ -8,25 +8,20 @@ jobs:
          - uses: actions/setup-node@v2
            with:
               node-version: "14.18.1"
-         - uses: pnpm/action-setup@v2.0.1
-           with:
-              version: 6.22.2
-         - name: Show info
-           run: echo ${{ github.event.deployment_status.target_url }} && echo ${{ github.event.deployment_status.state }}
          - name: Install deps
-           run: pnpm install
+           run: npm install
+          - name: Install operating system dependencies for E2E
+           run: npx playwright install-deps chromium
          - name: Run Jest tests
-           run: pnpm test:coverage
+           run: npm test:coverage
          - name: Build app
-           run: pnpm build
-         - name: Install operating system dependencies for E2E
-           run: npx playwright install-deps
+           run: npm build
          - name: Run E2E tests
-           run: pnpm e2e:ci
+           run: npm e2e:ci
            env:
               PLAYWRIGHT_TEST_BASE_URL: ${{ github.event.deployment_status.target_url }}
          - name: Install vercel cli
-           run: pnpm i -g vercel
+           run: npm i -g vercel
          - name: Deploy coverage E2E
            run: ./config/deploy/vercel.coverage-e2e.sh
            env:
