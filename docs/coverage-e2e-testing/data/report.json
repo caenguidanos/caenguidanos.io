@@ -13,7 +13,7 @@
             "line": 3,
             "column": 1
           },
-          "duration": 1592,
+          "duration": 1628,
           "outcome": "expected",
           "path": [
             "pages/api/hello.page.e2e.ts:3"
@@ -29,7 +29,7 @@
             "line": 3,
             "column": 1
           },
-          "duration": 1325,
+          "duration": 1352,
           "outcome": "expected",
           "path": [
             "pages/api/hello.page.e2e.ts:3"
@@ -45,7 +45,7 @@
             "line": 3,
             "column": 1
           },
-          "duration": 23,
+          "duration": 29,
           "outcome": "expected",
           "path": [
             "pages/api/hello.page.e2e.ts:3"
@@ -61,7 +61,7 @@
             "line": 3,
             "column": 1
           },
-          "duration": 60,
+          "duration": 65,
           "outcome": "expected",
           "path": [
             "pages/api/hello.page.e2e.ts:3"
@@ -76,7 +76,7 @@
         "flaky": 0,
         "skipped": 0,
         "ok": true,
-        "duration": 3000
+        "duration": 3074
       }
     },
     {
@@ -92,7 +92,7 @@
             "line": 3,
             "column": 1
           },
-          "duration": 3090,
+          "duration": 3229,
           "outcome": "expected",
           "path": [
             "pages/index.page.e2e.ts:3"
@@ -108,7 +108,7 @@
             "line": 3,
             "column": 1
           },
-          "duration": 2775,
+          "duration": 2826,
           "outcome": "expected",
           "path": [
             "pages/index.page.e2e.ts:3"
@@ -124,7 +124,7 @@
             "line": 3,
             "column": 1
           },
-          "duration": 1989,
+          "duration": 2133,
           "outcome": "expected",
           "path": [
             "pages/index.page.e2e.ts:3"
@@ -140,7 +140,7 @@
             "line": 3,
             "column": 1
           },
-          "duration": 1381,
+          "duration": 1504,
           "outcome": "expected",
           "path": [
             "pages/index.page.e2e.ts:3"
@@ -155,7 +155,7 @@
         "flaky": 0,
         "skipped": 0,
         "ok": true,
-        "duration": 9235
+        "duration": 9692
       }
     }
   ],
@@ -172,6 +172,6 @@
     "flaky": 0,
     "skipped": 0,
     "ok": true,
-    "duration": 12235
+    "duration": 12766
   }
 }

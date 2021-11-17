@@ -11,34 +11,34 @@
         "line": 3,
         "column": 1
       },
-      "duration": 3090,
+      "duration": 3229,
       "outcome": "expected",
       "path": [
         "pages/index.page.e2e.ts:3"
       ],
       "results": [
         {
-          "duration": 3090,
-          "startTime": "2021-11-17T23:43:36.349Z",
+          "duration": 3229,
+          "startTime": "2021-11-17T23:49:49.259Z",
           "retry": 0,
           "steps": [
             {
               "title": "Before Hooks",
-              "startTime": "2021-11-17T23:43:36.349Z",
-              "duration": 332,
+              "startTime": "2021-11-17T23:49:49.259Z",
+              "duration": 312,
               "steps": [
                 {
                   "title": "browserContext.newPage",
-                  "startTime": "2021-11-17T23:43:36.516Z",
-                  "duration": 164,
+                  "startTime": "2021-11-17T23:49:49.412Z",
+                  "duration": 159,
                   "steps": []
                 }
               ]
             },
             {
               "title": "page.goto(/)",
-              "startTime": "2021-11-17T23:43:36.681Z",
-              "duration": 2144,
+              "startTime": "2021-11-17T23:49:49.572Z",
+              "duration": 2248,
               "snippet": "\u001b[0m \u001b[90m 3 |\u001b[39m test(\u001b[32m\"should navigate\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 4 |\u001b[39m    \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"/\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m              ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 5 |\u001b[39m\u001b[0m",
               "steps": [],
               "location": {
@@ -49,7 +49,7 @@
             },
             {
               "title": "expect.toContainText",
-              "startTime": "2021-11-17T23:43:38.826Z",
+              "startTime": "2021-11-17T23:49:51.821Z",
               "duration": 29,
               "snippet": "\u001b[0m \u001b[90m 5 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 6 |\u001b[39m    \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m\"h1\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Blog\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m                                    ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 7 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m",
               "steps": [],
@@ -61,13 +61,13 @@
             },
             {
               "title": "After Hooks",
-              "startTime": "2021-11-17T23:43:38.855Z",
-              "duration": 584,
+              "startTime": "2021-11-17T23:49:51.851Z",
+              "duration": 637,
               "steps": [
                 {
                   "title": "browserContext.close",
-                  "startTime": "2021-11-17T23:43:38.974Z",
-                  "duration": 464,
+                  "startTime": "2021-11-17T23:49:51.969Z",
+                  "duration": 519,
                   "steps": []
                 }
               ]
@@ -89,34 +89,34 @@
         "line": 3,
         "column": 1
       },
-      "duration": 2775,
+      "duration": 2826,
       "outcome": "expected",
       "path": [
         "pages/index.page.e2e.ts:3"
       ],
       "results": [
         {
-          "duration": 2775,
-          "startTime": "2021-11-17T23:43:36.628Z",
+          "duration": 2826,
+          "startTime": "2021-11-17T23:49:49.524Z",
           "retry": 0,
           "steps": [
             {
               "title": "Before Hooks",
-              "startTime": "2021-11-17T23:43:36.628Z",
-              "duration": 288,
+              "startTime": "2021-11-17T23:49:49.524Z",
+              "duration": 304,
               "steps": [
                 {
                   "title": "browserContext.newPage",
-                  "startTime": "2021-11-17T23:43:36.724Z",
-                  "duration": 192,
+                  "startTime": "2021-11-17T23:49:49.631Z",
+                  "duration": 197,
                   "steps": []
                 }
               ]
             },
             {
               "title": "page.goto(/)",
-              "startTime": "2021-11-17T23:43:36.917Z",
-              "duration": 1950,
+              "startTime": "2021-11-17T23:49:49.829Z",
+              "duration": 1976,
               "snippet": "\u001b[0m \u001b[90m 3 |\u001b[39m test(\u001b[32m\"should navigate\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 4 |\u001b[39m    \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"/\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m              ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 5 |\u001b[39m\u001b[0m",
               "steps": [],
               "location": {
@@ -127,8 +127,8 @@
             },
             {
               "title": "expect.toContainText",
-              "startTime": "2021-11-17T23:43:38.869Z",
-              "duration": 35,
+              "startTime": "2021-11-17T23:49:51.806Z",
+              "duration": 27,
               "snippet": "\u001b[0m \u001b[90m 5 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 6 |\u001b[39m    \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m\"h1\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Blog\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m                                    ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 7 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m",
               "steps": [],
               "location": {
@@ -139,13 +139,13 @@
             },
             {
               "title": "After Hooks",
-              "startTime": "2021-11-17T23:43:38.904Z",
-              "duration": 499,
+              "startTime": "2021-11-17T23:49:51.833Z",
+              "duration": 516,
               "steps": [
                 {
                   "title": "browserContext.close",
-                  "startTime": "2021-11-17T23:43:39.024Z",
-                  "duration": 376,
+                  "startTime": "2021-11-17T23:49:51.950Z",
+                  "duration": 398,
                   "steps": []
                 }
               ]
@@ -167,34 +167,34 @@
         "line": 3,
         "column": 1
       },
-      "duration": 1989,
+      "duration": 2133,
       "outcome": "expected",
       "path": [
         "pages/index.page.e2e.ts:3"
       ],
       "results": [
         {
-          "duration": 1989,
-          "startTime": "2021-11-17T23:43:38.163Z",
+          "duration": 2133,
+          "startTime": "2021-11-17T23:49:51.077Z",
           "retry": 0,
           "steps": [
             {
               "title": "Before Hooks",
-              "startTime": "2021-11-17T23:43:38.163Z",
-              "duration": 1110,
+              "startTime": "2021-11-17T23:49:51.077Z",
+              "duration": 1180,
               "steps": [
                 {
                   "title": "browserContext.newPage",
-                  "startTime": "2021-11-17T23:43:38.974Z",
-                  "duration": 299,
+                  "startTime": "2021-11-17T23:49:51.870Z",
+                  "duration": 387,
                   "steps": []
                 }
               ]
             },
             {
               "title": "page.goto(/)",
-              "startTime": "2021-11-17T23:43:39.274Z",
-              "duration": 725,
+              "startTime": "2021-11-17T23:49:52.260Z",
+              "duration": 802,
               "snippet": "\u001b[0m \u001b[90m 3 |\u001b[39m test(\u001b[32m\"should navigate\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 4 |\u001b[39m    \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"/\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m              ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 5 |\u001b[39m\u001b[0m",
               "steps": [],
               "location": {
@@ -205,8 +205,8 @@
             },
             {
               "title": "expect.toContainText",
-              "startTime": "2021-11-17T23:43:40.000Z",
-              "duration": 39,
+              "startTime": "2021-11-17T23:49:53.063Z",
+              "duration": 34,
               "snippet": "\u001b[0m \u001b[90m 5 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 6 |\u001b[39m    \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m\"h1\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Blog\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m                                    ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 7 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m",
               "steps": [],
               "location": {
@@ -217,12 +217,12 @@
             },
             {
               "title": "After Hooks",
-              "startTime": "2021-11-17T23:43:40.039Z",
+              "startTime": "2021-11-17T23:49:53.097Z",
               "duration": 113,
               "steps": [
                 {
                   "title": "browserContext.close",
-                  "startTime": "2021-11-17T23:43:40.101Z",
+                  "startTime": "2021-11-17T23:49:53.160Z",
                   "duration": 50,
                   "steps": []
                 }
@@ -245,34 +245,34 @@
         "line": 3,
         "column": 1
       },
-      "duration": 1381,
+      "duration": 1504,
       "outcome": "expected",
       "path": [
         "pages/index.page.e2e.ts:3"
       ],
       "results": [
         {
-          "duration": 1381,
-          "startTime": "2021-11-17T23:43:38.350Z",
+          "duration": 1504,
+          "startTime": "2021-11-17T23:49:51.273Z",
           "retry": 0,
           "steps": [
             {
               "title": "Before Hooks",
-              "startTime": "2021-11-17T23:43:38.351Z",
-              "duration": 324,
+              "startTime": "2021-11-17T23:49:51.273Z",
+              "duration": 360,
               "steps": [
                 {
                   "title": "browserContext.newPage",
-                  "startTime": "2021-11-17T23:43:38.458Z",
-                  "duration": 217,
+                  "startTime": "2021-11-17T23:49:51.395Z",
+                  "duration": 238,
                   "steps": []
                 }
               ]
             },
             {
               "title": "page.goto(/)",
-              "startTime": "2021-11-17T23:43:38.676Z",
-              "duration": 822,
+              "startTime": "2021-11-17T23:49:51.634Z",
+              "duration": 906,
               "snippet": "\u001b[0m \u001b[90m 3 |\u001b[39m test(\u001b[32m\"should navigate\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 4 |\u001b[39m    \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"/\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m              ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 5 |\u001b[39m\u001b[0m",
               "steps": [],
               "location": {
@@ -283,8 +283,8 @@
             },
             {
               "title": "expect.toContainText",
-              "startTime": "2021-11-17T23:43:39.499Z",
-              "duration": 12,
+              "startTime": "2021-11-17T23:49:52.541Z",
+              "duration": 13,
               "snippet": "\u001b[0m \u001b[90m 5 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 6 |\u001b[39m    \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m\"h1\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Blog\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m                                    ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 7 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m",
               "steps": [],
               "location": {
@@ -295,13 +295,13 @@
             },
             {
               "title": "After Hooks",
-              "startTime": "2021-11-17T23:43:39.511Z",
-              "duration": 220,
+              "startTime": "2021-11-17T23:49:52.554Z",
+              "duration": 223,
               "steps": [
                 {
                   "title": "browserContext.close",
-                  "startTime": "2021-11-17T23:43:39.637Z",
-                  "duration": 94,
+                  "startTime": "2021-11-17T23:49:52.682Z",
+                  "duration": 95,
                   "steps": []
                 }
               ]
