@@ -12,7 +12,7 @@
       "name": "Cristian A. Enguídanos Nebot"
    },
    "engines": {
-      "node": "16.13.0"
+      "node": "14.x"
    },
    "engineStrict": true,
    "scripts": {
@@ -24,8 +24,9 @@
       "test:coverage": "jest --coverage",
       "test:coverage-analysis": "serve coverage",
       "e2e": "playwright test",
-      "e2e:dev": "playwright test --config=config/e2e/dev/playwright.config.ts",
+      "e2e:local": "playwright test --config=config/e2e/local/playwright.config.ts",
       "e2e:ci": "playwright test --config=config/e2e/ci/playwright.config.ts",
+      "e2e:coverage-analysis": "serve coverage-e2e",
       "format": "prettier --write .",
       "affected": "node tools/affected/index.mjs",
       "affected:test": "pnpm affected -- --test",

@@ -11,7 +11,7 @@ const customJestConfig = {
    coverageReporters: ["html", "json"],
    coverageThreshold: {
       global: {
-         branches: 100,
+         branches: 75,
          functions: 100,
          lines: 100,
          statements: 0
@@ -22,8 +22,7 @@ const customJestConfig = {
       "^\\$shared/layout$": ["<rootDir>/src/lib/shared/layout/index.ts"],
       "^\\$shared/markdown$": ["<rootDir>/src/lib/shared/markdown/index.ts"]
    },
-   extraGlobals: ["Math"],
-   injectGlobals: false
+   extraGlobals: ["Math"]
 };
 
 module.exports = createJestConfig(customJestConfig);
