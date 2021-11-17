@@ -12,6 +12,7 @@ jobs:
            run: npm install
          - name: Install operating system dependencies for E2E
            run: npx playwright install-deps chromium
+           run: npx playwright install chormium
          - name: Run Jest tests
            run: npm run test:coverage
          - name: Build app
