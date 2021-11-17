@@ -1,9 +1,9 @@
 name: CI/CD
 on: [push]
 jobs:
-   runs-on: ubuntu-latest
-   steps:
-      generate_coverage_reports:
+   generate_and_deploy_coverage_reports:
+      runs-on: ubuntu-latest
+      steps:
          - uses: actions/checkout@v2
          - uses: pnpm/action-setup@v2.0.1
            with:
@@ -19,7 +19,6 @@ jobs:
            run: pnpm e2e:ci
            env:
               PLAYWRIGHT_TEST_BASE_URL: ${{ github.event.deployment_status.target_url }}
-      deploy_coverage_reports:
          - name: Install vercel cli
            run: pnpm i -g vercel
          - name: Deploy coverage E2E
