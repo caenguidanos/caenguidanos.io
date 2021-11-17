@@ -24,6 +24,12 @@ const config: PlaywrightTestConfig = {
          use: {
             ...devices["Pixel 5"]
          }
+      },
+      {
+         name: "Mobile Webkit",
+         use: {
+            ...devices["iPhone 12"]
+         }
       }
    ],
    reporter: [["html", { outputFolder: "coverage-e2e" }], ["list"]],
