@@ -13,13 +13,11 @@ jobs:
          - name: Install operating system dependencies for E2E
            run: npx playwright install-deps chromium
          - name: Run Jest tests
-           run: npm test:coverage
+           run: npm run test:coverage
          - name: Build app
            run: npm build
          - name: Run E2E tests
-           run: npm e2e:ci
-           env:
-              PLAYWRIGHT_TEST_BASE_URL: ${{ github.event.deployment_status.target_url }}
+           run: npm run e2e:ci
          - name: Install vercel cli
            run: npm i -g vercel
          - name: Deploy coverage E2E
