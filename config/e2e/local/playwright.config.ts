@@ -26,6 +26,26 @@ const config: PlaywrightTestConfig = {
             screenshot: "only-on-failure",
             ...devices["Desktop Chrome"]
          }
+      },
+      {
+         name: "Desktop Firefox",
+         use: {
+            locale: "es-ES",
+            trace: "retain-on-failure",
+            video: "retain-on-failure",
+            screenshot: "only-on-failure",
+            ...devices["Desktop Firefox"]
+         }
+      },
+      {
+         name: "Mobile Android",
+         use: {
+            locale: "es-ES",
+            trace: "retain-on-failure",
+            video: "retain-on-failure",
+            screenshot: "only-on-failure",
+            ...devices["Pixel 5"]
+         }
       }
    ],
    reporter: [["html", { outputFolder: "coverage-e2e" }], ["list"]],

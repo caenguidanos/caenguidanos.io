@@ -20,15 +20,9 @@ const config: PlaywrightTestConfig = {
          }
       },
       {
-         name: "Mobile Chrome",
+         name: "Mobile Android",
          use: {
             ...devices["Pixel 5"]
-         }
-      },
-      {
-         name: "Mobile Webkit",
-         use: {
-            ...devices["iPhone 12"]
          }
       }
    ],

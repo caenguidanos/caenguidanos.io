@@ -13,7 +13,7 @@
             "line": 3,
             "column": 1
           },
-          "duration": 1604,
+          "duration": 1550,
           "outcome": "expected",
           "path": [
             "pages/api/hello.page.e2e.ts:3"
@@ -29,7 +29,7 @@
             "line": 3,
             "column": 1
           },
-          "duration": 1330,
+          "duration": 1287,
           "outcome": "expected",
           "path": [
             "pages/api/hello.page.e2e.ts:3"
@@ -45,7 +45,7 @@
             "line": 3,
             "column": 1
           },
-          "duration": 29,
+          "duration": 35,
           "outcome": "expected",
           "path": [
             "pages/api/hello.page.e2e.ts:3"
@@ -53,15 +53,15 @@
           "ok": true
         },
         {
-          "testId": "1c640a566435a21caecaabbfe97ee4a4cda4c24a-0b7582e376cb9a8be23271e1817771e3d8bce39b",
+          "testId": "1c640a566435a21caecaabbfe97ee4a4cda4c24a-d68b6f4960cba52d79022d482caba054b6b1b4d4",
           "title": "should response succesfully",
-          "projectName": "Mobile Chrome",
+          "projectName": "Mobile Android",
           "location": {
             "file": "pages/api/hello.page.e2e.ts",
             "line": 3,
             "column": 1
           },
-          "duration": 49,
+          "duration": 31,
           "outcome": "expected",
           "path": [
             "pages/api/hello.page.e2e.ts:3"
@@ -76,7 +76,7 @@
         "flaky": 0,
         "skipped": 0,
         "ok": true,
-        "duration": 3012
+        "duration": 2903
       }
     },
     {
@@ -92,7 +92,7 @@
             "line": 3,
             "column": 1
           },
-          "duration": 3077,
+          "duration": 3093,
           "outcome": "expected",
           "path": [
             "pages/index.page.e2e.ts:3"
@@ -108,7 +108,7 @@
             "line": 3,
             "column": 1
           },
-          "duration": 2782,
+          "duration": 2741,
           "outcome": "expected",
           "path": [
             "pages/index.page.e2e.ts:3"
@@ -124,7 +124,7 @@
             "line": 3,
             "column": 1
           },
-          "duration": 1990,
+          "duration": 2020,
           "outcome": "expected",
           "path": [
             "pages/index.page.e2e.ts:3"
@@ -132,15 +132,15 @@
           "ok": true
         },
         {
-          "testId": "e365fa8043c2c94b1ff2d2c349e5baa2903cf8fd-f755d8e1fecbf759f03b40f2defe5bc7c836e363",
+          "testId": "e365fa8043c2c94b1ff2d2c349e5baa2903cf8fd-2c9bdfd55c654bede7c54ef51f21273cbc57fe43",
           "title": "should navigate",
-          "projectName": "Mobile Chrome",
+          "projectName": "Mobile Android",
           "location": {
             "file": "pages/index.page.e2e.ts",
             "line": 3,
             "column": 1
           },
-          "duration": 1627,
+          "duration": 1334,
           "outcome": "expected",
           "path": [
             "pages/index.page.e2e.ts:3"
@@ -155,7 +155,7 @@
         "flaky": 0,
         "skipped": 0,
         "ok": true,
-        "duration": 9476
+        "duration": 9188
       }
     }
   ],
@@ -163,7 +163,7 @@
     "Desktop Edge",
     "Desktop Chrome",
     "Desktop Firefox",
-    "Mobile Chrome"
+    "Mobile Android"
   ],
   "stats": {
     "total": 8,
@@ -172,6 +172,6 @@
     "flaky": 0,
     "skipped": 0,
     "ok": true,
-    "duration": 12488
+    "duration": 12091
   }
 }

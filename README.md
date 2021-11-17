@@ -63,5 +63,5 @@ pnpm test
 Run **Playwright** tests:
 
 ```bash
-pnpm e2e
+pnpm e2e:local
 ```
