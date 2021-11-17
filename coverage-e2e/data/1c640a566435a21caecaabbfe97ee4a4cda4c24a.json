@@ -11,26 +11,26 @@
         "line": 3,
         "column": 1
       },
-      "duration": 1550,
+      "duration": 1581,
       "outcome": "expected",
       "path": [
         "pages/api/hello.page.e2e.ts:3"
       ],
       "results": [
         {
-          "duration": 1550,
-          "startTime": "2021-11-17T23:29:57.619Z",
+          "duration": 1581,
+          "startTime": "2021-11-17T23:31:27.754Z",
           "retry": 0,
           "steps": [
             {
               "title": "Before Hooks",
-              "startTime": "2021-11-17T23:29:57.619Z",
-              "duration": 4,
+              "startTime": "2021-11-17T23:31:27.754Z",
+              "duration": 6,
               "steps": []
             },
             {
               "title": "expect.toBeTruthy",
-              "startTime": "2021-11-17T23:29:59.168Z",
+              "startTime": "2021-11-17T23:31:29.333Z",
               "duration": 0,
               "snippet": "\u001b[0m \u001b[90m  5 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  6 |\u001b[39m    expect(response\u001b[33m.\u001b[39mok())\u001b[33m.\u001b[39mtoBeTruthy()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \u001b[31m\u001b[1m                         ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m\u001b[0m",
               "steps": [],
@@ -42,8 +42,8 @@
             },
             {
               "title": "expect.toStrictEqual",
-              "startTime": "2021-11-17T23:29:59.169Z",
-              "duration": 0,
+              "startTime": "2021-11-17T23:31:29.334Z",
+              "duration": 1,
               "snippet": "\u001b[0m \u001b[90m  9 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m    \u001b[36mawait\u001b[39m expect(body)\u001b[33m.\u001b[39mtoStrictEqual({ name\u001b[33m:\u001b[39m \u001b[32m\"John Doe2\"\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \u001b[31m\u001b[1m                      ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m",
               "steps": [],
               "location": {
@@ -54,8 +54,8 @@
             },
             {
               "title": "After Hooks",
-              "startTime": "2021-11-17T23:29:59.169Z",
-              "duration": 1,
+              "startTime": "2021-11-17T23:31:29.335Z",
+              "duration": 0,
               "steps": []
             }
           ],
@@ -75,26 +75,26 @@
         "line": 3,
         "column": 1
       },
-      "duration": 1287,
+      "duration": 1325,
       "outcome": "expected",
       "path": [
         "pages/api/hello.page.e2e.ts:3"
       ],
       "results": [
         {
-          "duration": 1287,
-          "startTime": "2021-11-17T23:29:57.884Z",
+          "duration": 1325,
+          "startTime": "2021-11-17T23:31:28.011Z",
           "retry": 0,
           "steps": [
             {
               "title": "Before Hooks",
-              "startTime": "2021-11-17T23:29:57.884Z",
-              "duration": 9,
+              "startTime": "2021-11-17T23:31:28.015Z",
+              "duration": 4,
               "steps": []
             },
             {
               "title": "expect.toBeTruthy",
-              "startTime": "2021-11-17T23:29:59.168Z",
+              "startTime": "2021-11-17T23:31:29.333Z",
               "duration": 0,
               "snippet": "\u001b[0m \u001b[90m  5 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  6 |\u001b[39m    expect(response\u001b[33m.\u001b[39mok())\u001b[33m.\u001b[39mtoBeTruthy()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \u001b[31m\u001b[1m                         ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m\u001b[0m",
               "steps": [],
@@ -106,8 +106,8 @@
             },
             {
               "title": "expect.toStrictEqual",
-              "startTime": "2021-11-17T23:29:59.169Z",
-              "duration": 0,
+              "startTime": "2021-11-17T23:31:29.334Z",
+              "duration": 1,
               "snippet": "\u001b[0m \u001b[90m  9 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m    \u001b[36mawait\u001b[39m expect(body)\u001b[33m.\u001b[39mtoStrictEqual({ name\u001b[33m:\u001b[39m \u001b[32m\"John Doe2\"\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \u001b[31m\u001b[1m                      ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m",
               "steps": [],
               "location": {
@@ -118,7 +118,7 @@
             },
             {
               "title": "After Hooks",
-              "startTime": "2021-11-17T23:29:59.169Z",
+              "startTime": "2021-11-17T23:31:29.335Z",
               "duration": 1,
               "steps": []
             }
@@ -139,27 +139,27 @@
         "line": 3,
         "column": 1
       },
-      "duration": 35,
+      "duration": 34,
       "outcome": "expected",
       "path": [
         "pages/api/hello.page.e2e.ts:3"
       ],
       "results": [
         {
-          "duration": 35,
-          "startTime": "2021-11-17T23:29:59.393Z",
+          "duration": 34,
+          "startTime": "2021-11-17T23:31:29.559Z",
           "retry": 0,
           "steps": [
             {
               "title": "Before Hooks",
-              "startTime": "2021-11-17T23:29:59.394Z",
+              "startTime": "2021-11-17T23:31:29.559Z",
               "duration": 6,
               "steps": []
             },
             {
               "title": "expect.toBeTruthy",
-              "startTime": "2021-11-17T23:29:59.427Z",
-              "duration": 0,
+              "startTime": "2021-11-17T23:31:29.590Z",
+              "duration": 1,
               "snippet": "\u001b[0m \u001b[90m  5 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  6 |\u001b[39m    expect(response\u001b[33m.\u001b[39mok())\u001b[33m.\u001b[39mtoBeTruthy()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \u001b[31m\u001b[1m                         ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m\u001b[0m",
               "steps": [],
               "location": {
@@ -170,7 +170,7 @@
             },
             {
               "title": "expect.toStrictEqual",
-              "startTime": "2021-11-17T23:29:59.428Z",
+              "startTime": "2021-11-17T23:31:29.592Z",
               "duration": 0,
               "snippet": "\u001b[0m \u001b[90m  9 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m    \u001b[36mawait\u001b[39m expect(body)\u001b[33m.\u001b[39mtoStrictEqual({ name\u001b[33m:\u001b[39m \u001b[32m\"John Doe2\"\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \u001b[31m\u001b[1m                      ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m",
               "steps": [],
@@ -182,7 +182,7 @@
             },
             {
               "title": "After Hooks",
-              "startTime": "2021-11-17T23:29:59.428Z",
+              "startTime": "2021-11-17T23:31:29.592Z",
               "duration": 1,
               "steps": []
             }
@@ -203,27 +203,27 @@
         "line": 3,
         "column": 1
       },
-      "duration": 31,
+      "duration": 43,
       "outcome": "expected",
       "path": [
         "pages/api/hello.page.e2e.ts:3"
       ],
       "results": [
         {
-          "duration": 31,
-          "startTime": "2021-11-17T23:29:59.647Z",
+          "duration": 43,
+          "startTime": "2021-11-17T23:31:29.818Z",
           "retry": 0,
           "steps": [
             {
               "title": "Before Hooks",
-              "startTime": "2021-11-17T23:29:59.647Z",
-              "duration": 7,
+              "startTime": "2021-11-17T23:31:29.818Z",
+              "duration": 6,
               "steps": []
             },
             {
               "title": "expect.toBeTruthy",
-              "startTime": "2021-11-17T23:29:59.672Z",
-              "duration": 1,
+              "startTime": "2021-11-17T23:31:29.856Z",
+              "duration": 0,
               "snippet": "\u001b[0m \u001b[90m  5 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  6 |\u001b[39m    expect(response\u001b[33m.\u001b[39mok())\u001b[33m.\u001b[39mtoBeTruthy()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \u001b[31m\u001b[1m                         ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m\u001b[0m",
               "steps": [],
               "location": {
@@ -234,8 +234,8 @@
             },
             {
               "title": "expect.toStrictEqual",
-              "startTime": "2021-11-17T23:29:59.675Z",
-              "duration": 1,
+              "startTime": "2021-11-17T23:31:29.859Z",
+              "duration": 0,
               "snippet": "\u001b[0m \u001b[90m  9 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m    \u001b[36mawait\u001b[39m expect(body)\u001b[33m.\u001b[39mtoStrictEqual({ name\u001b[33m:\u001b[39m \u001b[32m\"John Doe2\"\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \u001b[31m\u001b[1m                      ^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m",
               "steps": [],
               "location": {
@@ -246,7 +246,7 @@
             },
             {
               "title": "After Hooks",
-              "startTime": "2021-11-17T23:29:59.676Z",
+              "startTime": "2021-11-17T23:31:29.859Z",
               "duration": 2,
               "steps": []
             }
