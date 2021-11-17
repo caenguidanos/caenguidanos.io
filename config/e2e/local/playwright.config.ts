@@ -55,7 +55,7 @@ const config: PlaywrightTestConfig = {
    timeout: 30000,
    use: { baseURL: "http://0.0.0.0:3000" },
    webServer: {
-      command: "pnpm dev",
+      command: "./node_modules/next/dist/bin/next dev",
       port: 3000,
       timeout: 120 * 1000,
       reuseExistingServer: false

@@ -2,7 +2,5 @@
 . "$(dirname "$0")/_/husky.sh"
 
 pnpm lint
-pnpm affected:test
-pnpm affected:e2e
 pnpm format
 git add .
