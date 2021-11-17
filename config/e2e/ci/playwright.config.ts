@@ -13,8 +13,7 @@ const config: PlaywrightTestConfig = {
    use: {
       baseURL: "https://caenguidanos-io.vercel.app",
       browserName: "chromium",
-      headless: true,
-      locale: "es-ES"
+      headless: true
    }
 };
 
