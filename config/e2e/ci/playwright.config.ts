@@ -55,7 +55,7 @@ const config: PlaywrightTestConfig = {
    timeout: 30000,
    use: { baseURL: "http://0.0.0.0:3000" },
    webServer: {
-      command: "pnpm start",
+      command: "npm start",
       port: 3000,
       timeout: 120 * 1000,
       reuseExistingServer: false,
