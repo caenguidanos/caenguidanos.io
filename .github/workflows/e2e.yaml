@@ -35,7 +35,7 @@ jobs:
         - name: Install os utils
           run: sudo apt-get install zip unzip
         - name: Pack report
-          run: zip -r test/e2e/deploy/ci.zip test/e2e/reports/ci
+          run: zip test/e2e/deploy/ci.zip test/e2e/reports/ci
         - name: Commit pack
           run: |
             git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"

@@ -1,1 +1,1 @@
-unzip -r test/e2e/deploy/ci.zip build
+npx extract-zip test/e2e/deploy/ci.zip $PWD/build
