@@ -1,5 +1,8 @@
 name: E2E Testing
 on:
+  push:
+    branches:
+      - main
   pull_request:
     types: [opened, synchronize, reopened]
     branches:
@@ -24,3 +27,7 @@ jobs:
           run: pnpm playwright -- test --config=test/e2e/config/ci/playwright.config.ts
           env:
             PLAYWRIGHT_BASE_URL: "https://caenguidanos-io.vercel.app"
+        - name: Install os utils
+          run: apt install zip unzip
+        - name: Pack report
+          run: zip -r test/e2e/deploy/ci.zip test/e2e/reports/ci

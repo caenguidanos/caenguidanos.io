@@ -5,7 +5,6 @@ import { PlaywrightTestConfig, devices } from "@playwright/test";
 const config: PlaywrightTestConfig = {
    globalSetup: require.resolve("./playwright.global.ts"),
    globalTeardown: require.resolve("./playwright.teardown.ts"),
-   outputDir: path.join(process.cwd(), "test/e2e/results/ci"),
    preserveOutput: "failures-only",
    projects: [
       {
@@ -51,7 +50,7 @@ const config: PlaywrightTestConfig = {
          }
       }
    ],
-   reporter: [["html", { outputFolder: "test/e2e/reports/ci" }], ["list"]],
+   reporter: [["html", { outputFolder: "test/e2e/reports/ci", open: false }], ["dot"]],
    retries: 2,
    testDir: path.resolve(process.cwd(), "test", "e2e", "src"),
    testMatch: "**/*.e2e.ts",
