@@ -31,3 +31,15 @@ jobs:
           run: sudo apt-get install zip unzip
         - name: Pack report
           run: zip -r test/e2e/deploy/ci.zip test/e2e/reports/ci
+        - name: switching from HTTPS to SSH
+          run: git remote set-url origin ${{ secrets.ssh }}
+        - name: check for changes
+          run: git status
+        - name: stage changed files
+          run: git add test/e2e/deploy/ci.zip
+        - name: commit changed files
+          run: git commit -m "Auto updating e2e-reporter" --no-verify
+        - name: fetch from master
+          run: git fetch origin main
+        - name: push code to master
+          run: git push origin HEAD:main
