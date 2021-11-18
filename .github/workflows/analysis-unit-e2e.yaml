@@ -57,7 +57,7 @@ jobs:
            run: pnpm test -- --coverage
 
          - name: Copy dist coverage
-           run: cp dist/tests/unit/reports tools/images/unit-tests/build/
+           run: cp -r dist/tests/unit/reports tools/images/unit-tests/build/
 
          - name: Set up Docker Buildx
            uses: docker/setup-buildx-action@v1
@@ -116,7 +116,7 @@ jobs:
               PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
 
          - name: Copy dist coverage
-           run: cp dist/tests/e2e/ci tools/images/e2e-tests/build/
+           run: cp -r dist/tests/e2e/ci tools/images/e2e-tests/build/
 
          - name: Set up Docker Buildx
            uses: docker/setup-buildx-action@v1
