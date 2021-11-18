@@ -79,7 +79,7 @@ jobs:
            with:
               context: ./tools/images/unit-tests/build
               push: true
-              tags: caenguidanos/caenguidanos-io-unit-testing/${{ github.ref }}:latest
+              tags: caenguidanos/caenguidanos-io-unit-testing-${{ github.ref }}:latest
 
    e2e-testing:
       needs: [unit-testing]
@@ -134,4 +134,4 @@ jobs:
            with:
               context: ./tools/images/e2e-tests/build
               push: true
-              tags: caenguidanos/caenguidanos-io-e2e-testing/${{ github.ref }}:latest
+              tags: caenguidanos/caenguidanos-io-e2e-testing-${{ github.ref }}:latest
