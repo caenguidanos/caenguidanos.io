@@ -1,9 +1,18 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+# If we are in pipeline context, disable commands
 if [ "$GITHUB_CI" != true ]; then
+   # Lint github/workflows yaml files
+   sh "$PWD"/.github/scripts/yaml-linter.sh
+
+   # Lint Next.js app
    pnpm lint
+
+   # Format workspace
    pnpm format
+
+   # Add changes to commit
    git add .
 else
    echo "Pass commit without actions..."

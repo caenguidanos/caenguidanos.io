@@ -1,0 +1,109 @@
+name: Analysis, Unit Testing & E2E Testing
+on:
+   pull_request:
+      types: [opened, synchronize, reopened]
+      branches:
+         - main
+         - staging
+         - development
+jobs:
+   lint:
+      runs-on: ubuntu-latest
+      steps:
+         - uses: actions/checkout@v2
+
+         - uses: actions/setup-node@v2
+           with:
+              node-version: "14.18.1"
+
+         - uses: pnpm/action-setup@v2.0.1
+           with:
+              version: 6.22.2
+              run_install: true
+
+         - name: Build app
+           run: pnpm build
+
+         - name: Run lint
+           run: pnpm lint
+   analysis:
+      needs: [lint]
+      runs-on: ubuntu-latest
+      steps:
+         - uses: actions/checkout@v2
+           with:
+              fetch-depth: 0
+         - name: Scan
+           uses: SonarSource/sonarcloud-github-action@master
+           env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+   unit-testing:
+      needs: [analysis]
+      runs-on: ubuntu-latest
+      steps:
+         - uses: actions/checkout@v2
+
+         - uses: actions/setup-node@v2
+           with:
+              node-version: "14.18.1"
+
+         - uses: pnpm/action-setup@v2.0.1
+           with:
+              version: 6.22.2
+              run_install: true
+
+         - name: Run tests
+           run: pnpm test -- --coverage
+
+         - name: Archive code coverage results
+           uses: actions/upload-artifact@v2
+           with:
+             name: unit-test-report
+             path: dist/tests/unit/reports
+
+   e2e-testing:
+      needs: [unit-testing]
+      timeout-minutes: 60
+      runs-on: ubuntu-latest
+      env:
+         GITHUB_CI: true
+      steps:
+         - uses: actions/checkout@v2
+
+         - uses: actions/setup-node@v2
+           with:
+              node-version: "14.18.1"
+
+         - uses: pnpm/action-setup@v2.0.1
+           with:
+              version: 6.22.2
+              run_install: true
+
+         - name: Install operating system dependencies
+           run: pnpx playwright install-deps webkit chrome firefox
+
+         - name: Install browsers
+           run: pnpx playwright install webkit chrome firefox
+
+         - name: Build app
+           run: pnpm build
+
+         - name: Wait to Vercel Preview URL
+           uses: patrickedqvist/wait-for-vercel-preview@v1.1.1
+           id: vercelPreview
+           with:
+             token: ${{ secrets.GITHUB_TOKEN }}
+             max_timeout: 120
+
+         - name: Run tests
+           run: pnpm playwright -- test --config=e2e/config/ci/playwright.config.ts
+           env:
+              PLAYWRIGHT_BASE_URL: ${{ steps.vercelPreview.outputs.url }}
+
+         - name: Archive code coverage results
+           uses: actions/upload-artifact@v2
+           with:
+             name: e2e-test-report
+             path: dist/tests/e2e/reports

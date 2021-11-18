@@ -2,10 +2,10 @@ import path from "path";
 
 import { PlaywrightTestConfig, devices } from "@playwright/test";
 
+const outputDir = path.join(process.cwd(), "dist/tests/e2e/results/local");
+
 const config: PlaywrightTestConfig = {
-   globalSetup: require.resolve("./playwright.global.ts"),
-   globalTeardown: require.resolve("./playwright.teardown.ts"),
-   outputDir: path.join(process.cwd(), "test/e2e/results/local"),
+   outputDir,
    preserveOutput: "always",
    projects: [
       {
@@ -49,6 +49,26 @@ const config: PlaywrightTestConfig = {
          }
       },
       {
+         name: "Tablet iOS",
+         use: {
+            locale: "es-ES",
+            trace: "on",
+            video: "on",
+            screenshot: "on",
+            ...devices["iPad Mini"]
+         }
+      },
+      {
+         name: "Tablet Android",
+         use: {
+            locale: "es-ES",
+            trace: "on",
+            video: "on",
+            screenshot: "on",
+            ...devices["Galaxy Tab S4"]
+         }
+      },
+      {
          name: "Mobile Android",
          use: {
             locale: "es-ES",
@@ -69,9 +89,9 @@ const config: PlaywrightTestConfig = {
          }
       }
    ],
-   reporter: [["html", { outputFolder: "test/e2e/reports/local", open: false }], ["list"]],
+   reporter: [["html", { outputFolder: "dist/tests/e2e/reports/local", open: false }], ["list"]],
    retries: 2,
-   testDir: path.resolve(process.cwd(), "src"),
+   testDir: path.resolve(process.cwd(), "e2e", "src"),
    testMatch: "**/*.e2e.ts",
    timeout: 30000,
    use: { baseURL: "http://localhost:3000" },
