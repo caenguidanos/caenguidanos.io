@@ -8,7 +8,6 @@ on:
          - development
 jobs:
    lint:
-      needs: [preview]
       runs-on: ubuntu-latest
       steps:
          - uses: actions/checkout@v2
