@@ -78,7 +78,7 @@ jobs:
            with:
               context: ./tools/images/unit-tests/build
               push: true
-              tags: caenguidanos/caenguidanos-io-unit-testing/${{ git.ref }}:latest
+              tags: caenguidanos/caenguidanos-io-unit-testing/${{ github.ref }}:latest
 
    e2e-testing:
       timeout-minutes: 60
@@ -132,4 +132,4 @@ jobs:
            with:
               context: ./tools/images/e2e-tests/build
               push: true
-              tags: caenguidanos/caenguidanos-io-e2e-testing/${{ git.ref }}:latest
+              tags: caenguidanos/caenguidanos-io-e2e-testing/${{ github.ref }}:latest
