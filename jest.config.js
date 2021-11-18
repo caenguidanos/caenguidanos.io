@@ -7,7 +7,7 @@ const customJestConfig = {
    verbose: true,
    bail: 1,
    errorOnDeprecated: true,
-   coverageDirectory: "./test/unit/reports/jest",
+   coverageDirectory: "./dist/tests/unit/reports",
    coverageReporters: ["html", "json"],
    coverageThreshold: {
       global: {

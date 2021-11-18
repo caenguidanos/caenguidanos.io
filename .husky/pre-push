@@ -1,6 +1,7 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+# Check first if we are pushing to main
 BRANCH="$(git branch --show-current)"
 
 if [ "$BRANCH" == "main" ]; then
@@ -8,8 +9,22 @@ if [ "$BRANCH" == "main" ]; then
    exit 1
 fi
 
+if [ "$BRANCH" == "staging" ]; then
+   echo "You can't push to protected staging"
+   exit 1
+fi
+
+if [ "$BRANCH" == "development" ]; then
+   echo "You can't push to protected development"
+   exit 1
+fi
+
+# If we are in pipeline context, disable commands
 if [ "$GITHUB_CI" != true ]; then
+   # Run Jest tests with coverage
    pnpm test -- --coverage
+
+   # Run Playwright local E2E tests
    pnpm e2e
 else
    echo "Pass push without actions..."

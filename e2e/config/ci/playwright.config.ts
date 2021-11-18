@@ -5,9 +5,7 @@ import { PlaywrightTestConfig, devices } from "@playwright/test";
 const baseURL = process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000";
 
 const config: PlaywrightTestConfig = {
-   globalSetup: require.resolve("./playwright.global.ts"),
-   globalTeardown: require.resolve("./playwright.teardown.ts"),
-   outputDir: path.join(process.cwd(), "test/e2e/results/ci"),
+   outputDir: path.join(process.cwd(), "dist/tests/e2e/results/ci"),
    preserveOutput: "failures-only",
    projects: [
       {
@@ -29,15 +27,15 @@ const config: PlaywrightTestConfig = {
          }
       },
       {
-         name: "Small Tablet Safari",
+         name: "Tablet iOS",
          use: {
             ...devices["iPad Mini"]
          }
       },
       {
-         name: "Tablet Safari",
+         name: "Tablet Android",
          use: {
-            ...devices["iPad Pro"]
+            ...devices["Galaxy Tab S4"]
          }
       },
       {
@@ -53,9 +51,9 @@ const config: PlaywrightTestConfig = {
          }
       }
    ],
-   reporter: [["html", { outputFolder: "test/e2e/reports/ci", open: false }], ["dot"]],
+   reporter: [["html", { outputFolder: "dist/tests/e2e/reports/ci", open: false }]],
    retries: 2,
-   testDir: path.resolve(process.cwd(), "test", "e2e", "src"),
+   testDir: path.resolve(process.cwd(), "e2e", "src"),
    testMatch: "**/*.e2e.ts",
    timeout: 30000,
    use: { baseURL },
