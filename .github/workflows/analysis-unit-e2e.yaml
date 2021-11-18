@@ -81,6 +81,7 @@ jobs:
               tags: caenguidanos/caenguidanos-io-unit-testing/${{ github.ref }}:latest
 
    e2e-testing:
+      needs: [lint, analysis, unit-testing]
       timeout-minutes: 60
       runs-on: ubuntu-latest
       if: github.event.deployment_status.state == 'success'
