@@ -10,7 +10,7 @@ jobs:
        - uses: actions/checkout@v2
          with:
            fetch-depth: 0
-       - name: SonarCloud Scan
+       - name: Scan
          uses: SonarSource/sonarcloud-github-action@master
          env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -19,6 +19,9 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
+          with:
+            persist-credentials: false
+            fetch-depth: 0
         - uses: actions/setup-node@v2
           with:
             node-version: "14.18.1"
@@ -28,6 +31,13 @@ jobs:
             run_install: true
         - name: Run Jest
           run: pnpm test:coverage
+        - name: Add coverage
+          run: |
+            git config --local user.email "caenguidanos@users.noreply.github.com"
+            git config --local user.name "Cristian A. Enguídanos Nebot"
+            git add docs/coverage-unit-testing -f
+            git commit -m "docs(jest): add coverage"
+            git push
    e2e-testing:
       runs-on: ubuntu-latest
       steps:
@@ -47,3 +57,10 @@ jobs:
           run: pnpm e2e:ci
           env:
             PLAYWRIGHT_BASE_URL: "https://caenguidanos-io.vercel.app"
+        - name: Add coverage
+          run: |
+            git config --local user.email "caenguidanos@users.noreply.github.com"
+            git config --local user.name "Cristian A. Enguídanos Nebot"
+            git add docs/coverage-e2e-testing -f
+            git commit -m "docs(jest): add coverage"
+            git push

@@ -2,6 +2,12 @@
 
 Welcome to my personal site.
 
+#### Go to
+
+-  [SonarCloud Analysis](https://sonarcloud.io/summary/overall?id=caenguidanos_caenguidanos.io)
+-  [Jest Analysis](https://caenguidanos-io-jest.vercel.app/)
+-  [Playwright Analysis](https://caenguidanos-io-e2e.vercel.app/)
+
 #### Engine:
 
 -  Node version: `v14.18.1 LTS`
