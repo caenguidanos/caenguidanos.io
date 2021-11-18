@@ -1,6 +1,10 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-pnpm lint
-pnpm format
-git add .
+if [ "$GITHUB_CI" != true ]; then
+   pnpm lint
+   pnpm format
+   git add .
+else
+   echo "Pass commit without actions..."
+fi

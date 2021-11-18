@@ -10,8 +10,13 @@ on:
 jobs:
    playwright:
       runs-on: ubuntu-latest
+      env:
+        GITHUB_CI: true
       steps:
         - uses: actions/checkout@v2
+          with:
+            persist-credentials: false
+            fetch-depth: 0
         - uses: actions/setup-node@v2
           with:
             node-version: "14.18.1"
@@ -31,15 +36,14 @@ jobs:
           run: sudo apt-get install zip unzip
         - name: Pack report
           run: zip -r test/e2e/deploy/ci.zip test/e2e/reports/ci
-        - name: switching from HTTPS to SSH
-          run: git remote set-url origin ${{ secrets.ssh }}
-        - name: check for changes
-          run: git status
-        - name: stage changed files
-          run: git add test/e2e/deploy/ci.zip
-        - name: commit changed files
-          run: git commit -m "Auto updating e2e-reporter" --no-verify
-        - name: fetch from master
-          run: git fetch origin main
-        - name: push code to master
-          run: git push origin HEAD:main
+        - name: Commit pack
+          run: |
+            git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git config --local user.name "github-actions[bot]"
+            git add .
+            git commit -m "docs(e2e): auto add pack"
+        - name: Push changes
+          uses: ad-m/github-push-action@master
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            branch: ${{ github.ref }}

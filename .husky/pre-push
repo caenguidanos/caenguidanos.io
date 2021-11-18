@@ -1,5 +1,9 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-pnpm test -- --coverage
-pnpm e2e
+if [ "$GITHUB_CI" != true ]; then
+   pnpm test -- --coverage
+   pnpm e2e
+else
+   echo "Pass push without actions..."
+fi
