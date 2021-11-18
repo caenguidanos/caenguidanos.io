@@ -1,6 +1,5 @@
 name: Analysis, Unit Testing & E2E Testing
 on:
-   push:
    pull_request:
       types: [opened, synchronize, reopened]
       branches:
