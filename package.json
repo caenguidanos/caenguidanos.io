@@ -21,13 +21,9 @@
       "build": "next build",
       "lint": "next lint",
       "test": "jest",
-      "test:coverage": "jest --coverage",
-      "test:coverage-analysis": "serve coverage",
-      "e2e": "playwright test",
-      "e2e:local": "playwright test --config=config/e2e/local/playwright.config.ts",
-      "e2e:ci": "playwright test --config=config/e2e/ci/playwright.config.ts",
-      "e2e:coverage-analysis": "serve coverage-e2e",
+      "e2e": "playwright test --config=test/e2e/config/local/playwright.config.ts",
       "format": "prettier --write .",
+      "playwright": "playwright",
       "prepare": "husky install"
    },
    "dependencies": {

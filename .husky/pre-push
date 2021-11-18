@@ -1,5 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-pnpm test:coverage
-pnpm e2e:local
+pnpm test -- --coverage
+pnpm e2e

@@ -3,8 +3,11 @@
 /out
 /.next
 /docs
-/test-results
-.github/**/*.yaml
+/test/e2e/reports/local/
+/test/e2e/reports/ci/
+/test/unit/reports/jest/
+/test/unit/results/
+.github/
 
 *-lock.yaml
 *-lock.json
