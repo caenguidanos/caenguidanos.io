@@ -9,8 +9,6 @@ package-lock.json
 
 # testing
 /test-results
-/docs/coverage-e2e-testing
-/docs/coverage-unit-testing
 
 # next.js
 /.next/

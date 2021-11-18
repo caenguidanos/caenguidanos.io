@@ -28,13 +28,6 @@ jobs:
             run_install: true
         - name: Run Jest
           run: pnpm test:coverage
-        - name: Add coverage
-          run: |
-            git config --local user.email "caenguidanos@users.noreply.github.com"
-            git config --local user.name "Cristian A. Enguídanos Nebot"
-            git add docs/coverage-unit-testing -f
-            git commit -m "docs(jest): add coverage" --no-verify
-            git push --no-verify
    e2e-testing:
       runs-on: ubuntu-latest
       steps:
@@ -54,10 +47,3 @@ jobs:
           run: pnpm e2e:ci
           env:
             PLAYWRIGHT_BASE_URL: "https://caenguidanos-io.vercel.app"
-        - name: Add coverage
-          run: |
-            git config --local user.email "caenguidanos@users.noreply.github.com"
-            git config --local user.name "Cristian A. Enguídanos Nebot"
-            git add docs/coverage-e2e-testing -f
-            git commit -m "docs(jest): add coverage" --no-verify
-            git push --no-verify
