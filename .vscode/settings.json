@@ -25,5 +25,8 @@
    "editor.guides.highlightActiveIndentation": true,
    "editor.guides.indentation": false,
    "editor.lineNumbers": "interval",
-   "editor.rulers": [101]
+   "editor.rulers": [101],
+   "[dockerfile]": {
+      "editor.defaultFormatter": "foxundermoon.shell-format"
+   }
 }
