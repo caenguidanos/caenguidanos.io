@@ -1,1 +1,1 @@
-unzip -r test/e2e/deploy/ci.zip reporter
+unzip -r test/e2e/deploy/ci.zip build
