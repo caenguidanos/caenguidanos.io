@@ -1,0 +1,144 @@
+{
+  "files": [
+    {
+      "fileId": "c709833c606d972097ca717017c14daafe8288f8",
+      "fileName": "pages/api/hello.page.e2e.ts",
+      "tests": [
+        {
+          "testId": "c709833c606d972097ca717017c14daafe8288f8-eadc91dafb7f19ce95e75b4b9e80759a0b67b8d4",
+          "title": "should response succesfully",
+          "projectName": "Desktop Chrome",
+          "location": {
+            "file": "pages/api/hello.page.e2e.ts",
+            "line": 3,
+            "column": 1
+          },
+          "duration": 902,
+          "outcome": "expected",
+          "path": [
+            "pages/api/hello.page.e2e.ts:3"
+          ],
+          "ok": true
+        },
+        {
+          "testId": "c709833c606d972097ca717017c14daafe8288f8-09d0f9f66ac503b4dcd0bacbef202c36dc138cc6",
+          "title": "should response succesfully",
+          "projectName": "Desktop Firefox",
+          "location": {
+            "file": "pages/api/hello.page.e2e.ts",
+            "line": 3,
+            "column": 1
+          },
+          "duration": 254,
+          "outcome": "expected",
+          "path": [
+            "pages/api/hello.page.e2e.ts:3"
+          ],
+          "ok": true
+        },
+        {
+          "testId": "c709833c606d972097ca717017c14daafe8288f8-d68b6f4960cba52d79022d482caba054b6b1b4d4",
+          "title": "should response succesfully",
+          "projectName": "Mobile Android",
+          "location": {
+            "file": "pages/api/hello.page.e2e.ts",
+            "line": 3,
+            "column": 1
+          },
+          "duration": 626,
+          "outcome": "expected",
+          "path": [
+            "pages/api/hello.page.e2e.ts:3"
+          ],
+          "ok": true
+        }
+      ],
+      "stats": {
+        "total": 3,
+        "expected": 3,
+        "unexpected": 0,
+        "flaky": 0,
+        "skipped": 0,
+        "ok": true,
+        "duration": 1782
+      }
+    },
+    {
+      "fileId": "4972b8c2fb2f53eec65f35aedcfe24a51d734ecb",
+      "fileName": "pages/index.page.e2e.ts",
+      "tests": [
+        {
+          "testId": "4972b8c2fb2f53eec65f35aedcfe24a51d734ecb-4d5faced1e1da6d6df1677e8ef4acf7bce93f8b2",
+          "title": "should navigate",
+          "projectName": "Desktop Chrome",
+          "location": {
+            "file": "pages/index.page.e2e.ts",
+            "line": 3,
+            "column": 1
+          },
+          "duration": 790,
+          "outcome": "expected",
+          "path": [
+            "pages/index.page.e2e.ts:3"
+          ],
+          "ok": true
+        },
+        {
+          "testId": "4972b8c2fb2f53eec65f35aedcfe24a51d734ecb-3abd28490b563ba6fdee96b27cb0396b96c672ad",
+          "title": "should navigate",
+          "projectName": "Desktop Firefox",
+          "location": {
+            "file": "pages/index.page.e2e.ts",
+            "line": 3,
+            "column": 1
+          },
+          "duration": 1889,
+          "outcome": "expected",
+          "path": [
+            "pages/index.page.e2e.ts:3"
+          ],
+          "ok": true
+        },
+        {
+          "testId": "4972b8c2fb2f53eec65f35aedcfe24a51d734ecb-2c9bdfd55c654bede7c54ef51f21273cbc57fe43",
+          "title": "should navigate",
+          "projectName": "Mobile Android",
+          "location": {
+            "file": "pages/index.page.e2e.ts",
+            "line": 3,
+            "column": 1
+          },
+          "duration": 595,
+          "outcome": "expected",
+          "path": [
+            "pages/index.page.e2e.ts:3"
+          ],
+          "ok": true
+        }
+      ],
+      "stats": {
+        "total": 3,
+        "expected": 3,
+        "unexpected": 0,
+        "flaky": 0,
+        "skipped": 0,
+        "ok": true,
+        "duration": 3274
+      }
+    }
+  ],
+  "projectNames": [
+    "Desktop Chrome",
+    "Desktop Firefox",
+    "Mobile Android"
+  ],
+  "stats": {
+    "total": 6,
+    "expected": 6,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "ok": true,
+    "duration": 5056
+  }
+}
