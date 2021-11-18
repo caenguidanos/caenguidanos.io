@@ -7,18 +7,6 @@ on:
          - staging
          - development
 jobs:
-   analysis:
-      runs-on: ubuntu-latest
-      steps:
-         - uses: actions/checkout@v2
-           with:
-              fetch-depth: 0
-         - name: Scan
-           uses: SonarSource/sonarcloud-github-action@master
-           env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
    lint:
       runs-on: ubuntu-latest
       steps:
@@ -38,8 +26,21 @@ jobs:
 
          - name: Run lint
            run: pnpm lint
+   analysis:
+      needs: [lint]
+      runs-on: ubuntu-latest
+      steps:
+         - uses: actions/checkout@v2
+           with:
+              fetch-depth: 0
+         - name: Scan
+           uses: SonarSource/sonarcloud-github-action@master
+           env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
    unit-testing:
+      needs: [analysis]
       runs-on: ubuntu-latest
       steps:
          - uses: actions/checkout@v2
@@ -81,7 +82,7 @@ jobs:
               tags: caenguidanos/caenguidanos-io-unit-testing/${{ github.ref }}:latest
 
    e2e-testing:
-      needs: [lint, analysis, unit-testing]
+      needs: [unit-testing]
       timeout-minutes: 60
       runs-on: ubuntu-latest
       if: github.event.deployment_status.state == 'success'
