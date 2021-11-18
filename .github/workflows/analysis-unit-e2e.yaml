@@ -82,10 +82,10 @@ jobs:
               run_install: true
 
          - name: Install operating system dependencies
-           run: pnpx playwright install-deps webkit chrome firefox chromium
+           run: pnpx playwright install-deps webkit chrome firefox
 
          - name: Install browsers
-           run: pnpx playwright install webkit chrome firefox chromium
+           run: pnpx playwright install webkit chrome firefox
 
          - name: Build app
            run: pnpm build
@@ -96,12 +96,6 @@ jobs:
            with:
              token: ${{ secrets.GITHUB_TOKEN }}
              max_timeout: 120
-
-         - name: Vercel preview
-           run: echo ${{ github.event.deployment_status.target_url }}
-
-         - name: Print ref
-           run: echo ${{ github.ref }}
 
          - name: Run tests
            run: pnpm playwright -- test --config=e2e/config/ci/playwright.config.ts

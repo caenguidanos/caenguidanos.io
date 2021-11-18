@@ -3,9 +3,10 @@ import path from "path";
 import { PlaywrightTestConfig, devices } from "@playwright/test";
 
 const baseURL = process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000";
+const outputDir = path.join(process.cwd(), "dist/tests/e2e/results/ci");
 
 const config: PlaywrightTestConfig = {
-   outputDir: path.join(process.cwd(), "dist/tests/e2e/results/ci"),
+   outputDir,
    preserveOutput: "failures-only",
    projects: [
       {

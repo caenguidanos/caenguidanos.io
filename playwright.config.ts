@@ -2,8 +2,10 @@ import path from "path";
 
 import { PlaywrightTestConfig, devices } from "@playwright/test";
 
+const outputDir = path.join(process.cwd(), "dist/tests/e2e/results/local");
+
 const config: PlaywrightTestConfig = {
-   outputDir: path.join(process.cwd(), "dist/tests/e2e/results/local"),
+   outputDir,
    preserveOutput: "always",
    projects: [
       {
