@@ -35,7 +35,7 @@ const config: PlaywrightTestConfig = {
          }
       },
       {
-         name: "Small Tablet Safari",
+         name: "Tablet Safari",
          use: {
             ...devices["iPad Pro"]
          }
