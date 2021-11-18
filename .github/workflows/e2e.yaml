@@ -28,6 +28,6 @@ jobs:
           env:
             PLAYWRIGHT_BASE_URL: "https://caenguidanos-io.vercel.app"
         - name: Install os utils
-          run: apt install zip unzip
+          run: sudo apt-get install zip unzip
         - name: Pack report
           run: zip -r test/e2e/deploy/ci.zip test/e2e/reports/ci
