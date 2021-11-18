@@ -71,7 +71,7 @@ const config: PlaywrightTestConfig = {
    ],
    reporter: [["html", { outputFolder: "test/e2e/reports/local", open: false }], ["list"]],
    retries: 2,
-   testDir: path.resolve(process.cwd(), "test", "e2e", "src"),
+   testDir: path.resolve(process.cwd(), "src"),
    testMatch: "**/*.e2e.ts",
    timeout: 30000,
    use: { baseURL: "http://localhost:3000" },
