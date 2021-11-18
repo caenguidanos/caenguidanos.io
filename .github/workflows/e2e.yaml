@@ -36,7 +36,7 @@ jobs:
         - name: Run tests
           run: pnpm playwright -- test --config=test/e2e/config/ci/playwright.config.ts
           env:
-            PLAYWRIGHT_BASE_URL: "http://127.0.0.1:3000"
+            PLAYWRIGHT_BASE_URL: "https://caenguidanos-io.vercel.app"
 
         - name: Set up Docker Buildx
           uses: docker/setup-buildx-action@v1
