@@ -27,6 +27,18 @@ const config: PlaywrightTestConfig = {
          }
       },
       {
+         name: "Small Tablet Safari",
+         use: {
+            ...devices["iPad Mini"]
+         }
+      },
+      {
+         name: "Small Tablet Safari",
+         use: {
+            ...devices["iPad Pro"]
+         }
+      },
+      {
          name: "Mobile Android",
          use: {
             ...devices["Pixel 5"]

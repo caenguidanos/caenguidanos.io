@@ -39,6 +39,16 @@ const config: PlaywrightTestConfig = {
          }
       },
       {
+         name: "Desktop Safari",
+         use: {
+            locale: "es-ES",
+            trace: "on",
+            video: "on",
+            screenshot: "on",
+            ...devices["Desktop Safari"]
+         }
+      },
+      {
          name: "Mobile Android",
          use: {
             locale: "es-ES",
@@ -47,6 +57,16 @@ const config: PlaywrightTestConfig = {
             screenshot: "on",
             ...devices["Pixel 5"]
          }
+      },
+      {
+         name: "Mobile iOS",
+         use: {
+            locale: "es-ES",
+            trace: "on",
+            video: "on",
+            screenshot: "on",
+            ...devices["iPhone 12"]
+         }
       }
    ],
    reporter: [["html", { outputFolder: "test/e2e/reports/local" }], ["list"]],
@@ -54,7 +74,7 @@ const config: PlaywrightTestConfig = {
    testDir: path.resolve(process.cwd(), "test", "e2e", "src"),
    testMatch: "**/*.e2e.ts",
    timeout: 30000,
-   use: { baseURL: "http://0.0.0.0:3000" },
+   use: { baseURL: "http://localhost:3000" },
    webServer: {
       command: "./node_modules/next/dist/bin/next dev",
       port: 3000,

@@ -21,10 +21,10 @@
       "build": "next build",
       "lint": "next lint",
       "test": "jest",
-      "e2e": "playwright test --config=test/e2e/config/local/playwright.config.ts",
+      "e2e": "playwright test",
       "format": "prettier --write .",
       "playwright": "playwright",
-      "prepare": "husky install"
+      "prepare": "pnpx playwright install && husky install"
    },
    "dependencies": {
       "next": "12.0.5-canary.0",
@@ -33,7 +33,7 @@
       "react-dom": "17.0.2"
    },
    "devDependencies": {
-      "@playwright/test": "1.16.3",
+      "@playwright/test": "1.17.0-rc1",
       "@testing-library/react": "12.1.2",
       "@testing-library/react-hooks": "7.0.2",
       "@types/jest": "27.0.2",

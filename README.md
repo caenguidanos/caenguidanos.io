@@ -61,7 +61,7 @@ pnpm dev
 Run **Jest** tests:
 
 ```bash
-pnpm test
+pnpm test -- --coverage
 ```
 
 ### E2E
@@ -69,5 +69,5 @@ pnpm test
 Run **Playwright** tests:
 
 ```bash
-pnpm e2e:local
+pnpm e2e
 ```
