@@ -54,5 +54,5 @@ jobs:
             push: true
             tags: caenguidanos/caenguidanos-io-e2e:latest
             build-args:
-              REPORT: "ci"
+              - REPORT: "ci"
            
