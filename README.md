@@ -4,9 +4,9 @@ Welcome to my personal site.
 
 #### Go to
 
+-  [E2E Testing Reports](https://caenguidanos-io-e2e-testing.onrender.com/)
+-  [Unit Testing Reports](https://caenguidanos-io-jest.vercel.app/)
 -  [SonarCloud Analysis](https://sonarcloud.io/summary/overall?id=caenguidanos_caenguidanos.io)
--  [Jest Analysis](https://caenguidanos-io-jest.vercel.app/)
--  [Playwright Analysis](https://caenguidanos-io-e2e.vercel.app/)
 
 #### Engine:
 
@@ -30,6 +30,7 @@ Welcome to my personal site.
 
 -  :zap: [vercel](https://vercel.com/)
 -  :zap: [supabase](https://supabase.io/)
+-  :zap: [render](https://render.com/)
 
 #### CI/CD
 
