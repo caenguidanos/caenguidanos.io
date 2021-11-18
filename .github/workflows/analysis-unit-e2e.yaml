@@ -104,7 +104,7 @@ jobs:
            run: echo ${{ github.ref }}
 
          - name: Run tests
-           run: pnpm playwright -- test --config=test/e2e/config/ci/playwright.config.ts
+           run: pnpm playwright -- test --config=e2e/config/ci/playwright.config.ts
            env:
               PLAYWRIGHT_BASE_URL: ${{ steps.vercelPreview.outputs.url }}
 
