@@ -81,7 +81,9 @@ jobs:
               tags: caenguidanos/caenguidanos-io-unit-testing/${{ git.ref }}:latest
 
    e2e-testing:
+      timeout-minutes: 60
       runs-on: ubuntu-latest
+      if: github.event.deployment_status.state == 'success'
       env:
          GITHUB_CI: true
       steps:
@@ -105,11 +107,13 @@ jobs:
          - name: Build app
            run: pnpm build
 
+         - name: Vercel preview
+           run: echo ${{ github.event.deployment_status.target_url }}
+
          - name: Run tests
            run: pnpm playwright -- test --config=test/e2e/config/ci/playwright.config.ts
            env:
-              PLAYWRIGHT_BASE_URL: "https://caenguidanos-io.vercel.app/"
-              # TODO: Get preview URL from Vercel
+              PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
 
          - name: Copy dist coverage
            run: cp dist/tests/e2e/ci tools/images/e2e-tests/build/
