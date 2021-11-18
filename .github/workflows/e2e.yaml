@@ -53,6 +53,6 @@ jobs:
             context: ./test/e2e/reports
             push: true
             tags: caenguidanos/caenguidanos-io-e2e:latest
-            build-args:
-              - REPORT: "ci"
+            build-args: |
+              REPORT=ci
            
