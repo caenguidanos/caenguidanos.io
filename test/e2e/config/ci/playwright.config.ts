@@ -2,6 +2,8 @@ import path from "path";
 
 import { PlaywrightTestConfig, devices } from "@playwright/test";
 
+const baseURL = process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000";
+
 const config: PlaywrightTestConfig = {
    globalSetup: require.resolve("./playwright.global.ts"),
    globalTeardown: require.resolve("./playwright.teardown.ts"),
@@ -56,7 +58,16 @@ const config: PlaywrightTestConfig = {
    testDir: path.resolve(process.cwd(), "test", "e2e", "src"),
    testMatch: "**/*.e2e.ts",
    timeout: 30000,
-   use: { baseURL: process.env.PLAYWRIGHT_BASE_URL }
+   use: { baseURL },
+   webServer:
+      baseURL === "http://localhost:3000"
+         ? {
+              command: "./node_modules/next/dist/bin/next start",
+              port: 3000,
+              timeout: 120 * 1000,
+              reuseExistingServer: false
+           }
+         : undefined
 };
 
 export default config;
