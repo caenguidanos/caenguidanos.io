@@ -1,6 +1,13 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+BRANCH="$(git branch --show-current)"
+
+if [ "$BRANCH" == "main" ]; then
+   echo "You can't push to protected main"
+   exit 1
+fi
+
 if [ "$GITHUB_CI" != true ]; then
    pnpm test -- --coverage
    pnpm e2e
