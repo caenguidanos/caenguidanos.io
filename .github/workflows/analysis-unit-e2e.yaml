@@ -158,7 +158,7 @@ jobs:
            run: pnpx playwright install
 
          - name: Run tests
-           run: pnpm playwright -- test --config=e2e/config/ci/playwright.config.ts
+           run: pnpx playwright test --config=e2e/config/ci/playwright.config.ts
            env:
               PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.url }}
 
