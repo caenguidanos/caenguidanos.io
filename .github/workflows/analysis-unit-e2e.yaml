@@ -9,16 +9,12 @@ on:
 jobs:
    prepare:
       runs-on: ubuntu-latest
-      outputs:
-         branch_name: ${{ steps.git_branch.outputs.NAME }}
       steps:
-         - name: Print branch name
-           if: github.event_name == 'pull_request'
-           id: git_branch
-           run: echo "::set-env name=NAME::${{ github.ref }}"
+         - name: Set branch name
+           run: echo "x_branch_name=${{ github.event.pull_request.base.ref }}" >> $GITHUB_ENV
 
          - name: Get branch name
-           run: echo 'The branch name is' $NAME
+           run: echo "The branch name is ${{ env.x_branch_name }}"
 
    lint:
       runs-on: ubuntu-latest
@@ -81,8 +77,6 @@ jobs:
    deploy:
       needs: [unit-testing]
       runs-on: ubuntu-latest
-      outputs:
-         preview_url: ${{ steps.deployment.outputs.URL }}
       steps:
          - uses: actions/checkout@v2
 
@@ -99,7 +93,7 @@ jobs:
            run: pnpm i -g vercel
 
          - name: Deploy
-           if:  ${{ needs.prepare.outputs.branch_name == 'development' }}
+           if:  ${{ env.x_branch_name == 'development' }}
            run: |
               VERCEL_ORG_ID=${{ secrets.VERCEL_ORG_ID }}
               VERCEL_PROJECT_ID=${{ secrets.VERCEL_PROJECT_ID }}
@@ -107,7 +101,7 @@ jobs:
               vercel -C -S ${{ secrets.VERCEL_SCOPE }} -t ${{ secrets.VERCEL_TOKEN }} > _.txt
 
          - name: Deploy staging
-           if:  ${{ needs.prepare.outputs.branch_name == 'staging' }}
+           if:  ${{ env.x_branch_name == 'staging' }}
            run: |
               VERCEL_ORG_ID=${{ secrets.VERCEL_ORG_ID }}
               VERCEL_PROJECT_ID=${{ secrets.VERCEL_PROJECT_ID }}
@@ -115,7 +109,7 @@ jobs:
               vercel -C -S ${{ secrets.VERCEL_SCOPE }} -t ${{ secrets.VERCEL_TOKEN }} > _.txt
 
          - name: Deploy production
-           if:  ${{ needs.prepare.outputs.branch_name == 'main' }}
+           if:  ${{ env.x_branch_name == 'main' }}
            run: |
               VERCEL_ORG_ID=${{ secrets.VERCEL_ORG_ID }}
               VERCEL_PROJECT_ID=${{ secrets.VERCEL_PROJECT_ID }}
@@ -141,7 +135,7 @@ jobs:
 
          - name: Get preview url
            id: deployment
-           run: echo "::set-output name=URL::${{ steps.read-stdout.outputs.result }}"
+           run:  echo "x_preview_url=${{ steps.read-stdout.outputs.result }}" >> $GITHUB_ENV
 
          - name: Archive preview url
            uses: actions/upload-artifact@v2
@@ -178,7 +172,7 @@ jobs:
          - name: Run tests
            run: pnpm playwright -- test --config=e2e/config/ci/playwright.config.ts
            env:
-              PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.preview_url }}
+              PLAYWRIGHT_BASE_URL: ${{ env.x_preview_url }}
 
          - name: Archive code coverage results
            uses: actions/upload-artifact@v2
@@ -215,7 +209,7 @@ jobs:
          - name: Run tests
            run: pnpm playwright -- test --config=e2e/config/ci/playwright.config.ts
            env:
-              PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.preview_url }}
+              PLAYWRIGHT_BASE_URL: ${{ env.x_preview_url }}
 
          - name: Archive code coverage results
            uses: actions/upload-artifact@v2
@@ -252,7 +246,7 @@ jobs:
          - name: Run tests
            run: pnpm playwright -- test --config=e2e/config/ci/playwright.config.ts
            env:
-              PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.preview_url }}
+              PLAYWRIGHT_BASE_URL: ${{ env.x_preview_url }}
 
          - name: Archive code coverage results
            uses: actions/upload-artifact@v2
