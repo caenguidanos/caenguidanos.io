@@ -10,11 +10,8 @@ jobs:
    prepare:
       runs-on: ubuntu-latest
       steps:
-         - name: Set branch name
-           run: echo "x_branch_name=${{ github.event.pull_request.base.ref }}" >> $GITHUB_ENV
-
-         - name: Get branch name
-           run: echo "The branch name is ${{ env.x_branch_name }}"
+         - name: Print branch name
+           run: echo "The branch name is ${{ github.event.pull_request.base.ref }}"
 
    lint:
       runs-on: ubuntu-latest
@@ -51,7 +48,6 @@ jobs:
               SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
    unit-testing:
-      needs: [analysis, lint]
       runs-on: ubuntu-latest
       steps:
          - uses: actions/checkout@v2
@@ -75,7 +71,7 @@ jobs:
               path: dist/tests/unit/reports
 
    deploy:
-      needs: [unit-testing]
+      needs: [analysis, lint, unit-testing]
       runs-on: ubuntu-latest
       steps:
          - uses: actions/checkout@v2
@@ -87,13 +83,13 @@ jobs:
          - uses: pnpm/action-setup@v2.0.1
            with:
               version: 6.22.2
-              run_install: true
+              run_install: false
 
          - name: Install Vercel CLI
            run: pnpm i -g vercel
 
          - name: Deploy
-           if:  ${{ env.x_branch_name == 'development' }}
+           if:  ${{ github.event.pull_request.base.ref == 'development' }}
            run: |
               VERCEL_ORG_ID=${{ secrets.VERCEL_ORG_ID }}
               VERCEL_PROJECT_ID=${{ secrets.VERCEL_PROJECT_ID }}
@@ -101,7 +97,7 @@ jobs:
               vercel -C -S ${{ secrets.VERCEL_SCOPE }} -t ${{ secrets.VERCEL_TOKEN }} > _.txt
 
          - name: Deploy staging
-           if:  ${{ env.x_branch_name == 'staging' }}
+           if:  ${{ github.event.pull_request.base.ref == 'staging' }}
            run: |
               VERCEL_ORG_ID=${{ secrets.VERCEL_ORG_ID }}
               VERCEL_PROJECT_ID=${{ secrets.VERCEL_PROJECT_ID }}
@@ -109,7 +105,7 @@ jobs:
               vercel -C -S ${{ secrets.VERCEL_SCOPE }} -t ${{ secrets.VERCEL_TOKEN }} > _.txt
 
          - name: Deploy production
-           if:  ${{ env.x_branch_name == 'main' }}
+           if:  ${{ github.event.pull_request.base.ref == 'main' }}
            run: |
               VERCEL_ORG_ID=${{ secrets.VERCEL_ORG_ID }}
               VERCEL_PROJECT_ID=${{ secrets.VERCEL_PROJECT_ID }}
@@ -117,25 +113,34 @@ jobs:
               vercel -C --prod -S ${{ secrets.VERCEL_SCOPE }} -t ${{ secrets.VERCEL_TOKEN }} > _.txt
 
          - uses: actions/github-script@v5
-           id: read-stdout
            with:
              result-encoding: string
              script: |
                const { readFileSync } = require('fs');
                const { join } = require('path');
 
-               const root = process.cwd();
-               const file = join(root, '_.txt');
+               console.log(JSON.stringify({
+                    context,
+                    github,
+                    content,
+                    pw: ${{ $PWD }}
+                 }, undefined, 3));
 
-               const content = readFileSync(file, 'utf-8');
+               try {
+                 const root = process.cwd();
+                 const file = join(root, '_.txt');
 
-               console.log(JSON.stringify({ context, github, content }, undefined, 3));
+                 const content = readFileSync(file, 'utf-8');
+
+                 console.log({ content });
+               } catch (err) {
+                 console.error(err)
+               }
 
                return "https://caenguidanos-io.vercel.app";
 
          - name: Get preview url
-           id: deployment
-           run:  echo "x_preview_url=${{ steps.read-stdout.outputs.result }}" >> $GITHUB_ENV
+           run:  echo "preview_url=${{ steps.read-stdout.outputs.result }}" >> $GITHUB_ENV
 
          - name: Archive preview url
            uses: actions/upload-artifact@v2
@@ -172,7 +177,7 @@ jobs:
          - name: Run tests
            run: pnpm playwright -- test --config=e2e/config/ci/playwright.config.ts
            env:
-              PLAYWRIGHT_BASE_URL: ${{ env.x_preview_url }}
+              PLAYWRIGHT_BASE_URL: ${{ env.preview_url }}
 
          - name: Archive code coverage results
            uses: actions/upload-artifact@v2
@@ -209,7 +214,7 @@ jobs:
          - name: Run tests
            run: pnpm playwright -- test --config=e2e/config/ci/playwright.config.ts
            env:
-              PLAYWRIGHT_BASE_URL: ${{ env.x_preview_url }}
+              PLAYWRIGHT_BASE_URL: ${{ env.preview_url }}
 
          - name: Archive code coverage results
            uses: actions/upload-artifact@v2
@@ -246,7 +251,7 @@ jobs:
          - name: Run tests
            run: pnpm playwright -- test --config=e2e/config/ci/playwright.config.ts
            env:
-              PLAYWRIGHT_BASE_URL: ${{ env.x_preview_url }}
+              PLAYWRIGHT_BASE_URL: ${{ env.preview_url }}
 
          - name: Archive code coverage results
            uses: actions/upload-artifact@v2
