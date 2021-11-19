@@ -7,8 +7,22 @@ on:
          - staging
          - development
 jobs:
+   prepare:
+      runs-on: ubuntu-latest
+      outputs:
+         branch_name: ${{ steps.git_branch.outputs.NAME }}
+      steps:
+         - name: Print branch name
+           if: github.event_name == 'pull_request'
+           id: git_branch
+           run: echo "::set-env name=NAME::$(echo ${GITHUB_HEAD_REF})"
+
+         - name: Get branch name
+           run: echo 'The branch name is' $NAME
+
    lint:
       runs-on: ubuntu-latest
+      needs: [prepare]
       steps:
          - uses: actions/checkout@v2
 
@@ -26,9 +40,10 @@ jobs:
 
          - name: Run lint
            run: pnpm lint
+
    analysis:
-      needs: [lint]
       runs-on: ubuntu-latest
+      needs: [prepare]
       steps:
          - uses: actions/checkout@v2
            with:
@@ -40,7 +55,7 @@ jobs:
               SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
    unit-testing:
-      needs: [analysis]
+      needs: [analysis, lint]
       runs-on: ubuntu-latest
       steps:
          - uses: actions/checkout@v2
@@ -60,12 +75,76 @@ jobs:
          - name: Archive code coverage results
            uses: actions/upload-artifact@v2
            with:
-             name: unit-test-report
-             path: dist/tests/unit/reports
+              name: unit-test-report
+              path: dist/tests/unit/reports
+
+   deploy:
+      needs: [unit-testing]
+      runs-on: ubuntu-latest
+      outputs:
+         preview_url: ${{ steps.deployment.outputs.URL }}
+      steps:
+         - uses: actions/checkout@v2
+
+         - uses: actions/setup-node@v2
+           with:
+              node-version: "14.18.1"
+
+         - uses: pnpm/action-setup@v2.0.1
+           with:
+              version: 6.22.2
+              run_install: true
+
+         - name: Install Vercel CLI
+           run: pnpm i -g vercel
+
+         - name: Deploy
+           if:  ${{ needs.prepare.outputs.branch_name == "development" }}
+           run: |
+              VERCEL_ORG_ID=${{ secrets.VERCEL_ORG_ID }}
+              VERCEL_PROJECT_ID=${{ secrets.VERCEL_PROJECT_ID }}
+
+              vercel -C -S ${{ secrets.VERCEL_SCOPE }} -t ${{ secrets.VERCEL_TOKEN }} > _.txt
+
+         - name: Deploy staging
+           if:  ${{ needs.prepare.outputs.branch_name == "staging" }}
+           run: |
+              VERCEL_ORG_ID=${{ secrets.VERCEL_ORG_ID }}
+              VERCEL_PROJECT_ID=${{ secrets.VERCEL_PROJECT_ID }}
+
+              vercel -C -S ${{ secrets.VERCEL_SCOPE }} -t ${{ secrets.VERCEL_TOKEN }} > _.txt
+
+         - name: Deploy production
+           if:  ${{ needs.prepare.outputs.branch_name == "main" }}
+           run: |
+              VERCEL_ORG_ID=${{ secrets.VERCEL_ORG_ID }}
+              VERCEL_PROJECT_ID=${{ secrets.VERCEL_PROJECT_ID }}
+
+              vercel -C --prod -S ${{ secrets.VERCEL_SCOPE }} -t ${{ secrets.VERCEL_TOKEN }} > _.txt
+
+         - uses: actions/github-script@v5
+           id: read-stdout
+           with:
+             result-encoding: string
+             script: |
+               const { readFileSync } = require('fs');
+               const { join } = require('path');
+
+               const root = process.cwd();
+               const file = join(root, '_.txt');
+
+               const content = readFileSync(file, 'utf-8');
+
+               console.log(JSON.stringify({ context, github, content }, undefined, 3));
+
+               return "https://caenguidanos-io.vercel.app";
+
+         - name: Get preview url
+           id: deployment
+           run: echo "::set-output name=URL::${{ steps.read-stdout.outputs.result }}"
 
    e2e-testing:
-      needs: [unit-testing]
-      timeout-minutes: 60
+      needs: [deploy]
       runs-on: ubuntu-latest
       env:
          GITHUB_CI: true
@@ -90,20 +169,13 @@ jobs:
          - name: Build app
            run: pnpm build
 
-         - name: Wait to Vercel Preview URL
-           uses: patrickedqvist/wait-for-vercel-preview@v1.1.1
-           id: vercelPreview
-           with:
-             token: ${{ secrets.GITHUB_TOKEN }}
-             max_timeout: 120
-
          - name: Run tests
            run: pnpm playwright -- test --config=e2e/config/ci/playwright.config.ts
            env:
-              PLAYWRIGHT_BASE_URL: ${{ steps.vercelPreview.outputs.url }}
+              PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.preview_url }}
 
          - name: Archive code coverage results
            uses: actions/upload-artifact@v2
            with:
-             name: e2e-test-report
-             path: dist/tests/e2e/reports
+              name: e2e-test-report
+              path: dist/tests/e2e/reports
