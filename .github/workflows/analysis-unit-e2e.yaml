@@ -23,6 +23,12 @@ jobs:
            with:
               node-version: "14.18.1"
 
+         - uses: actions/cache@v2
+           with:
+              path: ~/.pnpm-store
+              key: ${{ runner.os }}-node14-${{ hashFiles('**/package.json') }}
+              restore-keys: ${{ runner.os }}-node14-
+
          - uses: pnpm/action-setup@v2.0.1
            with:
               version: 6.22.2
@@ -57,6 +63,12 @@ jobs:
            with:
               node-version: "14.18.1"
 
+         - uses: actions/cache@v2
+           with:
+              path: ~/.pnpm-store
+              key: ${{ runner.os }}-node14-${{ hashFiles('**/package.json') }}
+              restore-keys: ${{ runner.os }}-node14-
+
          - uses: pnpm/action-setup@v2.0.1
            with:
               version: 6.22.2
@@ -83,6 +95,12 @@ jobs:
            with:
               node-version: "14.18.1"
 
+         - uses: actions/cache@v2
+           with:
+              path: ~/.pnpm-store
+              key: ${{ runner.os }}-node14-${{ hashFiles('**/package.json') }}
+              restore-keys: ${{ runner.os }}-node14-
+
          - uses: pnpm/action-setup@v2.0.1
            with:
               version: 6.22.2
@@ -100,9 +118,9 @@ jobs:
               url=$(cat deployment.txt)
               echo "::set-output name=PREVIEW_URL::$url"
            env:
-             VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-             VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-             VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+              VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+              VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+              VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
 
          - name: Archive preview url
            uses: actions/upload-artifact@v2
@@ -110,7 +128,7 @@ jobs:
               name: preview-url
               path: deployment.txt
 
-   e2e-testing-linux:
+   e2e-testing:
       needs: [deploy]
       runs-on: ubuntu-latest
       env:
@@ -122,16 +140,22 @@ jobs:
            with:
               node-version: "14.18.1"
 
+         - uses: actions/cache@v2
+           with:
+              path: ~/.pnpm-store
+              key: ${{ runner.os }}-node14-${{ hashFiles('**/package.json') }}
+              restore-keys: ${{ runner.os }}-node14-
+
          - uses: pnpm/action-setup@v2.0.1
            with:
               version: 6.22.2
               run_install: true
 
          - name: Install operating system dependencies
-           run: pnpx playwright install-deps webkit chrome firefox
+           run: pnpx playwright install-deps
 
          - name: Install browsers
-           run: pnpx playwright install webkit chrome firefox
+           run: pnpx playwright install
 
          - name: Build app
            run: pnpm build
@@ -144,79 +168,5 @@ jobs:
          - name: Archive code coverage results
            uses: actions/upload-artifact@v2
            with:
-              name: e2e-test-report-linux
-              path: dist/tests/e2e/reports
-
-   e2e-testing-windows:
-      needs: [deploy]
-      runs-on: windows-latest
-      env:
-         GITHUB_CI: true
-      steps:
-         - uses: actions/checkout@v2
-
-         - uses: actions/setup-node@v2
-           with:
-              node-version: "14.18.1"
-
-         - uses: pnpm/action-setup@v2.0.1
-           with:
-              version: 6.22.2
-              run_install: true
-
-         - name: Install operating system dependencies
-           run: pnpx playwright install-deps webkit chrome firefox
-
-         - name: Install browsers
-           run: pnpx playwright install webkit chrome firefox
-
-         - name: Build app
-           run: pnpm build
-
-         - name: Run tests
-           run: pnpm playwright -- test --config=e2e/config/ci/playwright.config.ts
-           env:
-              PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.url }}
-
-         - name: Archive code coverage results
-           uses: actions/upload-artifact@v2
-           with:
-              name: e2e-test-report-windows
-              path: dist/tests/e2e/reports
-
-   e2e-testing-macos:
-      needs: [deploy]
-      runs-on: macos-latest
-      env:
-         GITHUB_CI: true
-      steps:
-         - uses: actions/checkout@v2
-
-         - uses: actions/setup-node@v2
-           with:
-              node-version: "14.18.1"
-
-         - uses: pnpm/action-setup@v2.0.1
-           with:
-              version: 6.22.2
-              run_install: true
-
-         - name: Install operating system dependencies
-           run: pnpx playwright install-deps webkit chrome firefox
-
-         - name: Install browsers
-           run: pnpx playwright install webkit chrome firefox
-
-         - name: Build app
-           run: pnpm build
-
-         - name: Run tests
-           run: pnpm playwright -- test --config=e2e/config/ci/playwright.config.ts
-           env:
-              PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.url }}
-
-         - name: Archive code coverage results
-           uses: actions/upload-artifact@v2
-           with:
-              name: e2e-test-report-macos
+              name: e2e-testing-report
               path: dist/tests/e2e/reports
