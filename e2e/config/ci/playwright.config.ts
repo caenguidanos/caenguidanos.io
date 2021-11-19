@@ -3,6 +3,7 @@ import path from "path";
 import { PlaywrightTestConfig, devices } from "@playwright/test";
 
 const baseURL = process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000";
+
 const outputDir = path.join(process.cwd(), "dist/tests/e2e/results/ci");
 
 const config: PlaywrightTestConfig = {
@@ -73,7 +74,7 @@ const config: PlaywrightTestConfig = {
          }
       }
    ],
-   reporter: [["html", { outputFolder: "dist/tests/e2e/reports/ci", open: false }]],
+   reporter: [["html", { outputFolder: "dist/tests/e2e/reports/local", open: false }], ["list"]],
    retries: 2,
    testDir: path.resolve(process.cwd(), "e2e", "src"),
    testMatch: "**/*.e2e.ts",

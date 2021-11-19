@@ -125,8 +125,8 @@ jobs:
          - name: Archive preview url
            uses: actions/upload-artifact@v2
            with:
-              name: preview-url
-              path: deployment.txt
+              name: url
+              path: url.txt
 
    e2e-testing:
       needs: [deploy]
@@ -140,12 +140,6 @@ jobs:
            with:
               node-version: "14.18.1"
 
-         - uses: actions/cache@v2
-           with:
-              path: ~/.pnpm-store
-              key: ${{ runner.os }}-node14-${{ hashFiles('**/package.json') }}
-              restore-keys: ${{ runner.os }}-node14-
-
          - uses: pnpm/action-setup@v2.0.1
            with:
               version: 6.22.2
@@ -158,7 +152,14 @@ jobs:
            run: pnpx playwright install
 
          - name: Run tests
-           run: pnpx playwright test --config=e2e/config/ci/playwright.config.ts
+           run: |
+              pnpx playwright test --config=e2e/config/ci/playwright.config.ts
+
+              ls dist/
+              ls dist/tests
+              ls dist/tests/e2e
+              ls dist/tests/e2e/reports
+              ls dist/tests/e2e/reports/ci
            env:
               PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.url }}
 
