@@ -149,16 +149,13 @@ jobs:
          - uses: pnpm/action-setup@v2.0.1
            with:
               version: 6.22.2
-              run_install: true
+              run_install: false
 
          - name: Install operating system dependencies
            run: pnpx playwright install-deps
 
          - name: Install browsers
            run: pnpx playwright install
-
-         - name: Build app
-           run: pnpm build
 
          - name: Run tests
            run: pnpm playwright -- test --config=e2e/config/ci/playwright.config.ts

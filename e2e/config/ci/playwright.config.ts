@@ -57,15 +57,7 @@ const config: PlaywrightTestConfig = {
    testDir: path.resolve(process.cwd(), "e2e", "src"),
    testMatch: "**/*.e2e.ts",
    timeout: 30000,
-   use: { baseURL },
-   webServer: baseURL.match("http://")
-      ? {
-           command: "./node_modules/next/dist/bin/next start",
-           port: 3000,
-           timeout: 120 * 1000,
-           reuseExistingServer: false
-        }
-      : undefined
+   use: { baseURL }
 };
 
 export default config;
