@@ -1,4 +1,4 @@
-name: Analysis, Unit Testing, Deploy & E2E Testing
+name: CI/CD
 on:
    pull_request:
       types: [opened, synchronize, reopened]
@@ -166,4 +166,4 @@ jobs:
            uses: actions/upload-artifact@v2
            with:
               name: e2e-testing-report
-              path: dist/tests/e2e/reports
+              path: dist/tests/e2e/reports/ci
