@@ -7,8 +7,8 @@ const customJestConfig = {
    verbose: true,
    bail: 1,
    errorOnDeprecated: true,
-   coverageDirectory: "./test/unit/reports/jest",
-   coverageReporters: ["html", "json"],
+   coverageDirectory: "./dist/tests/unit/reports",
+   coverageReporters: ["html-spa"],
    coverageThreshold: {
       global: {
          branches: 75,

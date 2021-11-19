@@ -4,69 +4,82 @@ import { PlaywrightTestConfig, devices } from "@playwright/test";
 
 const baseURL = process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000";
 
+const outputDir = path.join(process.cwd(), "dist/tests/e2e/results/ci");
+
 const config: PlaywrightTestConfig = {
-   globalSetup: require.resolve("./playwright.global.ts"),
-   globalTeardown: require.resolve("./playwright.teardown.ts"),
-   outputDir: path.join(process.cwd(), "test/e2e/results/ci"),
-   preserveOutput: "failures-only",
+   outputDir,
+   preserveOutput: "always",
    projects: [
       {
          name: "Desktop Chrome",
          use: {
+            trace: "on",
+            video: "on",
+            screenshot: "on",
             ...devices["Desktop Chrome"]
          }
       },
       {
          name: "Desktop Firefox",
          use: {
+            trace: "on",
+            video: "on",
+            screenshot: "on",
             ...devices["Desktop Firefox"]
          }
       },
       {
          name: "Desktop Safari",
          use: {
+            trace: "on",
+            video: "on",
+            screenshot: "on",
             ...devices["Desktop Safari"]
          }
       },
       {
-         name: "Small Tablet Safari",
+         name: "Tablet iOS",
          use: {
+            trace: "on",
+            video: "on",
+            screenshot: "on",
             ...devices["iPad Mini"]
          }
       },
       {
-         name: "Small Tablet Safari",
+         name: "Tablet Android",
          use: {
-            ...devices["iPad Pro"]
+            trace: "on",
+            video: "on",
+            screenshot: "on",
+            ...devices["Galaxy Tab S4"]
          }
       },
       {
          name: "Mobile Android",
          use: {
+            trace: "on",
+            video: "on",
+            screenshot: "on",
             ...devices["Pixel 5"]
          }
       },
       {
          name: "Mobile iOS",
          use: {
+            trace: "on",
+            video: "on",
+            screenshot: "on",
             ...devices["iPhone 12"]
          }
       }
    ],
-   reporter: [["html", { outputFolder: "test/e2e/reports/ci", open: false }], ["dot"]],
+   reporter: [["html", { outputFolder: "dist/tests/e2e/reports/ci", open: false }], ["list"]],
    retries: 2,
-   testDir: path.resolve(process.cwd(), "test", "e2e", "src"),
+   testDir: path.resolve(process.cwd(), "e2e", "src"),
    testMatch: "**/*.e2e.ts",
    timeout: 30000,
-   use: { baseURL },
-   webServer: baseURL.match("http://")
-      ? {
-           command: "./node_modules/next/dist/bin/next start",
-           port: 3000,
-           timeout: 120 * 1000,
-           reuseExistingServer: false
-        }
-      : undefined
+   use: { baseURL }
 };
 
 export default config;
