@@ -151,11 +151,7 @@ jobs:
 
          - name: Run tests
            run: |
-              pnpm playwright -- test --config=e2e/config/ci/playwright.config.ts
-
-              ls -la
-              echo "//"
-              ls -la e2e/config/ci
+              pnpm playwright -- test --config=.github/config/ci/playwright.config.ts
            env:
               PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.url }}
 
