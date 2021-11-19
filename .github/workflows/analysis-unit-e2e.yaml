@@ -15,10 +15,10 @@ jobs:
          - name: Print branch name
            if: github.event_name == 'pull_request'
            id: git_branch
-           run: echo "::set-env name=NAME::$(echo ${GITHUB_HEAD_REF})"
+           run: echo "::set-env name=NAME::${{ github.ref }}"
 
          - name: Get branch name
-           run: echo 'The branch name is' $NAME && echo ${{ github.ref }}
+           run: echo 'The branch name is' $NAME
 
    lint:
       runs-on: ubuntu-latest
