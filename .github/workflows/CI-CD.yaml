@@ -129,7 +129,7 @@ jobs:
               path: url.txt
 
    e2e-testing:
-      needs: [deploy]
+      needs: [deploy, analysis]
       runs-on: ubuntu-latest
       env:
          GITHUB_CI: true
@@ -143,23 +143,17 @@ jobs:
          - uses: pnpm/action-setup@v2.0.1
            with:
               version: 6.22.2
-              run_install: false
+              run_install: true
 
          - name: Install operating system dependencies
-           run: pnpx playwright install-deps
+           run: pnpm playwright -- install-deps
 
          - name: Install browsers
-           run: pnpx playwright install
+           run: pnpm playwright -- install
 
          - name: Run tests
            run: |
-              pnpx playwright test --config=e2e/config/ci/playwright.config.ts
-
-              ls dist/
-              ls dist/tests
-              ls dist/tests/e2e
-              ls dist/tests/e2e/reports
-              ls dist/tests/e2e/reports/ci
+              pnpm playwright -- test --config=e2e/config/ci/playwright.config.ts
            env:
               PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.url }}
 
