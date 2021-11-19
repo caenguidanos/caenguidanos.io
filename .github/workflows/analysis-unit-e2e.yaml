@@ -1,4 +1,4 @@
-name: Analysis, Unit Testing & E2E Testing
+name: Analysis, Unit Testing, Deploy & E2E Testing
 on:
    pull_request:
       types: [opened, synchronize, reopened]
@@ -74,6 +74,8 @@ jobs:
    deploy:
       needs: [lint, unit-testing]
       runs-on: ubuntu-latest
+      outputs:
+         url: ${{ steps.vercel-deploy.outputs.PREVIEW_URL }}
       steps:
          - uses: actions/checkout@v2
 
@@ -87,6 +89,7 @@ jobs:
               run_install: false
 
          - name: Deploy
+           id: vercel-deploy
            run: |
               if [[ "${{ github.event.pull_request.base.ref }}" == "main" ]]; then
                 production="--prod"
@@ -95,7 +98,7 @@ jobs:
               pnpx vercel -t ${VERCEL_TOKEN} $production > deployment.txt
 
               url=$(cat deployment.txt)
-              echo "::set-env name=PREVIEW_URL::$url"
+              echo "::set-output name=PREVIEW_URL::$url"
            env:
              VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
              VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
@@ -136,7 +139,7 @@ jobs:
          - name: Run tests
            run: pnpm playwright -- test --config=e2e/config/ci/playwright.config.ts
            env:
-              PLAYWRIGHT_BASE_URL: ${PREVIEW_URL}
+              PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.url }}
 
          - name: Archive code coverage results
            uses: actions/upload-artifact@v2
@@ -173,7 +176,7 @@ jobs:
          - name: Run tests
            run: pnpm playwright -- test --config=e2e/config/ci/playwright.config.ts
            env:
-              PLAYWRIGHT_BASE_URL: ${PREVIEW_URL}
+              PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.url }}
 
          - name: Archive code coverage results
            uses: actions/upload-artifact@v2
@@ -210,7 +213,7 @@ jobs:
          - name: Run tests
            run: pnpm playwright -- test --config=e2e/config/ci/playwright.config.ts
            env:
-              PLAYWRIGHT_BASE_URL: ${PREVIEW_URL}
+              PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.url }}
 
          - name: Archive code coverage results
            uses: actions/upload-artifact@v2
