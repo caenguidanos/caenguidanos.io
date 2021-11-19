@@ -86,32 +86,21 @@ jobs:
               version: 6.22.2
               run_install: false
 
-         - name: Install Vercel CLI
-           run: pnpm i -g vercel
-
          - name: Deploy
-           if:  ${{ github.event.pull_request.base.ref == 'development' }}
            run: |
-              VERCEL_ORG_ID=${{ secrets.VERCEL_ORG_ID }}
-              VERCEL_PROJECT_ID=${{ secrets.VERCEL_PROJECT_ID }}
+              if [[ ${{ github.event.pull_request.base.ref }} == "main" ]]; then
+                production="--prod"
+              fi
 
-              vercel -C -S ${{ secrets.VERCEL_SCOPE }} -t ${{ secrets.VERCEL_TOKEN }} > _.txt
+              pnpx vercel --token ${VERCEL_TOKEN} $production > deployment.txt
 
-         - name: Deploy staging
-           if:  ${{ github.event.pull_request.base.ref == 'staging' }}
-           run: |
-              VERCEL_ORG_ID=${{ secrets.VERCEL_ORG_ID }}
-              VERCEL_PROJECT_ID=${{ secrets.VERCEL_PROJECT_ID }}
+              ls -l
+              cat deployment.txt
 
-              vercel -C -S ${{ secrets.VERCEL_SCOPE }} -t ${{ secrets.VERCEL_TOKEN }} > _.txt
-
-         - name: Deploy production
-           if:  ${{ github.event.pull_request.base.ref == 'main' }}
-           run: |
-              VERCEL_ORG_ID=${{ secrets.VERCEL_ORG_ID }}
-              VERCEL_PROJECT_ID=${{ secrets.VERCEL_PROJECT_ID }}
-
-              vercel -C --prod -S ${{ secrets.VERCEL_SCOPE }} -t ${{ secrets.VERCEL_TOKEN }} > _.txt
+           env:
+             VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+             VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+             VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
 
          - uses: actions/github-script@v5
            with:
@@ -127,7 +116,7 @@ jobs:
 
                try {
                  const root = process.cwd();
-                 const file = join(root, '_.txt');
+                 const file = join(root, 'deployment.txt');
 
                  const content = readFileSync(file, 'utf-8');
 
@@ -145,7 +134,7 @@ jobs:
            uses: actions/upload-artifact@v2
            with:
               name: preview-url
-              path: _.txt
+              path: deployment.txt
 
    e2e-testing-linux:
       needs: [deploy]
