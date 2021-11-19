@@ -34,7 +34,7 @@ export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext)
    return {
       props: {
          html: await transformToHtml({ input: blogSource }),
-         branch: process.env.VERCEL_GIT_COMMIT_REF
+         branch: process.env.VERCEL_GIT_COMMIT_REF || ""
       }
    };
 };
