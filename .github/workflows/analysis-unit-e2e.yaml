@@ -143,6 +143,12 @@ jobs:
            id: deployment
            run: echo "::set-output name=URL::${{ steps.read-stdout.outputs.result }}"
 
+         - name: Archive preview url
+           uses: actions/upload-artifact@v2
+           with:
+              name: preview-url
+              path: _.txt
+
    e2e-testing:
       needs: [deploy]
       runs-on: ubuntu-latest
