@@ -18,7 +18,7 @@ jobs:
            run: echo "::set-env name=NAME::$(echo ${GITHUB_HEAD_REF})"
 
          - name: Get branch name
-           run: echo 'The branch name is' $NAME
+           run: echo 'The branch name is' $NAME && echo ${{ github.ref }}
 
    lint:
       runs-on: ubuntu-latest
@@ -99,7 +99,7 @@ jobs:
            run: pnpm i -g vercel
 
          - name: Deploy
-           if:  ${{ needs.prepare.outputs.branch_name == "development" }}
+           if:  ${{ needs.prepare.outputs.branch_name == 'development' }}
            run: |
               VERCEL_ORG_ID=${{ secrets.VERCEL_ORG_ID }}
               VERCEL_PROJECT_ID=${{ secrets.VERCEL_PROJECT_ID }}
@@ -107,7 +107,7 @@ jobs:
               vercel -C -S ${{ secrets.VERCEL_SCOPE }} -t ${{ secrets.VERCEL_TOKEN }} > _.txt
 
          - name: Deploy staging
-           if:  ${{ needs.prepare.outputs.branch_name == "staging" }}
+           if:  ${{ needs.prepare.outputs.branch_name == 'staging' }}
            run: |
               VERCEL_ORG_ID=${{ secrets.VERCEL_ORG_ID }}
               VERCEL_PROJECT_ID=${{ secrets.VERCEL_PROJECT_ID }}
@@ -115,7 +115,7 @@ jobs:
               vercel -C -S ${{ secrets.VERCEL_SCOPE }} -t ${{ secrets.VERCEL_TOKEN }} > _.txt
 
          - name: Deploy production
-           if:  ${{ needs.prepare.outputs.branch_name == "main" }}
+           if:  ${{ needs.prepare.outputs.branch_name == 'main' }}
            run: |
               VERCEL_ORG_ID=${{ secrets.VERCEL_ORG_ID }}
               VERCEL_PROJECT_ID=${{ secrets.VERCEL_PROJECT_ID }}
