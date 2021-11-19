@@ -113,9 +113,9 @@ jobs:
                 production="--prod"
               fi
 
-              pnpx vercel -t ${VERCEL_TOKEN} $production > deployment.txt
+              pnpx vercel -t ${VERCEL_TOKEN} $production > url.txt
 
-              url=$(cat deployment.txt)
+              url=$(cat url.txt)
               echo "::set-output name=PREVIEW_URL::$url"
            env:
               VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -131,8 +131,6 @@ jobs:
    e2e-testing:
       needs: [deploy, analysis]
       runs-on: ubuntu-latest
-      env:
-         GITHUB_CI: true
       steps:
          - uses: actions/checkout@v2
 
@@ -154,6 +152,10 @@ jobs:
          - name: Run tests
            run: |
               pnpm playwright -- test --config=e2e/config/ci/playwright.config.ts
+
+              ls -la
+              echo "//"
+              ls -la e2e/config/ci
            env:
               PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.url }}
 

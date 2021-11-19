@@ -19,13 +19,8 @@ if [ "$BRANCH" == "development" ]; then
    exit 1
 fi
 
-# If we are in pipeline context, disable commands
-if [ "$GITHUB_CI" != true ]; then
-   # Run Jest tests with coverage
-   pnpm test -- --coverage
+# Run Jest tests with coverage
+pnpm test -- --coverage
 
-   # Run Playwright local E2E tests
-   pnpm e2e
-else
-   echo "Pass push without actions..."
-fi
+# Run Playwright local E2E tests
+pnpm e2e
