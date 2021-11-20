@@ -4,8 +4,6 @@ on:
       types: [opened, synchronize, reopened]
       branches:
          - main
-         - staging
-         - development
 jobs:
    prepare:
       runs-on: ubuntu-latest
@@ -21,13 +19,13 @@ jobs:
 
          - uses: actions/setup-node@v2
            with:
-              node-version: "14.18.1"
+              node-version: "16.13.0"
 
          - uses: actions/cache@v2
            with:
               path: ~/.pnpm-store
-              key: ${{ runner.os }}-node14-${{ hashFiles('**/package.json') }}
-              restore-keys: ${{ runner.os }}-node14-
+              key: ${{ runner.os }}-node16-${{ hashFiles('**/package.json') }}
+              restore-keys: ${{ runner.os }}-node16-
 
          - uses: pnpm/action-setup@v2.0.1
            with:
@@ -38,7 +36,7 @@ jobs:
            run: pnpm build
 
          - name: Run lint
-           run: pnpm lint
+           run: pnpm lint -- --no-cache
 
    analysis:
       runs-on: ubuntu-latest
@@ -61,13 +59,13 @@ jobs:
 
          - uses: actions/setup-node@v2
            with:
-              node-version: "14.18.1"
+              node-version: "16.13.0"
 
          - uses: actions/cache@v2
            with:
               path: ~/.pnpm-store
-              key: ${{ runner.os }}-node14-${{ hashFiles('**/package.json') }}
-              restore-keys: ${{ runner.os }}-node14-
+              key: ${{ runner.os }}-node16-${{ hashFiles('**/package.json') }}
+              restore-keys: ${{ runner.os }}-node16-
 
          - uses: pnpm/action-setup@v2.0.1
            with:
@@ -77,10 +75,10 @@ jobs:
          - name: Run tests
            run: pnpm test -- --coverage
 
-         - name: Archive code coverage results
+         - name: Archive coverage results
            uses: actions/upload-artifact@v2
            with:
-              name: unit-test-report
+              name: unit-testing-report
               path: dist/tests/unit/reports
 
    deploy:
@@ -93,13 +91,13 @@ jobs:
 
          - uses: actions/setup-node@v2
            with:
-              node-version: "14.18.1"
+              node-version: "16.13.0"
 
          - uses: actions/cache@v2
            with:
               path: ~/.pnpm-store
-              key: ${{ runner.os }}-node14-${{ hashFiles('**/package.json') }}
-              restore-keys: ${{ runner.os }}-node14-
+              key: ${{ runner.os }}-node16-${{ hashFiles('**/package.json') }}
+              restore-keys: ${{ runner.os }}-node16-
 
          - uses: pnpm/action-setup@v2.0.1
            with:
@@ -136,7 +134,7 @@ jobs:
 
          - uses: actions/setup-node@v2
            with:
-              node-version: "14.18.1"
+              node-version: "16.13.0"
 
          - uses: pnpm/action-setup@v2.0.1
            with:
@@ -155,7 +153,7 @@ jobs:
            env:
               PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.url }}
 
-         - name: Archive code coverage results
+         - name: Archive coverage results
            uses: actions/upload-artifact@v2
            with:
               name: e2e-testing-report
