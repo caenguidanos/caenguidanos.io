@@ -111,7 +111,7 @@ jobs:
 
          - name: Deploy to Cloud Run
            id: deploy
-           uses: google-github-actions/deploy-cloudrun@master
+           uses: google-github-actions/deploy-cloudrun@main
            with:
               service: ${{ env.GCP_CLOUD_RUN_SERVICE }}
               image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/{{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
@@ -226,7 +226,7 @@ jobs:
 
          - name: Deploy to Cloud Run
            id: deploy
-           uses: google-github-actions/deploy-cloudrun@master
+           uses: google-github-actions/deploy-cloudrun@main
            with:
               service: ${{ env.GCP_CLOUD_RUN_SERVICE }}
               image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/{{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
