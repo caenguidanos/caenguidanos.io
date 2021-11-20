@@ -47,8 +47,6 @@ jobs:
       needs: [lint]
       env:
          GCP_CLOUD_RUN_SERVICE: unit-jest-reports
-      outputs:
-         url: ${{ steps.deploy.outputs.url }}
       steps:
          - uses: actions/checkout@v2
 
@@ -138,8 +136,6 @@ jobs:
    deploy:
       needs: [analysis]
       runs-on: ubuntu-latest
-      outputs:
-         url: ${{ steps.vercel-deploy.outputs.PREVIEW_URL }}
       steps:
          - uses: actions/checkout@v2
 
@@ -166,10 +162,6 @@ jobs:
               fi
 
               pnpx vercel -t ${VERCEL_TOKEN} $production > url.txt
-
-              url=$(cat url.txt)
-              echo "::add-mask::$url"
-              echo "::set-output name=PREVIEW_URL::$url"
            env:
               VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
               VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
@@ -178,7 +170,7 @@ jobs:
          - name: Archive preview url
            uses: actions/upload-artifact@v2
            with:
-              name: url
+              name: preview-url
               path: url.txt
 
    e2e-testing:
@@ -186,8 +178,6 @@ jobs:
       runs-on: ubuntu-latest
       env:
          GCP_CLOUD_RUN_SERVICE: e2e-playwright-reports
-      outputs:
-         url: ${{ steps.deploy.outputs.url }}
       steps:
          - uses: actions/checkout@v2
 
@@ -206,11 +196,14 @@ jobs:
          - name: Install browsers
            run: pnpm playwright -- install
 
+         - name: Download preview url
+           uses: actions/download-artifact@v2
+           with:
+              name: preview-url
+
          - name: Run tests
            run: |
-              pnpm playwright -- test --config=.github/config/ci/playwright.config.ts
-           env:
-              PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.url }}
+              PLAYWRIGHT_BASE_URL=$(cat url.txt) pnpm playwright -- test --config=.github/config/ci/playwright.config.ts
 
          - name: Archive coverage results
            uses: actions/upload-artifact@v2
@@ -248,25 +241,3 @@ jobs:
          - name: Remove Container from Registry
            run: |
               gcloud artifacts docker images delete ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
-
-   notifications:
-      needs: [e2e-testing]
-      runs-on: ubuntu-latest
-      steps:
-         - uses: actions/github-script@v5
-           with:
-              script: |
-                 const deployUrl = "${{ needs.deploy.outputs.url }}";
-                 const unitTestingReportsUrl = "${{ needs.unit-testing.outputs.url }}";
-                 const e2eTestingReportsUrl = "${{ needs.e2e-testing.outputs.url }}";
-
-                 const deployMessage = `Vercel deployment: ${deployUrl}`;
-                 const unitTestingMessage = `Jest Reports deployment: ${unitTestingReportsUrl}`;
-                 const e2eTestingMessage = `Playwright Reports deployment: ${e2eTestingReportsUrl}`;
-
-                 github.rest.issues.createComment({
-                    issue_number: context.issue.number,
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    body: `- ${deployMessage}\n- ${unitTestingMessage}\n- ${e2eTestingMessage}`,
-                 })
