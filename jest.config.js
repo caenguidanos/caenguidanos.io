@@ -8,8 +8,9 @@ const customJestConfig = {
    errorOnDeprecated: true,
    extensionsToTreatAsEsm: [".ts", ".tsx"],
    extraGlobals: ["Math"],
+   collectCoverage: true,
    coverageDirectory: "./dist/tests/unit/reports",
-   coverageReporters: ["html-spa"],
+   coverageReporters: ["json", "lcov", "text", "html-spa"],
    coverageThreshold: {
       global: {
          branches: 75,
