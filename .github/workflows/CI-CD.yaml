@@ -114,7 +114,7 @@ jobs:
               service: ${{ env.GCP_CLOUD_RUN_SERVICE }}
               image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
               region: ${{ env.GCP_REGION }}
-              flags: max-instances=2 port=3000 allow-unauthenticated concurrency=20
+              flags: --max-instances=2 --port=3000 allow-unauthenticated --concurrency=20
 
          - name: Remove Container from Registry
            run: |
@@ -227,7 +227,7 @@ jobs:
               service: ${{ env.GCP_CLOUD_RUN_SERVICE }}
               image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
               region: ${{ env.GCP_REGION }}
-              flags: max-instances=2 port=9323 allow-unauthenticated concurrency=20
+              flags: --max-instances=2 --port=9323 allow-unauthenticated --concurrency=20
 
          - name: Remove Container from Registry
            run: |
