@@ -20,17 +20,13 @@ Welcome to my [personal site](https://caenguidanos-io.vercel.app).
 -  :zap: [tailwindcss](https://tailwindcss.com/)
 -  :zap: [playwright](https://playwright.dev/)
 -  :zap: [jest](https://jestjs.io/es-ES/)
--  :zap: [prettier](https://prettier.io/)
 -  :zap: [nvm](https://github.com/nvm-sh/nvm)
 -  :zap: [typescript](https://www.typescriptlang.org/)
--  :zap: [husky](https://github.com/typicode/husky)
 -  :zap: [eslint](https://eslint.org/)
 
 #### Infra:
 
 -  :zap: [vercel](https://vercel.com/)
--  :zap: [supabase](https://supabase.io/)
--  :zap: [render](https://render.com/)
 
 #### CI/CD
 
