@@ -168,6 +168,7 @@ jobs:
               pnpx vercel -t ${VERCEL_TOKEN} $production > url.txt
 
               url=$(cat url.txt)
+              echo "::add-mask::$url"
               echo "::set-output name=PREVIEW_URL::$url"
            env:
               VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
