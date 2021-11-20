@@ -90,7 +90,7 @@ jobs:
               path: dist/tests/unit/reports
 
          - name: Setup GCP SDK
-           run: google-github-actions/setup-gcloud@master
+           uses: google-github-actions/setup-gcloud@master
            with:
               project_id: ${{ env.GCP_PROJECT_ID }}
               service_account_key: ${{ secrets.GCP_SA_KEY }}
@@ -205,7 +205,7 @@ jobs:
               path: dist/tests/e2e/reports/ci
 
          - name: Setup GCP SDK
-           run: google-github-actions/setup-gcloud@master
+           uses: google-github-actions/setup-gcloud@master
            with:
               project_id: ${{ env.GCP_PROJECT_ID }}
               service_account_key: ${{ secrets.GCP_SA_KEY }}
