@@ -3,6 +3,15 @@ import path from "path";
 import { PlaywrightTestConfig, devices } from "@playwright/test";
 
 const outputDir = path.join(process.cwd(), "dist/tests/e2e/results/local");
+const baseURL: string = process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000";
+const reporterOutputFolder = "dist/tests/e2e/reports/local";
+const testDir: string = path.resolve(process.cwd(), "e2e");
+const webServer = {
+   command: "./node_modules/next/dist/bin/next dev",
+   port: 3000,
+   timeout: 120 * 1000,
+   reuseExistingServer: true
+};
 
 const config: PlaywrightTestConfig = {
    outputDir,
@@ -11,7 +20,6 @@ const config: PlaywrightTestConfig = {
       {
          name: "Desktop Edge",
          use: {
-            locale: "es-ES",
             trace: "on",
             video: "on",
             screenshot: "on",
@@ -21,7 +29,6 @@ const config: PlaywrightTestConfig = {
       {
          name: "Desktop Chrome",
          use: {
-            locale: "es-ES",
             trace: "on",
             video: "on",
             screenshot: "on",
@@ -31,7 +38,6 @@ const config: PlaywrightTestConfig = {
       {
          name: "Desktop Firefox",
          use: {
-            locale: "es-ES",
             trace: "on",
             video: "on",
             screenshot: "on",
@@ -41,7 +47,6 @@ const config: PlaywrightTestConfig = {
       {
          name: "Desktop Safari",
          use: {
-            locale: "es-ES",
             trace: "on",
             video: "on",
             screenshot: "on",
@@ -51,7 +56,6 @@ const config: PlaywrightTestConfig = {
       {
          name: "Tablet iOS",
          use: {
-            locale: "es-ES",
             trace: "on",
             video: "on",
             screenshot: "on",
@@ -61,7 +65,6 @@ const config: PlaywrightTestConfig = {
       {
          name: "Tablet Android",
          use: {
-            locale: "es-ES",
             trace: "on",
             video: "on",
             screenshot: "on",
@@ -71,7 +74,6 @@ const config: PlaywrightTestConfig = {
       {
          name: "Mobile Android",
          use: {
-            locale: "es-ES",
             trace: "on",
             video: "on",
             screenshot: "on",
@@ -81,7 +83,6 @@ const config: PlaywrightTestConfig = {
       {
          name: "Mobile iOS",
          use: {
-            locale: "es-ES",
             trace: "on",
             video: "on",
             screenshot: "on",
@@ -89,18 +90,13 @@ const config: PlaywrightTestConfig = {
          }
       }
    ],
-   reporter: [["html", { outputFolder: "dist/tests/e2e/reports/local", open: false }], ["list"]],
+   reporter: [["html", { outputFolder: reporterOutputFolder, open: "never" }], ["list"]],
    retries: 2,
-   testDir: path.resolve(process.cwd(), "e2e"),
+   testDir,
    testMatch: "**/*.e2e.ts",
    timeout: 30000,
-   use: { baseURL: "http://localhost:3000" },
-   webServer: {
-      command: "./node_modules/next/dist/bin/next dev",
-      port: 3000,
-      timeout: 120 * 1000,
-      reuseExistingServer: true
-   }
+   use: { baseURL, trace: { mode: "on" } },
+   webServer
 };
 
 export default config;

@@ -2,9 +2,10 @@ import path from "path";
 
 import { PlaywrightTestConfig, devices } from "@playwright/test";
 
-const baseURL = process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000";
-
-const outputDir = path.join(process.cwd(), "dist/tests/e2e/results/ci");
+const baseURL: string = process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000";
+const outputDir: string = path.join(process.cwd(), "dist/tests/e2e/results/ci");
+const reporterOutputFolder = "dist/tests/e2e/reports/ci"
+const testDir: string = path.resolve(process.cwd(), "e2e");
 
 const config: PlaywrightTestConfig = {
    outputDir,
@@ -74,9 +75,9 @@ const config: PlaywrightTestConfig = {
          }
       }
    ],
-   reporter: [["html", { outputFolder: "dist/tests/e2e/reports/ci", open: false }], ["list"]],
+   reporter: [["html", { outputFolder: reporterOutputFolder, open: 'never' }], ["list"]],
    retries: 2,
-   testDir: path.resolve(process.cwd(), "e2e"),
+   testDir,
    testMatch: "**/*.e2e.ts",
    timeout: 30000,
    use: { baseURL }
