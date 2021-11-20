@@ -1,7 +1,7 @@
 {
    "compilerOptions": {
       "baseUrl": ".",
-      "target": "es5",
+      "target": "esnext",
       "lib": ["dom", "dom.iterable", "esnext"],
       "allowJs": true,
       "skipLibCheck": true,
@@ -15,6 +15,13 @@
       "isolatedModules": true,
       "jsx": "preserve",
       "incremental": true,
+      "noImplicitAny": false,
+      "strictNullChecks": false,
+      "strictFunctionTypes": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "noImplicitReturns": false,
+      "noFallthroughCasesInSwitch": true,
       "paths": {
          "$styles/*": ["src/styles/*"],
          "$shared/layout": ["src/lib/shared/layout/index.ts"],
@@ -22,5 +29,5 @@
       }
    },
    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-   "exclude": ["node_modules"]
+   "exclude": [".github", ".vscode", "dist", "node_modules"]
 }
