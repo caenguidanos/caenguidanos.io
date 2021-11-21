@@ -21,6 +21,7 @@
       "e2e": "playwright test",
       "format": "prettier --write .",
       "playwright": "playwright",
+      "commitlint": "commitlint",
       "prepare": "husky install"
    },
    "dependencies": {
