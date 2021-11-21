@@ -19,8 +19,12 @@ if [ "$BRANCH" == "development" ]; then
    exit 1
 fi
 
-# Run Jest tests with coverage
-pnpm test -- --coverage
+if [ "$SKIP_CHECK" == "true" ]; then
+   echo "CAUTION: Skipping pre-push hook"
+else
+   # Run Jest tests with coverage
+   pnpm test
 
-# Run Playwright local E2E tests
-pnpm e2e
+   # Run Playwright local E2E tests
+   pnpm e2e
+fi
