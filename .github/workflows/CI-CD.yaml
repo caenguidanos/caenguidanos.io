@@ -16,7 +16,7 @@ jobs:
            run: echo "The branch name is ${{ github.event.pull_request.base.ref }}"
 
          - name: Check branch name
-         - uses: actions/github-script@v5
+           uses: actions/github-script@v5
            with:
               script: |
                  const branch = "${{ github.event.pull_request.base.ref }}";
