@@ -5,33 +5,28 @@
 BRANCH="$(git branch --show-current)"
 
 if [ "$BRANCH" == "main" ]; then
-   echo "You can't commit to protected main"
+   echo "ERROR: You can't commit to protected main"
    exit 1
 fi
 
 if [ "$BRANCH" == "staging" ]; then
-   echo "You can't commit to protected staging"
+   echo "ERROR: You can't commit to protected staging"
    exit 1
 fi
 
 if [ "$BRANCH" == "development" ]; then
-   echo "You can't commit to protected development"
+   echo "ERROR: You can't commit to protected development"
    exit 1
 fi
 
-if [ "$BRANCH" =~ '/^((feature|bugfix|hotfix|experimental)\/(issue-[0-9]+$)|release\/[0-9]\.[0-9]\.[0-9]$)$/g' ]; then
-   # Lint github/workflows yaml files
-   sh "$PWD"/.github/scripts/yaml-linter.sh
+# Lint github/workflows yaml files
+sh "$PWD"/.github/scripts/yaml-linter.sh
 
-   # Lint app
-   pnpm lint
+# Lint app
+pnpm lint
 
-   # Format workspace
-   pnpm format
+# Format workspace
+pnpm format
 
-   # Add changes to commit
-   git add .
-
-else
-   echo "Invalid branch name."
-fi
+# Add changes to commit
+git add .
