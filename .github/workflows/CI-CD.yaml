@@ -20,7 +20,8 @@ jobs:
            with:
               script: |
                  const branch = "${{ github.event.pull_request.base.ref }}";
-                 console.log("${{ github.ref }}")
+                 console.log("${{ github.head_ref }}")
+                 console.log("${{ github.base_ref }}")
 
                  const matches = branch.match(/^((feature|bugfix|hotfix|experimental)\/(issue-[0-9]+$)|release\/[0-9]\.[0-9]\.[0-9]$)$/g);
 
