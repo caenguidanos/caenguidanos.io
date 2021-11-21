@@ -25,8 +25,11 @@ jobs:
 
                  if (!matches) {
                      throw new Error("Invalid branch name")
-                     exit 1
+                     process.exit(1)
                  }
+
+                 console.log("Branch is valid")
+                 process.exit(0)
 
    lint:
       runs-on: ubuntu-latest
