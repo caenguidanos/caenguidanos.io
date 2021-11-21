@@ -14,9 +14,10 @@ interface NodeCustomProperties extends Data {
    value: string;
 }
 
-const plugin = <Tree extends Node<Data> & NodeCustomProperties>(options: PluginOptions) => {
+export const remarkShiki = <Tree extends Node<Data> & NodeCustomProperties>(
+   options: PluginOptions
+) => {
    // Active { allowDangerousHtml: true } on remarkRehype
-
    const visitor: BuildVisitor<Tree, "code"> = (node) => {
       const metadata = { lang: node.lang, code: node.value };
 
@@ -31,5 +32,3 @@ const plugin = <Tree extends Node<Data> & NodeCustomProperties>(options: PluginO
 
    return tranformer;
 };
-
-export default plugin;
