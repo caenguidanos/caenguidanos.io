@@ -19,14 +19,19 @@ if [ "$BRANCH" == "development" ]; then
    exit 1
 fi
 
-# Lint github/workflows yaml files
-sh "$PWD"/.github/scripts/yaml-linter.sh
+if [ "$BRANCH" =~ '/^((feature|bugfix|hotfix|experimental)\/(issue-[0-9]+$)|release\/[0-9]\.[0-9]\.[0-9]$)$/g' ]; then
+   # Lint github/workflows yaml files
+   sh "$PWD"/.github/scripts/yaml-linter.sh
 
-# Lint Next.js app
-pnpm lint
+   # Lint app
+   pnpm lint
 
-# Format workspace
-pnpm format
+   # Format workspace
+   pnpm format
 
-# Add changes to commit
-git add .
+   # Add changes to commit
+   git add .
+
+else
+   echo "Invalid branch name."
+fi

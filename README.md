@@ -78,7 +78,6 @@ pnpm e2e
 -  HotFix `hotfix/issue-56-221`
 -  Experimental `experimental/issue-29`
 -  Release `release/1.4.5`
--  Merge `merge/new-features`
 
 ## Commits
 
