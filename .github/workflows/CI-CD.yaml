@@ -12,13 +12,16 @@ env:
 jobs:
    prepare:
       runs-on: ubuntu-latest
+      outputs:
+         branch: ${{ steps.clean-branch-name.outputs.result }}
       steps:
          - name: Print branch name
            run: echo "The branch name is ${{ github.event.pull_request.base.ref }}"
-
+           
          - name: Check branch name
            uses: actions/github-script@v5
            with:
+              result-encoding: string
               script: |
                  const branch = "${{ github.head_ref }}";
                  const matches = branch.match(/^((feature|bugfix|hotfix|experimental|merge)\/(issue-[0-9]+$)|release\/[0-9]\.[0-9]\.[0-9]$)$/g);
@@ -27,12 +30,16 @@ jobs:
                      throw new Error("Invalid branch name")
                      process.exit(1)
                  }
+ 
+         - id: clean-branch-name
+           name: Clean branch name
+           uses: actions/github-script@v5
+           with:
+              result-encoding: string
+              script: |
+                 const branch = "${{ github.head_ref }}";
                  
-                 if (branch.match(/release/)) {
-                   process.env.RELEASE_BRANCH = branch.replace("/", "-");
-                 }
-
-                 console.log("Branch is valid")
+                 return branch.match(/release/) ? branch.replace("/", "-") : branch;
 
    lint:
       runs-on: ubuntu-latest
@@ -130,7 +137,7 @@ jobs:
            if: ${{ contains(github.head_ref, 'release') }}
            uses: google-github-actions/deploy-cloudrun@main
            with:
-              service: ${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ env.RELEASE_BRANCH }}
+              service: ${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}
               image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
               region: ${{ env.GCP_REGION }}
               flags: --max-instances=2 --port=3000 --allow-unauthenticated --concurrency=20
@@ -270,7 +277,7 @@ jobs:
            if: ${{ contains(github.head_ref, 'release') }}
            uses: google-github-actions/deploy-cloudrun@main
            with:
-              service: ${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ github.RELEASE_BRANCH }}
+              service: ${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}
               image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
               region: ${{ env.GCP_REGION }}
               flags: --max-instances=2 --port=3000 --allow-unauthenticated --concurrency=20
