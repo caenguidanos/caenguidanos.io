@@ -30,7 +30,7 @@ Welcome to my [personal site](https://caenguidanos-io.vercel.app).
 #### Testing
 
 - :zap: [playwright](https://playwright.dev/)
-- :zep: [jest](https://jestjs.io/es-ES/)
+- :zap: [jest](https://jestjs.io/es-ES/)
 
 #### Hosting:
 
