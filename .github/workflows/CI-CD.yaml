@@ -39,7 +39,7 @@ jobs:
               script: |
                  const branch = "${{ github.head_ref }}";
                  
-                 return branch.match(/release/) ? branch.replace("/", "-") : branch;
+                 return branch.match(/release/) ? branch.replace(/\.-/g, "-") : branch;
 
    lint:
       runs-on: ubuntu-latest
