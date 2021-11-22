@@ -16,19 +16,29 @@ Welcome to my [personal site](https://caenguidanos-io.vercel.app).
 -  :zap: [react](https://reactjs.org/)
 -  :zap: [preact](https://preactjs.com/)
 -  :zap: [next.js](https://nextjs.org/)
--  :zap: [tailwindcss](https://tailwindcss.com/)
--  :zap: [playwright](https://playwright.dev/)
--  :zap: [jest](https://jestjs.io/es-ES/)
 -  :zap: [typescript](https://www.typescriptlang.org/)
--  :zap: [eslint](https://eslint.org/)
 
-#### Infra:
+#### CSS
+
+-  :zap: [tailwindcss](https://tailwindcss.com/)
+
+#### Lint
+
+-  :zap: [eslint](https://eslint.org/)
+-  :zap: [commitlint](https://www.conventionalcommits.org/en/v1.0.0/)
+
+#### Testing
+
+- :zap: [playwright](https://playwright.dev/)
+- :zep: [jest](https://jestjs.io/es-ES/)
+
+#### Hosting:
 
 -  :zap: [vercel](https://vercel.com/)
+-  :zap: [google cloud run](https://cloud.google.com/run)
 
 #### CI/CD
 
--  :zap: [sonarcloud](https://sonarcloud.io/)
 -  :zap: [github actions](https://github.com/features/actions)
 
 #### Extra
@@ -81,18 +91,13 @@ pnpm e2e
 
 ### Type
 
--  **build**: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
--  **ci**: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
--  **docs**: Documentation only changes
--  **feat**: A new feature
--  **fix**: A bug fix
--  **perf**: A code change that improves performance
--  **refactor**: A code change that neither fixes a bug nor adds a feature
--  **revert**: A code that reverts some functionality
--  **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
--  **test**: Adding missing tests or correcting existing tests
-
-**Reference**:
-
--  [Angular](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#type)
--  [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#summary)
+-  **build**
+-  **ci**
+-  **docs**
+-  **feat**
+-  **fix**
+-  **perf**
+-  **refactor**
+-  **revert**
+-  **style**
+-  **test**
