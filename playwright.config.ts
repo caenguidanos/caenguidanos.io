@@ -18,66 +18,12 @@ const config: PlaywrightTestConfig = {
    preserveOutput: "always",
    projects: [
       {
-         name: "Desktop Edge",
-         use: {
-            trace: "on",
-            video: "on",
-            screenshot: "on",
-            ...devices["Desktop Edge"]
-         }
-      },
-      {
          name: "Desktop Chrome",
          use: {
             trace: "on",
             video: "on",
             screenshot: "on",
             ...devices["Desktop Chrome"]
-         }
-      },
-      {
-         name: "Desktop Firefox",
-         use: {
-            trace: "on",
-            video: "on",
-            screenshot: "on",
-            ...devices["Desktop Firefox"]
-         }
-      },
-      {
-         name: "Desktop Safari",
-         use: {
-            trace: "on",
-            video: "on",
-            screenshot: "on",
-            ...devices["Desktop Safari"]
-         }
-      },
-      {
-         name: "Tablet iOS",
-         use: {
-            trace: "on",
-            video: "on",
-            screenshot: "on",
-            ...devices["iPad Mini"]
-         }
-      },
-      {
-         name: "Tablet Android",
-         use: {
-            trace: "on",
-            video: "on",
-            screenshot: "on",
-            ...devices["Galaxy Tab S4"]
-         }
-      },
-      {
-         name: "Mobile Android",
-         use: {
-            trace: "on",
-            video: "on",
-            screenshot: "on",
-            ...devices["Pixel 5"]
          }
       },
       {

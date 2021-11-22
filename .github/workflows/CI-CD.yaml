@@ -15,6 +15,20 @@ jobs:
          - name: Print branch name
            run: echo "The branch name is ${{ github.event.pull_request.base.ref }}"
 
+         - name: Check branch name
+           uses: actions/github-script@v5
+           with:
+              script: |
+                 const branch = "${{ github.head_ref }}";
+                 const matches = branch.match(/^((feature|bugfix|hotfix|experimental)\/(issue-[0-9]+$)|release\/[0-9]\.[0-9]\.[0-9]$)$/g);
+
+                 if (!matches) {
+                     throw new Error("Invalid branch name")
+                     process.exit(1)
+                 }
+
+                 console.log("Branch is valid")
+
    lint:
       runs-on: ubuntu-latest
       needs: [prepare]
