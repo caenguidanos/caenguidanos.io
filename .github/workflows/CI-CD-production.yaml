@@ -8,7 +8,6 @@ jobs:
    unit-testing:
       runs-on: ubuntu-latest
       if: github.event.pull_request.merged == true
-      needs: [lint, prepare]
       env:
          GCP_CLOUD_RUN_SERVICE: unit-jest-reports
       steps:
@@ -77,6 +76,7 @@ jobs:
            run: |
               gcloud artifacts docker images delete ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
    deploy:
+      needs: [unit-testing]
       runs-on: ubuntu-latest
       if: github.event.pull_request.merged == true
       steps:
