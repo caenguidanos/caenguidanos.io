@@ -4,11 +4,6 @@
 # Check first if we are pushing to protected
 BRANCH="$(git branch --show-current)"
 
-if [ "$BRANCH" == "main" ]; then
-   echo "You can't push to protected main"
-   exit 1
-fi
-
 if [ "$SKIP_CHECK" == "true" ]; then
    echo "CAUTION: Skipping pre-push hook"
 else
