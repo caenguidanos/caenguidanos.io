@@ -21,7 +21,7 @@ jobs:
            with:
               script: |
                  const branch = "${{ github.head_ref }}";
-                 const matches = branch.match(/^((feature|bugfix|hotfix|experimental)\/(issue-[0-9]+$)|release\/[0-9]\.[0-9]\.[0-9]$)$/g);
+                 const matches = branch.match(/^((feature|bugfix|hotfix|experimental|merge)\/(issue-[0-9]+$)|release\/[0-9]\.[0-9]\.[0-9]$)$/g);
 
                  if (!matches) {
                      throw new Error("Invalid branch name")
