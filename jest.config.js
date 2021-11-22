@@ -20,7 +20,7 @@ const customJestConfig = {
       }
    },
    moduleNameMapper: {
-      "^\\$styles/(.*)$": ["<rootDir>/src/styles/$1"],
+      "^\\$styles/(.*)$": ["<rootDir>/styles/$1"],
       "^\\$shared/layout$": ["<rootDir>/src/lib/shared/layout/index.ts"],
       "^\\$shared/markdown$": ["<rootDir>/src/lib/shared/markdown/index.ts"],
       "^\\$shared/constants$": ["<rootDir>/src/lib/shared/constants/index.ts"]
