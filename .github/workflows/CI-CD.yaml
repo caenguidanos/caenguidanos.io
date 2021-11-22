@@ -2,8 +2,8 @@ on:
    pull_request:
       types: [opened, synchronize, reopened]
       branches:
-         - main
-name: CI/CD Production
+         - release/**
+name: CI/CD
 env:
    GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT }}
    GCP_REGION: ${{ secrets.GCP_REGION }}
@@ -23,53 +23,17 @@ jobs:
               result-encoding: string
               script: |
                  const originBranch = "${{ github.head_ref }}";
-                 const regexp = /^(release)\/([0-9]\.[0-9]\.[0-9])$/g;
+                 const regexp = /^(feature|hotfix|bugfix|experimental)\/(issue-[0-9]+)$/g;
                  const matches = originBranch.match(regexp);
 
                  if (!matches) {
-                     throw new Error("You only can push from release/** branch to main");
+                     throw new Error("You only can push from [feature/hotfix/bugfix/experimental] branch to release/**");
                      process.exit(1);
                  }
 
-         - id: clean-branch-name
-           name: Clean Branch Name
-           uses: actions/github-script@v5
-           with:
-              result-encoding: string
-              script: |
-                 const originBranch = "${{ github.head_ref }}";
-                 return originBranch.replace(/\./g, "-").replace(/\//g, "-");
-
-   lint:
-      runs-on: ubuntu-latest
-      needs: [prepare]
-      steps:
-         - uses: actions/checkout@v2
-
-         - name: Install Node
-           uses: actions/setup-node@v2
-           with:
-              node-version: "16.13.0"
-
-         - name: Configure Pnpm Cache
-           uses: actions/cache@v2
-           with:
-              path: ~/.pnpm-store
-              key: ${{ runner.os }}-node16-${{ hashFiles('**/package.json') }}
-              restore-keys: ${{ runner.os }}-node16-
-
-         - name: Install Pnpm and Dependencies
-           uses: pnpm/action-setup@v2.0.1
-           with:
-              version: 6.22.2
-              run_install: true
-
-         - name: Run Built-In Linter
-           run: pnpm lint -- --no-cache
-
    unit-testing:
       runs-on: ubuntu-latest
-      needs: [lint, prepare]
+      needs: [prepare]
       env:
          GCP_CLOUD_RUN_SERVICE: unit-jest-reports
       steps:
@@ -108,56 +72,6 @@ jobs:
               name: unit-testing-report-lcov
               path: dist/tests/unit/reports/lcov.info
 
-         - name: Setup Google Cloud Platform SDK
-           uses: google-github-actions/setup-gcloud@master
-           with:
-              project_id: ${{ env.GCP_PROJECT_ID }}
-              service_account_key: ${{ secrets.GCP_SA_KEY }}
-              export_default_credentials: true
-
-         - name: Authorize Docker Configuration for Artifact Registry
-           run: gcloud auth configure-docker ${{ env.GCP_REGION }}-docker.pkg.dev
-
-         - name: Build Release Container
-           run: |
-              docker build -f .github/images/jest-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }} .
-
-         - name: Push Release Container
-           run: |
-              docker push ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
-
-         - name: Deploy Release Container to Cloud Run
-           uses: google-github-actions/deploy-cloudrun@main
-           with:
-              service: ${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}
-              image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
-              region: ${{ env.GCP_REGION }}
-              flags: --max-instances=2 --port=3000 --allow-unauthenticated --concurrency=20
-
-         - name: Remove Deployed Release Container from Registry
-           run: |
-              gcloud artifacts docker images delete ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
-
-         - name: Build Production Container
-           run: |
-              docker build -f .github/images/jest-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }} .
-
-         - name: Push Production Container
-           run: |
-              docker push ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
-
-         - name: Deploy Production Container to Cloud Run
-           uses: google-github-actions/deploy-cloudrun@main
-           with:
-              service: ${{ env.GCP_CLOUD_RUN_SERVICE }}
-              image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
-              region: ${{ env.GCP_REGION }}
-              flags: --max-instances=2 --port=3000 --allow-unauthenticated --concurrency=20
-
-         - name: Remove Deployed Production Container from Registry
-           run: |
-              gcloud artifacts docker images delete ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
-
    deploy:
       needs: [unit-testing]
       runs-on: ubuntu-latest
@@ -185,7 +99,7 @@ jobs:
          - name: Deploy Preview to Vercel
            id: vercel-deploy
            run: |
-              pnpx vercel -t ${VERCEL_TOKEN} > url.txt
+              pnpx vercel -t ${VERCEL_TOKEN} > preview-url.txt
            env:
               VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
               VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
@@ -195,7 +109,7 @@ jobs:
            uses: actions/upload-artifact@v2
            with:
               name: preview-url
-              path: url.txt
+              path: preview-url.txt
 
    e2e-testing:
       needs: [deploy, prepare]
@@ -229,72 +143,10 @@ jobs:
 
          - name: Run E2E Tests
            run: |
-              PLAYWRIGHT_BASE_URL=$(cat url.txt) pnpm playwright -- test --config=.github/config/ci/playwright.config.ts
+              PLAYWRIGHT_BASE_URL=$(cat preview-url.txt) pnpm playwright -- test --config=.github/config/ci/playwright.config.ts
 
          - name: Save E2E Results
            uses: actions/upload-artifact@v2
            with:
               name: e2e-testing-report
               path: dist/tests/e2e/reports/ci
-
-         - name: Setup Google Cloud Platform SDK
-           uses: google-github-actions/setup-gcloud@master
-           with:
-              project_id: ${{ env.GCP_PROJECT_ID }}
-              service_account_key: ${{ secrets.GCP_SA_KEY }}
-              export_default_credentials: true
-
-         - name: Authorize Docker Configuration for Artifact Registry
-           run: gcloud auth configure-docker ${{ env.GCP_REGION }}-docker.pkg.dev
-
-         - name: Build Release Container
-           run: |
-              docker build -f .github/images/playwright-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }} .
-
-         - name: Push Release Container
-           run: |
-              docker push ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
-
-         - name: Deploy Release Container to Cloud Run
-           uses: google-github-actions/deploy-cloudrun@main
-           with:
-              service: ${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}
-              image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
-              region: ${{ env.GCP_REGION }}
-              flags: --max-instances=2 --port=9323 --allow-unauthenticated --concurrency=20
-
-         - name: Remove Deployed Release Container from Registry
-           run: |
-              gcloud artifacts docker images delete ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
-
-         - name: Build Production Container
-           run: |
-              docker build -f .github/images/playwright-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }} .
-
-         - name: Push Production Container
-           run: |
-              docker push ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
-
-         - name: Deploy Production Container to Cloud Run
-           uses: google-github-actions/deploy-cloudrun@main
-           with:
-              service: ${{ env.GCP_CLOUD_RUN_SERVICE }}
-              image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
-              region: ${{ env.GCP_REGION }}
-              flags: --max-instances=2 --port=9323 --allow-unauthenticated --concurrency=20
-
-         - name: Remove Deployed Production Container from Registry
-           run: |
-              gcloud artifacts docker images delete ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
-
-   finnish:
-      needs: [e2e-testing]
-      runs-on: ubuntu-latest
-      steps:
-         - name: Deploy production
-           run: |
-              pnpx vercel -t ${VERCEL_TOKEN} --prod
-           env:
-              VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-              VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-              VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
