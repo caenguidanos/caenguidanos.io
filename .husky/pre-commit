@@ -4,29 +4,23 @@
 # Check first if we are commiting to protected
 BRANCH="$(git branch --show-current)"
 
-if [ "$BRANCH" == "main" ]; then
-   echo "You can't commit to protected main"
-   exit 1
+if [ "$SKIP_CHECK" == "true" ]; then
+   echo "CAUTION: Skipping pre-commit hook"
+else
+   if [ "$BRANCH" == "main" ]; then
+      echo "ERROR: You can't commit to protected main"
+      exit 1
+   fi
+
+   # Lint github/workflows yaml files
+   sh "$PWD"/.github/scripts/yaml-linter.sh
+
+   # Lint app
+   pnpm lint
+
+   # Format workspace
+   pnpm format
+
+   # Add changes to commit
+   git add .
 fi
-
-if [ "$BRANCH" == "staging" ]; then
-   echo "You can't commit to protected staging"
-   exit 1
-fi
-
-if [ "$BRANCH" == "development" ]; then
-   echo "You can't commit to protected development"
-   exit 1
-fi
-
-# Lint github/workflows yaml files
-sh "$PWD"/.github/scripts/yaml-linter.sh
-
-# Lint Next.js app
-pnpm lint
-
-# Format workspace
-pnpm format
-
-# Add changes to commit
-git add .

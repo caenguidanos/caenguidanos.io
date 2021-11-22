@@ -4,23 +4,12 @@
 # Check first if we are pushing to protected
 BRANCH="$(git branch --show-current)"
 
-if [ "$BRANCH" == "main" ]; then
-   echo "You can't push to protected main"
-   exit 1
+if [ "$SKIP_CHECK" == "true" ]; then
+   echo "CAUTION: Skipping pre-push hook"
+else
+   # Run Jest tests with coverage
+   pnpm test
+
+   # Run Playwright local E2E tests
+   pnpm e2e
 fi
-
-if [ "$BRANCH" == "staging" ]; then
-   echo "You can't push to protected staging"
-   exit 1
-fi
-
-if [ "$BRANCH" == "development" ]; then
-   echo "You can't push to protected development"
-   exit 1
-fi
-
-# Run Jest tests with coverage
-pnpm test -- --coverage
-
-# Run Playwright local E2E tests
-pnpm e2e

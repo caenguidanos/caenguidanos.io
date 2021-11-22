@@ -4,44 +4,35 @@ import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import rehypeRaw from "rehype-raw";
-import { getHighlighter, Highlighter } from "shiki";
+import { Highlighter } from "shiki";
 
-import remarkShiki from "../plugins/shiki-remark/plugin";
-import remarkShikiTheme from "../plugins/shiki-remark/theme.json";
+import { EMPTY_STRING } from "$shared/constants";
+
+import { remarkShiki, remarkShikiCacheHighlighter, remarkShikiThemes } from "../plugins";
 
 interface TransformToHtmlOptions {
    input: string;
 }
 
-function cacheHighlighter(): Promise<Highlighter> {
-   let highlighter: Highlighter;
-
-   return new Promise<Highlighter>((resolve) => {
-      if (!highlighter) {
-         getHighlighter({
-            theme: remarkShikiTheme as unknown as string
-         }).then((nextHighlighter) => {
-            highlighter = nextHighlighter;
-
-            resolve(highlighter);
-         });
-      } else {
-         resolve(highlighter);
-      }
-   });
-}
+const getHighlighterCache = remarkShikiCacheHighlighter({ theme: remarkShikiThemes.github.light });
 
 export async function transformToHtml(options: TransformToHtmlOptions): Promise<string> {
-   const highlighter: Highlighter = await cacheHighlighter();
+   try {
+      const highlighter: Highlighter = await getHighlighterCache();
 
-   const file = await unified()
-      .use(remarkParse)
-      .use(remarkShiki, { highlighter })
-      .use(remarkGfm)
-      .use(remarkRehype, { allowDangerousHtml: true })
-      .use(rehypeRaw)
-      .use(rehypeStringify)
-      .process(options.input);
+      const file = await unified()
+         .use(remarkParse)
+         .use(remarkShiki, { highlighter })
+         .use(remarkGfm)
+         .use(remarkRehype, { allowDangerousHtml: true })
+         .use(rehypeRaw)
+         .use(rehypeStringify)
+         .process(options.input);
 
-   return file.toString();
+      return file.toString();
+   } catch (error) {
+      console.error(error);
+
+      return EMPTY_STRING;
+   }
 }

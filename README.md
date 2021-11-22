@@ -4,9 +4,8 @@ Welcome to my [personal site](https://caenguidanos-io.vercel.app).
 
 #### Go to
 
--  [E2E Testing Reports](https://e2e-playwright-reports-xxg3rsseuq-oa.a.run.app)
--  [Unit Testing Reports](https://unit-jest-reports-xxg3rsseuq-oa.a.run.app)
--  [SonarCloud Analysis](https://sonarcloud.io/summary/overall?id=caenguidanos_caenguidanos.io)
+-  [E2E Testing reports](https://e2e-playwright-reports-xxg3rsseuq-oa.a.run.app)
+-  [Unit Testing reports](https://unit-jest-reports-xxg3rsseuq-oa.a.run.app)
 
 #### Engine:
 
@@ -20,7 +19,6 @@ Welcome to my [personal site](https://caenguidanos-io.vercel.app).
 -  :zap: [tailwindcss](https://tailwindcss.com/)
 -  :zap: [playwright](https://playwright.dev/)
 -  :zap: [jest](https://jestjs.io/es-ES/)
--  :zap: [nvm](https://github.com/nvm-sh/nvm)
 -  :zap: [typescript](https://www.typescriptlang.org/)
 -  :zap: [eslint](https://eslint.org/)
 
@@ -58,7 +56,7 @@ pnpm dev
 Run **Jest** tests:
 
 ```bash
-pnpm test -- --coverage
+pnpm test
 ```
 
 ### E2E
@@ -68,3 +66,33 @@ Run **Playwright** tests:
 ```bash
 pnpm e2e
 ```
+
+## Branch
+
+### Type
+
+-  **feature**
+-  **bugfix**
+-  **hotfix**
+-  **experimental**
+-  **release**
+
+## Commit
+
+### Type
+
+-  **build**: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
+-  **ci**: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
+-  **docs**: Documentation only changes
+-  **feat**: A new feature
+-  **fix**: A bug fix
+-  **perf**: A code change that improves performance
+-  **refactor**: A code change that neither fixes a bug nor adds a feature
+-  **revert**: A code that reverts some functionality
+-  **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+-  **test**: Adding missing tests or correcting existing tests
+
+**Reference**:
+
+-  [Angular](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#type)
+-  [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#summary)

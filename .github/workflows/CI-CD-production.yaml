@@ -1,0 +1,186 @@
+on:
+   pull_request:
+      types: [closed]
+      branches:
+         - main
+name: CI/CD Production
+jobs:
+   unit-testing:
+      runs-on: ubuntu-latest
+      if: github.event.pull_request.merged == true
+      needs: [lint, prepare]
+      env:
+         GCP_CLOUD_RUN_SERVICE: unit-jest-reports
+      steps:
+         - uses: actions/checkout@v2
+
+         - name: Install Node
+           uses: actions/setup-node@v2
+           with:
+              node-version: "16.13.0"
+
+         - name: Configure Pnpm Cache
+           uses: actions/cache@v2
+           with:
+              path: ~/.pnpm-store
+              key: ${{ runner.os }}-node16-${{ hashFiles('**/package.json') }}
+              restore-keys: ${{ runner.os }}-node16-
+
+         - name: Install Pnpm and Dependencies
+           uses: pnpm/action-setup@v2.0.1
+           with:
+              version: 6.22.2
+              run_install: true
+
+         - name: Run Unit Testing
+           run: pnpm test
+
+         - name: Save Unit Testing Coverage Reports
+           uses: actions/upload-artifact@v2
+           with:
+              name: unit-testing-report
+              path: dist/tests/unit/reports
+
+         - name: Save Unit Testing Coverage LCOV
+           uses: actions/upload-artifact@v2
+           with:
+              name: unit-testing-report-lcov
+              path: dist/tests/unit/reports/lcov.info
+
+         - name: Setup Google Cloud Platform SDK
+           uses: google-github-actions/setup-gcloud@master
+           with:
+              project_id: ${{ env.GCP_PROJECT_ID }}
+              service_account_key: ${{ secrets.GCP_SA_KEY }}
+              export_default_credentials: true
+
+         - name: Authorize Docker Configuration for Artifact Registry
+           run: gcloud auth configure-docker ${{ env.GCP_REGION }}-docker.pkg.dev
+
+         - name: Build Production Container
+           run: |
+              docker build -f .github/images/jest-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }} .
+
+         - name: Push Production Container
+           run: |
+              docker push ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
+
+         - name: Deploy Production Container to Cloud Run
+           uses: google-github-actions/deploy-cloudrun@main
+           with:
+              service: ${{ env.GCP_CLOUD_RUN_SERVICE }}
+              image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
+              region: ${{ env.GCP_REGION }}
+              flags: --max-instances=2 --port=3000 --allow-unauthenticated --concurrency=20
+
+         - name: Remove Deployed Production Container from Registry
+           run: |
+              gcloud artifacts docker images delete ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
+   deploy:
+      runs-on: ubuntu-latest
+      if: github.event.pull_request.merged == true
+      steps:
+         - uses: actions/checkout@v2
+
+         - name: Install Node
+           uses: actions/setup-node@v2
+           with:
+              node-version: "16.13.0"
+
+         - name: Configure Pnpm Cache
+           uses: actions/cache@v2
+           with:
+              path: ~/.pnpm-store
+              key: ${{ runner.os }}-node16-${{ hashFiles('**/package.json') }}
+              restore-keys: ${{ runner.os }}-node16-
+
+         - name: Install Pnpm and Dependencies
+           uses: pnpm/action-setup@v2.0.1
+           with:
+              version: 6.22.2
+              run_install: false
+
+         - name: Deploy production
+           run: |
+              pnpx vercel -t ${VERCEL_TOKEN} --prod > production-url.txt
+           env:
+              VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+              VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+              VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+
+         - name: Save Preview-Url
+           uses: actions/upload-artifact@v2
+           with:
+              name: production-url
+              path: production-url.txt
+
+   e2e-testing:
+      needs: [deploy]
+      runs-on: ubuntu-latest
+      if: github.event.pull_request.merged == true
+      env:
+         GCP_CLOUD_RUN_SERVICE: e2e-playwright-reports
+      steps:
+         - uses: actions/checkout@v2
+
+         - name: Install Node
+           uses: actions/setup-node@v2
+           with:
+              node-version: "16.13.0"
+
+         - name: Install Pnpm and Dependencies
+           uses: pnpm/action-setup@v2.0.1
+           with:
+              version: 6.22.2
+              run_install: true
+
+         - name: Install Playwright OS Dependncies
+           run: pnpm playwright -- install-deps
+
+         - name: Install Playwright OS Browsers
+           run: pnpm playwright -- install
+
+         - name: Download Preview-Url from Deploy
+           uses: actions/download-artifact@v2
+           with:
+              name: production-url
+
+         - name: Run E2E Tests
+           run: |
+              PLAYWRIGHT_BASE_URL=$(cat production-url.txt) pnpm playwright -- test --config=.github/config/ci/playwright.config.ts
+
+         - name: Save E2E Results
+           uses: actions/upload-artifact@v2
+           with:
+              name: e2e-testing-report
+              path: dist/tests/e2e/reports/ci
+
+         - name: Setup Google Cloud Platform SDK
+           uses: google-github-actions/setup-gcloud@master
+           with:
+              project_id: ${{ env.GCP_PROJECT_ID }}
+              service_account_key: ${{ secrets.GCP_SA_KEY }}
+              export_default_credentials: true
+
+         - name: Authorize Docker Configuration for Artifact Registry
+           run: gcloud auth configure-docker ${{ env.GCP_REGION }}-docker.pkg.dev
+
+         - name: Build Production Container
+           run: |
+              docker build -f .github/images/playwright-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }} .
+
+         - name: Push Production Container
+           run: |
+              docker push ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
+
+         - name: Deploy Production Container to Cloud Run
+           uses: google-github-actions/deploy-cloudrun@main
+           with:
+              service: ${{ env.GCP_CLOUD_RUN_SERVICE }}
+              image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
+              region: ${{ env.GCP_REGION }}
+              flags: --max-instances=2 --port=9323 --allow-unauthenticated --concurrency=20
+
+         - name: Remove Deployed Production Container from Registry
+           run: |
+              gcloud artifacts docker images delete ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
