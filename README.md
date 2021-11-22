@@ -6,7 +6,6 @@ Welcome to my [personal site](https://caenguidanos-io.vercel.app).
 
 -  [E2E Testing reports](https://e2e-playwright-reports-xxg3rsseuq-oa.a.run.app)
 -  [Unit Testing reports](https://unit-jest-reports-xxg3rsseuq-oa.a.run.app)
--  [SonarCloud analysis](https://sonarcloud.io/summary/overall?id=caenguidanos_caenguidanos.io)
 
 #### Engine:
 

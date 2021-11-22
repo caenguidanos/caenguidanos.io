@@ -2,7 +2,7 @@ on:
    pull_request:
       types: [opened, synchronize, reopened]
       branches:
-         - main
+         - release/**
 name: CI/CD Release
 env:
    GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT }}
@@ -23,7 +23,7 @@ jobs:
               result-encoding: string
               script: |
                  const originBranch = "${{ github.head_ref }}";
-                 const regexp = /^(feature/hotfix/bugfix/experimental)\/(issue-[0-9]+)$/g;
+                 const regexp = /^(feature|hotfix|bugfix|experimental)\/(issue-[0-9]+)$/g;
                  const matches = originBranch.match(regexp);
 
                  if (!matches) {
@@ -108,27 +108,8 @@ jobs:
               name: unit-testing-report-lcov
               path: dist/tests/unit/reports/lcov.info
 
-   analysis:
-      runs-on: ubuntu-latest
-      needs: [unit-testing]
-      steps:
-         - uses: actions/checkout@v2
-           with:
-              fetch-depth: 0
-
-         - name: Download Unit Testing Coverage LCOV
-           uses: actions/download-artifact@v2
-           with:
-              name: unit-testing-report-lcov
-
-         - name: Scan with SonarCloud
-           uses: SonarSource/sonarcloud-github-action@master
-           env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
    deploy:
-      needs: [analysis]
+      needs: [unit-testing]
       runs-on: ubuntu-latest
       steps:
          - uses: actions/checkout@v2
