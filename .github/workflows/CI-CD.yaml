@@ -114,7 +114,7 @@ jobs:
               docker push ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
 
          - name: Deploy to Cloud Run
-           if: ${{ github.head_ref == "main" }}
+           if: ${{ github.head_ref == main }}
            uses: google-github-actions/deploy-cloudrun@main
            with:
               service: ${{ env.GCP_CLOUD_RUN_SERVICE }}
@@ -123,7 +123,7 @@ jobs:
               flags: --max-instances=2 --port=3000 --allow-unauthenticated --concurrency=20
 
          - name: Deploy to Cloud Run from release/**
-           if: ${{ contains(github.head_ref, "release") }}
+           if: ${{ contains(github.head_ref, release) }}
            uses: google-github-actions/deploy-cloudrun@main
            with:
               service: ${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ github.head_ref }}
@@ -254,7 +254,7 @@ jobs:
               docker push ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
 
          - name: Deploy to Cloud Run
-           if: ${{ github.head_ref == "main" }}
+           if: ${{ github.head_ref == main }}
            uses: google-github-actions/deploy-cloudrun@main
            with:
               service: ${{ env.GCP_CLOUD_RUN_SERVICE }}
@@ -263,7 +263,7 @@ jobs:
               flags: --max-instances=2 --port=9323 --allow-unauthenticated --concurrency=20
 
          - name: Deploy to Cloud Run from release/**
-           if: ${{ contains(github.head_ref, "release") }}
+           if: ${{ contains(github.head_ref, release) }}
            uses: google-github-actions/deploy-cloudrun@main
            with:
               service: ${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ github.head_ref }}
