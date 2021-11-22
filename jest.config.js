@@ -13,16 +13,17 @@ const customJestConfig = {
    coverageReporters: ["json", "lcov", "text", "html-spa"],
    coverageThreshold: {
       global: {
-         branches: 100,
-         functions: 100,
-         lines: 100,
+         branches: 90,
+         functions: 90,
+         lines: 90,
          statements: 0
       }
    },
    moduleNameMapper: {
       "^\\$styles/(.*)$": ["<rootDir>/src/styles/$1"],
       "^\\$shared/layout$": ["<rootDir>/src/lib/shared/layout/index.ts"],
-      "^\\$shared/markdown$": ["<rootDir>/src/lib/shared/markdown/index.ts"]
+      "^\\$shared/markdown$": ["<rootDir>/src/lib/shared/markdown/index.ts"],
+      "^\\$shared/constants$": ["<rootDir>/src/lib/shared/constants/index.ts"]
    },
    verbose: true
 };

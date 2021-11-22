@@ -15,7 +15,7 @@ const PageMock: PageWithLayout = () => {
    );
 };
 
-describe("SharedLayout :: DefaultLayout", () => {
+describe("shared-layout-default-layout", () => {
    it("should render", async () => {
       const { findAllByTestId } = render(<DefaultLayout page={<PageMock />} />);
 

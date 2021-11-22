@@ -25,7 +25,8 @@
       "paths": {
          "$styles/*": ["src/styles/*"],
          "$shared/layout": ["src/lib/shared/layout/index.ts"],
-         "$shared/markdown": ["src/lib/shared/markdown/index.ts"]
+         "$shared/markdown": ["src/lib/shared/markdown/index.ts"],
+         "$shared/constants": ["src/lib/shared/constants/index.ts"]
       }
    },
    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
