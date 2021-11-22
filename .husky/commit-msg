@@ -1,4 +1,9 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-pnpm commitlint -- --verbose --edit "$1"
+if [ "$SKIP_CHECK" == "true" ]; then
+   echo "CAUTION: Skipping commit-msg hook"
+else
+   # Lint commit message
+   pnpm commitlint -- --verbose --edit "$1"
+fi

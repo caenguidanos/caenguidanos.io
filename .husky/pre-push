@@ -9,16 +9,6 @@ if [ "$BRANCH" == "main" ]; then
    exit 1
 fi
 
-if [ "$BRANCH" == "staging" ]; then
-   echo "You can't push to protected staging"
-   exit 1
-fi
-
-if [ "$BRANCH" == "development" ]; then
-   echo "You can't push to protected development"
-   exit 1
-fi
-
 if [ "$SKIP_CHECK" == "true" ]; then
    echo "CAUTION: Skipping pre-push hook"
 else

@@ -72,8 +72,8 @@ pnpm e2e
 
 ### Type
 
--  **feature** 
--  **bugfix** 
+-  **feature**
+-  **bugfix**
 -  **hotfix**
 -  **experimental**
 -  **release**

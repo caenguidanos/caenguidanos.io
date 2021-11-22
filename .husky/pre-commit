@@ -9,24 +9,18 @@ if [ "$BRANCH" == "main" ]; then
    exit 1
 fi
 
-if [ "$BRANCH" == "staging" ]; then
-   echo "ERROR: You can't commit to protected staging"
-   exit 1
+if [ "$SKIP_CHECK" == "true" ]; then
+   echo "CAUTION: Skipping pre-commit hook"
+else
+   # Lint github/workflows yaml files
+   sh "$PWD"/.github/scripts/yaml-linter.sh
+
+   # Lint app
+   pnpm lint
+
+   # Format workspace
+   pnpm format
+
+   # Add changes to commit
+   git add .
 fi
-
-if [ "$BRANCH" == "development" ]; then
-   echo "ERROR: You can't commit to protected development"
-   exit 1
-fi
-
-# Lint github/workflows yaml files
-sh "$PWD"/.github/scripts/yaml-linter.sh
-
-# Lint app
-pnpm lint
-
-# Format workspace
-pnpm format
-
-# Add changes to commit
-git add .
