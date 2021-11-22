@@ -1,4 +1,4 @@
-import themeGithubLight from "./github-light.json";
+import themeGithubLight from "./github-light/theme.json";
 
 export const remarkShikiThemes = {
    github: {

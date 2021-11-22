@@ -8,13 +8,13 @@ import { Highlighter } from "shiki";
 
 import { EMPTY_STRING } from "$shared/constants";
 
-import { remarkShiki, remarkShikiCacheHighlighter } from "../plugins";
+import { remarkShiki, remarkShikiCacheHighlighter, remarkShikiThemes } from "../plugins";
 
 interface TransformToHtmlOptions {
    input: string;
 }
 
-const getHighlighterCache = remarkShikiCacheHighlighter();
+const getHighlighterCache = remarkShikiCacheHighlighter({ theme: remarkShikiThemes.github.light });
 
 export async function transformToHtml(options: TransformToHtmlOptions): Promise<string> {
    try {

@@ -1,27 +1,48 @@
 import { getHighlighter, Highlighter } from "shiki";
 import { nanoid } from "nanoid";
 
-import { remarkShikiThemes } from "../../themes";
-
 export const remarkShikiCacheHighlighterID = "__CACHE__";
 
-export function remarkShikiComposeHighlighterCache(nextHighlighter: Highlighter) {
-   const cacheID: string = nanoid();
-
-   const highlighter = Object.assign({}, nextHighlighter);
-   highlighter[remarkShikiCacheHighlighterID] = cacheID;
-
-   return highlighter;
+export enum RemarkShikiCacheErrors {
+   InvalidType = "nextHighlighter must be of type object"
 }
 
-export function remarkShikiCreateHighlighter(): Promise<Highlighter> {
-   return new Promise<Highlighter>((resolve, reject) => {
-      getHighlighter({
-         theme: remarkShikiThemes.github.light as unknown as string
-      })
+export interface HighlighterWithCache extends Highlighter {
+   [remarkShikiCacheHighlighterID]: string;
+}
+
+export interface RemarkShikiCacheHighlighter {
+   theme: unknown;
+}
+
+export interface RemarkShikiCreateHighlighter {
+   theme: unknown;
+}
+
+export function remarkShikiComposeHighlighterCache(
+   nextHighlighter: Highlighter
+): HighlighterWithCache {
+   if (typeof nextHighlighter !== "object") {
+      throw new TypeError(RemarkShikiCacheErrors.InvalidType);
+   }
+
+   const cacheID: string = nanoid();
+   const highlighter: Highlighter = Object.assign({}, nextHighlighter);
+
+   highlighter[remarkShikiCacheHighlighterID] = cacheID;
+
+   return highlighter as HighlighterWithCache;
+}
+
+export function remarkShikiCreateHighlighter({
+   theme
+}: RemarkShikiCreateHighlighter): Promise<HighlighterWithCache> {
+   return new Promise<HighlighterWithCache>((resolve, reject) => {
+      getHighlighter({ theme: theme as string })
          .then((nextHighlighter) => {
             try {
-               const highlighterWithCacheID = remarkShikiComposeHighlighterCache(nextHighlighter);
+               const highlighterWithCacheID: HighlighterWithCache =
+                  remarkShikiComposeHighlighterCache(nextHighlighter);
 
                resolve(highlighterWithCacheID);
             } catch (error) {
@@ -32,12 +53,14 @@ export function remarkShikiCreateHighlighter(): Promise<Highlighter> {
    });
 }
 
-export function remarkShikiCacheHighlighter(): () => Promise<Highlighter> {
+export function remarkShikiCacheHighlighter({
+   theme
+}: RemarkShikiCacheHighlighter): () => Promise<Highlighter> {
    let highlighter: Highlighter;
 
    return async function cacheClosure() {
       if (!highlighter) {
-         highlighter = await remarkShikiCreateHighlighter();
+         highlighter = await remarkShikiCreateHighlighter({ theme });
       }
 
       return highlighter;
