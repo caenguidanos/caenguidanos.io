@@ -4,6 +4,10 @@ on:
       branches:
          - main
 name: CI/CD Production
+env:
+   GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT }}
+   GCP_REGION: ${{ secrets.GCP_REGION }}
+   GCP_ARTIFACT_REPOSITORY: ${{ secrets.GCP_ARTIFACT_REPOSITORY }}
 jobs:
    unit-testing:
       runs-on: ubuntu-latest
