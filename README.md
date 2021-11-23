@@ -29,8 +29,8 @@ Welcome to my [personal site](https://caenguidanos-io.vercel.app).
 
 #### Testing
 
-- :zap: [playwright](https://playwright.dev/)
-- :zap: [jest](https://jestjs.io/es-ES/)
+-  :zap: [playwright](https://playwright.dev/)
+-  :zap: [jest](https://jestjs.io/es-ES/)
 
 #### Hosting:
 

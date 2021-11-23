@@ -7,13 +7,6 @@
 pnpm-lock.yaml
 package-lock.json
 
-# testing
-/test/e2e/reports/local
-/test/e2e/reports/ci
-/test/e2e/results/local
-/test/e2e/results/ci
-/test/unit/reports/jest
-
 # next.js
 /.next/
 /out/
