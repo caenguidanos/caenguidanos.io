@@ -6,7 +6,7 @@ import { transformToHtml } from "$shared/markdown";
 
 import type { GetStaticProps, GetStaticPropsContext } from "next";
 
-interface IndexPageProps {
+export interface IndexPageProps {
    html: string;
    branch: string;
 }
@@ -27,7 +27,7 @@ const IndexPage: PageWithLayout<IndexPageProps> = ({ html, branch }) => {
 
 export const getStaticProps: GetStaticProps = async (_ctx: GetStaticPropsContext) => {
    const blogSource = fs.readFileSync(
-      path.resolve(process.cwd(), "src/data/blog/programing/hello_ES.md"),
+      path.resolve(process.cwd(), "data/blog/programing/hello_ES.md"),
       "utf8"
    );
 

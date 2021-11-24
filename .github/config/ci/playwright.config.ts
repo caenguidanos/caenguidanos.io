@@ -5,7 +5,7 @@ import { PlaywrightTestConfig, devices } from "@playwright/test";
 const baseURL: string = process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000";
 const outputDir: string = path.join(process.cwd(), "dist/tests/e2e/results/ci");
 const reporterOutputFolder = "dist/tests/e2e/reports/ci"
-const testDir: string = path.resolve(process.cwd(), "e2e");
+const testDir: string = path.resolve(process.cwd(), "src");
 
 const config: PlaywrightTestConfig = {
    outputDir,

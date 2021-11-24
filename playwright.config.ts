@@ -5,7 +5,7 @@ import { PlaywrightTestConfig, devices } from "@playwright/test";
 const outputDir = path.join(process.cwd(), "dist/tests/e2e/results/local");
 const baseURL: string = process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000";
 const reporterOutputFolder = "dist/tests/e2e/reports/local";
-const testDir: string = path.resolve(process.cwd(), "e2e");
+const testDir: string = path.resolve(process.cwd(), "src");
 const webServer = {
    command: "./node_modules/next/dist/bin/next dev",
    port: 3000,
