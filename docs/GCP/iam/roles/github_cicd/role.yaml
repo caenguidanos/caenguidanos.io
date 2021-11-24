@@ -1,0 +1,26 @@
+title: github_cicd
+description: Role for managing resources from Github Actions
+stage: ALPHA
+includedPermissions:
+   - artifactregistry.dockerimages.get
+   - artifactregistry.dockerimages.list
+   - artifactregistry.files.get
+   - artifactregistry.files.list
+   - artifactregistry.packages.delete
+   - artifactregistry.packages.get
+   - artifactregistry.packages.list
+   - artifactregistry.repositories.deleteArtifacts
+   - artifactregistry.repositories.downloadArtifacts
+   - artifactregistry.repositories.get
+   - artifactregistry.repositories.list
+   - artifactregistry.repositories.uploadArtifacts
+   - artifactregistry.tags.delete
+   - artifactregistry.tags.get
+   - artifactregistry.tags.list
+   - artifactregistry.versions.delete
+   - artifactregistry.versions.get
+   - artifactregistry.versions.list
+   - iam.serviceAccounts.actAs
+   - run.services.create
+   - run.services.get
+   - run.services.update
