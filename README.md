@@ -1,6 +1,6 @@
 # caenguidanos.io
 
-Welcome to my [personal site](https://caenguidanos-io.vercel.app) `0.0.2`.
+Welcome to my [personal site](https://caenguidanos-io.vercel.app) `0.0.3`.
 
 #### Go to
 
