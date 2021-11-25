@@ -1,4 +1,7 @@
 const nextJest = require("next/jest");
+const path = require("path");
+
+const resolve = (...args) => path.resolve(process.cwd(), ...args);
 
 const createJestConfig = nextJest({ dir: process.cwd() });
 
@@ -8,6 +11,7 @@ const customJestConfig = {
    errorOnDeprecated: true,
    extensionsToTreatAsEsm: [".ts", ".tsx"],
    extraGlobals: ["Math"],
+   testMatch: ["**/src/lib/**/*.spec.{ts,tsx}"],
    collectCoverage: true,
    coverageDirectory: "./dist/tests/unit/reports",
    coverageReporters: ["json", "lcov", "text", "html-spa"],
