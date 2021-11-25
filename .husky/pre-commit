@@ -13,7 +13,7 @@ else
    fi
 
    # Lint github/workflows yaml files
-   sh "$PWD"/config/scripts/linter/yaml-linter.sh
+   sh "$PWD"/tools/scripts/linter/yaml.sh
 
    # Lint app
    pnpm lint

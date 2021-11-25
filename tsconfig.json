@@ -23,10 +23,11 @@
       "noImplicitReturns": false,
       "noFallthroughCasesInSwitch": true,
       "paths": {
-         "$styles/*": ["src/styles/*"],
+         "$shared/styles/*": ["src/lib/shared/styles/*"],
          "$shared/layout": ["src/lib/shared/layout/index.ts"],
          "$shared/markdown": ["src/lib/shared/markdown/index.ts"],
-         "$shared/constants": ["src/lib/shared/constants/index.ts"]
+         "$shared/constants": ["src/lib/shared/constants/index.ts"],
+         "$tests/e2e/*": ["tests/e2e/.config/*"]
       }
    },
    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

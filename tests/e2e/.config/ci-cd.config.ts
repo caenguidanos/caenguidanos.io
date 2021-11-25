@@ -10,7 +10,7 @@ if (!baseURL) {
    throw new EvalError("Base URL don't exists in scope");
 }
 
-const testDir: string = resolve("e2e");
+const testDir: string = resolve("tests", "e2e");
 const outputDir: string = resolve("dist", "tests", "e2e", "results", "ci-cd");
 const reporterDir = resolve("dist", "tests", "e2e", "reports", "ci-cd");
 
@@ -55,15 +55,6 @@ const config: PlaywrightTestConfig = {
          }
       },
       {
-         name: "Tablet iOS",
-         use: {
-            trace: "on",
-            video: "on",
-            screenshot: "on",
-            ...devices["iPad Mini"]
-         }
-      },
-      {
          name: "Tablet Android",
          use: {
             trace: "on",
@@ -80,12 +71,12 @@ const config: PlaywrightTestConfig = {
             screenshot: "on",
             ...devices["Pixel 5"]
          }
-      },
+      }
    ],
    reporter: [["html", { outputFolder: reporterDir, open: "never" }], ["list"]],
    retries: 2,
    testDir,
-   testMatch: "**/*.e2e.ts",
+   testMatch: "**/*.spec.ts",
    timeout: 30000,
    use: { baseURL }
 };
