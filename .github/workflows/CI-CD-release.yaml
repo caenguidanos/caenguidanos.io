@@ -93,7 +93,7 @@ jobs:
 
          - name: Build Release Container
            run: |
-              docker build -f config/images/unit-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }} .
+              docker build -f tools/images/unit-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }} .
 
          - name: Push Release Container
            run: |
@@ -217,7 +217,7 @@ jobs:
 
          - name: Run E2E Tests
            run: |
-              PLAYWRIGHT_BASE_URL=$(cat preview-url.txt) pnpm playwright -- test --config=e2e/config/ci-cd.config.ts
+              PLAYWRIGHT_BASE_URL=$(cat preview-url.txt) pnpm playwright -- test --config=tests/e2e/.config/ci-cd.config.ts
 
          - name: Save E2E Results
            uses: actions/upload-artifact@v2
@@ -237,7 +237,7 @@ jobs:
 
          - name: Build Release Container
            run: |
-              docker build -f config/images/e2e-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }} .
+              docker build -f tools/images/e2e-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }} .
 
          - name: Push Release Container
            run: |

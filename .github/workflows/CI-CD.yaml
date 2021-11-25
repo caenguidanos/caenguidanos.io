@@ -159,7 +159,7 @@ jobs:
 
          - name: Run E2E Tests
            run: |
-              PLAYWRIGHT_BASE_URL=$(cat preview-url.txt) pnpm playwright -- test --config=e2e/config/ci-cd.config.ts
+              PLAYWRIGHT_BASE_URL=$(cat preview-url.txt) pnpm playwright -- test --config=tests/e2e/.config/ci-cd.config.ts
 
          - name: Save E2E Results
            uses: actions/upload-artifact@v2
