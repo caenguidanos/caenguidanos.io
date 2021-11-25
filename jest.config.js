@@ -1,7 +1,4 @@
 const nextJest = require("next/jest");
-const path = require("path");
-
-const resolve = (...args) => path.resolve(process.cwd(), ...args);
 
 const createJestConfig = nextJest({ dir: process.cwd() });
 

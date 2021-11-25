@@ -1,8 +1,7 @@
 import { useState } from "react";
 
-import { PageWithLayout } from "$shared/layout";
+import { DefaultLayout, PageWithLayout } from "$shared/layout";
 
-import { getPageLayout } from "./page.layout";
 import type { IndexPageProps } from "../entity/page.entity";
 
 const IndexPage: PageWithLayout<IndexPageProps> = ({ html }) => {
@@ -43,6 +42,6 @@ const IndexPage: PageWithLayout<IndexPageProps> = ({ html }) => {
    );
 };
 
-IndexPage.layout = getPageLayout();
+IndexPage.layout = DefaultLayout;
 
 export default IndexPage;
