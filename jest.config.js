@@ -28,7 +28,9 @@ const customJestConfig = {
       "^\\$shared/layout$": ["<rootDir>/src/lib/shared/layout/index.ts"],
       "^\\$shared/markdown$": ["<rootDir>/src/lib/shared/markdown/index.ts"],
       "^\\$shared/constants$": ["<rootDir>/src/lib/shared/constants/index.ts"],
-      "^\\$tests/e2e/(.*)$": ["<rootDir>/tests/e2e/.config/$1"]
+      "^\\$shared/io$": ["<rootDir>/src/lib/shared/io/index.ts"],
+      "^\\$tests/e2e/(.*)$": ["<rootDir>/tests/e2e/.config/$1"],
+      "^\\$pages/(.*)$": ["<rootDir>/src/lib/$1"]
    },
    verbose: true
 };
