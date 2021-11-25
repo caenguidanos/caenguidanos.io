@@ -5,7 +5,7 @@ test("should response succesfully", async ({ request, baseURL }) => {
 
    expect(response.ok()).toBeTruthy();
 
-   const body = await response.json();
+   const json = await response.json();
 
-   await expect(body).toStrictEqual({ name: "John Doe2" });
+   await expect(json.name).toBe("John Doe2");
 });

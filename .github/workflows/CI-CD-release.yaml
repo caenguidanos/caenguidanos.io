@@ -93,13 +93,14 @@ jobs:
 
          - name: Build Release Container
            run: |
-              docker build -f .github/images/jest-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }} .
+              docker build -f config/images/unit-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }} .
 
          - name: Push Release Container
            run: |
               docker push ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
 
          - name: Deploy Release Container to Cloud Run
+           id: deploy
            uses: google-github-actions/deploy-cloudrun@main
            with:
               service: ${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}
@@ -110,6 +111,19 @@ jobs:
          - name: Remove Deployed Release Container from Registry
            run: |
               gcloud artifacts docker images delete ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
+
+         - name: Comment PR
+           uses: actions/github-script@v5
+           with:
+              script: |
+                 const body = `Unit Testing Deployment\n\n- Preview: ${{ steps.deploy.outputs.url }}`;
+
+                 github.rest.issues.createComment({
+                    issue_number: context.issue.number,
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    body,
+                 })
 
    deploy:
       needs: [unit-testing]
@@ -143,6 +157,27 @@ jobs:
               VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
               VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
               VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+
+         - name: Comment PR
+           uses: actions/github-script@v5
+           with:
+              script: |
+                 const path = require('path');
+                 const fs = require('fs');
+
+                 const resolve = (...args) => path.resolve(process.cwd(), ...args);
+
+                 const filePath = resolve('preview-url.txt');
+                 const fileContent = fs.readFileSync(filePath, 'utf8').trim();
+
+                 const body = `Vercel Deployment\n\n- Preview: ${fileContent}`;
+
+                 github.rest.issues.createComment({
+                    issue_number: context.issue.number,
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    body,
+                 })
 
          - name: Save Preview-Url
            uses: actions/upload-artifact@v2
@@ -182,13 +217,13 @@ jobs:
 
          - name: Run E2E Tests
            run: |
-              PLAYWRIGHT_BASE_URL=$(cat preview-url.txt) pnpm playwright -- test --config=.github/config/ci/playwright.config.ts
+              PLAYWRIGHT_BASE_URL=$(cat preview-url.txt) pnpm playwright -- test --config=e2e/config/ci-cd.config.ts
 
          - name: Save E2E Results
            uses: actions/upload-artifact@v2
            with:
               name: e2e-testing-report
-              path: dist/tests/e2e/reports/ci
+              path: dist/tests/e2e/reports/ci-cd
 
          - name: Setup Google Cloud Platform SDK
            uses: google-github-actions/setup-gcloud@master
@@ -202,13 +237,14 @@ jobs:
 
          - name: Build Release Container
            run: |
-              docker build -f .github/images/playwright-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }} .
+              docker build -f config/images/e2e-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }} .
 
          - name: Push Release Container
            run: |
               docker push ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
 
          - name: Deploy Release Container to Cloud Run
+           id: deploy
            uses: google-github-actions/deploy-cloudrun@main
            with:
               service: ${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}
@@ -219,3 +255,16 @@ jobs:
          - name: Remove Deployed Release Container from Registry
            run: |
               gcloud artifacts docker images delete ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
+
+         - name: Comment PR
+           uses: actions/github-script@v5
+           with:
+              script: |
+                 const body = `E2E Testing Deployment\n\n- Preview: ${{ steps.deploy.outputs.url }}`;
+
+                 github.rest.issues.createComment({
+                    issue_number: context.issue.number,
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    body,
+                 })

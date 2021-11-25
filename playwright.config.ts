@@ -2,10 +2,18 @@ import path from "path";
 
 import { PlaywrightTestConfig, devices } from "@playwright/test";
 
-const outputDir = path.join(process.cwd(), "dist/tests/e2e/results/local");
+const resolve = (...args: string[]): string => path.resolve(process.cwd(), ...args);
+
 const baseURL: string = process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000";
-const reporterOutputFolder = "dist/tests/e2e/reports/local";
-const testDir: string = path.resolve(process.cwd(), "src");
+
+if (!baseURL) {
+   throw new EvalError("Base URL don't exists in scope");
+}
+
+const testDir: string = resolve("e2e");
+const outputDir: string = resolve("dist", "tests", "e2e", "results", "local");
+const reporterDir = resolve("dist", "tests", "e2e", "reports", "local");
+
 const webServer = {
    command: "./node_modules/next/dist/bin/next dev",
    port: 3000,
@@ -27,6 +35,51 @@ const config: PlaywrightTestConfig = {
          }
       },
       {
+         name: "Desktop Firefox",
+         use: {
+            trace: "on",
+            video: "on",
+            screenshot: "on",
+            ...devices["Desktop Firefox"]
+         }
+      },
+      {
+         name: "Desktop Safari",
+         use: {
+            trace: "on",
+            video: "on",
+            screenshot: "on",
+            ...devices["Desktop Safari"]
+         }
+      },
+      {
+         name: "Tablet iOS",
+         use: {
+            trace: "on",
+            video: "on",
+            screenshot: "on",
+            ...devices["iPad Mini"]
+         }
+      },
+      {
+         name: "Tablet Android",
+         use: {
+            trace: "on",
+            video: "on",
+            screenshot: "on",
+            ...devices["Galaxy Tab S4"]
+         }
+      },
+      {
+         name: "Mobile Android",
+         use: {
+            trace: "on",
+            video: "on",
+            screenshot: "on",
+            ...devices["Pixel 5"]
+         }
+      },
+      {
          name: "Mobile iOS",
          use: {
             trace: "on",
@@ -36,8 +89,8 @@ const config: PlaywrightTestConfig = {
          }
       }
    ],
-   reporter: [["html", { outputFolder: reporterOutputFolder, open: "never" }], ["list"]],
-   retries: 2,
+   reporter: [["html", { outputFolder: reporterDir, open: "never" }], ["list"]],
+   retries: 0,
    testDir,
    testMatch: "**/*.e2e.ts",
    timeout: 30000,
