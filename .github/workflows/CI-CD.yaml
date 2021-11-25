@@ -4,10 +4,6 @@ on:
       branches:
          - release/**
 name: CI/CD
-env:
-   GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT }}
-   GCP_REGION: ${{ secrets.GCP_REGION }}
-   GCP_ARTIFACT_REPOSITORY: ${{ secrets.GCP_ARTIFACT_REPOSITORY }}
 jobs:
    prepare:
       runs-on: ubuntu-latest
@@ -20,7 +16,6 @@ jobs:
          - name: Check Branch Name
            uses: actions/github-script@v5
            with:
-              result-encoding: string
               script: |
                  const originBranch = "${{ github.head_ref }}";
                  const regexp = /^(feature|hotfix|bugfix|experimental)\/(issue-[0-9]+)$/g;
@@ -105,6 +100,27 @@ jobs:
               VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
               VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
 
+         - name: Comment PR
+           uses: actions/github-script@v5
+           with:
+              script: |
+                 const path = require('path');
+                 const fs = require('fs');
+
+                 const resolve = (...args) => path.resolve(process.cwd(), ...args);
+
+                 const filePath = resolve('preview-url.txt');
+                 const fileContent = fs.readFileSync(filePath, 'utf8').trim();
+
+                 const body = `Vercel Deployment\n\n- Preview: ${fileContent}`;
+
+                 github.rest.issues.createComment({
+                    issue_number: context.issue.number,
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    body,
+                 })
+
          - name: Save Preview-Url
            uses: actions/upload-artifact@v2
            with:
@@ -143,10 +159,10 @@ jobs:
 
          - name: Run E2E Tests
            run: |
-              PLAYWRIGHT_BASE_URL=$(cat preview-url.txt) pnpm playwright -- test --config=.github/config/ci/playwright.config.ts
+              PLAYWRIGHT_BASE_URL=$(cat preview-url.txt) pnpm playwright -- test --config=e2e/config/ci-cd.config.ts
 
          - name: Save E2E Results
            uses: actions/upload-artifact@v2
            with:
               name: e2e-testing-report
-              path: dist/tests/e2e/reports/ci
+              path: dist/tests/e2e/reports/ci-cd
