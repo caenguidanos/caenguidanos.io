@@ -62,7 +62,7 @@ jobs:
 
          - name: Build Production Container
            run: |
-              docker build -f config/images/unit-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }} .
+              docker build -f tools/images/unit-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }} .
 
          - name: Push Production Container
            run: |
