@@ -2,10 +2,17 @@ import path from "path";
 
 import { PlaywrightTestConfig, devices } from "@playwright/test";
 
-const baseURL: string = process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000";
-const outputDir: string = path.join(process.cwd(), "dist/tests/e2e/results/ci");
-const reporterOutputFolder = "dist/tests/e2e/reports/ci"
-const testDir: string = path.resolve(process.cwd(), "src");
+const resolve = (...args: string[]): string => path.resolve(process.cwd(), ...args);
+
+const baseURL: string = process.env.PLAYWRIGHT_BASE_URL;
+
+if (!baseURL) {
+   throw new EvalError("Base URL don't exists in scope");
+}
+
+const testDir: string = resolve("e2e");
+const outputDir: string = resolve("dist", "tests", "e2e", "results", "ci-cd");
+const reporterDir = resolve("dist", "tests", "e2e", "reports", "ci-cd");
 
 const config: PlaywrightTestConfig = {
    outputDir,
@@ -75,7 +82,7 @@ const config: PlaywrightTestConfig = {
          }
       }
    ],
-   reporter: [["html", { outputFolder: reporterOutputFolder, open: 'never' }], ["list"]],
+   reporter: [["html", { outputFolder: reporterDir, open: "never" }], ["list"]],
    retries: 2,
    testDir,
    testMatch: "**/*.e2e.ts",
