@@ -1,6 +1,6 @@
 import { getLayout, AppPropsWithLayout } from "$shared/layout";
 
-import "$styles/globals.scss";
+import "$shared/styles/globals.scss";
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
    const dynamicLayout = getLayout(Component);
