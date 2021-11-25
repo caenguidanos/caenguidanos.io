@@ -1,7 +1,7 @@
 {
    "name": "caenguidanos.io",
    "description": "My personal site",
-   "version": "0.0.3",
+   "version": "0.0.4",
    "private": true,
    "license": "MIT",
    "repository": {
