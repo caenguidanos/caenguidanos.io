@@ -205,10 +205,10 @@ jobs:
               run_install: true
 
          - name: Install Playwright OS Dependncies
-           run: pnpm playwright -- install-deps
+           run: pnpm e2e -- install-deps
 
          - name: Install Playwright OS Browsers
-           run: pnpm playwright -- install
+           run: pnpm e2e -- install
 
          - name: Download Preview-Url from Deploy
            uses: actions/download-artifact@v2
@@ -217,13 +217,23 @@ jobs:
 
          - name: Run E2E Tests
            run: |
-              PLAYWRIGHT_BASE_URL=$(cat preview-url.txt) pnpm playwright -- test --config=tests/e2e/.config/ci-cd.config.ts
+              PLAYWRIGHT_BASE_URL=$(cat preview-url.txt) pnpm e2e
+
+         - name: Run E2E-Storybook Tests
+           run: |
+              pnpm e2e-storybook
 
          - name: Save E2E Results
            uses: actions/upload-artifact@v2
            with:
               name: e2e-testing-report
-              path: dist/tests/e2e/reports/ci-cd
+              path: dist/tests/e2e/reports
+
+         - name: Save E2E-Storybook Results
+           uses: actions/upload-artifact@v2
+           with:
+              name: e2e-storybook-testing-report
+              path: dist/tests/e2e-storybook/reports
 
          - name: Setup Google Cloud Platform SDK
            uses: google-github-actions/setup-gcloud@master
@@ -238,10 +248,12 @@ jobs:
          - name: Build Release Container
            run: |
               docker build -f tools/images/e2e-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }} .
+              docker build -f tools/images/e2e-storybook-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-storybook-${{ needs.prepare.outputs.branch }}:${{ github.sha }} .
 
          - name: Push Release Container
            run: |
               docker push ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
+              docker push ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-storybook-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
 
          - name: Deploy Release Container to Cloud Run
            id: deploy
@@ -252,15 +264,25 @@ jobs:
               region: ${{ env.GCP_REGION }}
               flags: --max-instances=2 --port=9323 --allow-unauthenticated --concurrency=20
 
+         - name: Deploy Release Storybook Container to Cloud Run
+           id: deploy-storybook
+           uses: google-github-actions/deploy-cloudrun@main
+           with:
+              service: ${{ env.GCP_CLOUD_RUN_SERVICE }}-storybook-${{ needs.prepare.outputs.branch }}
+              image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-storybook-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
+              region: ${{ env.GCP_REGION }}
+              flags: --max-instances=2 --port=9323 --allow-unauthenticated --concurrency=20
+
          - name: Remove Deployed Release Container from Registry
            run: |
               gcloud artifacts docker images delete ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
+              gcloud artifacts docker images delete ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-storybook-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
 
          - name: Comment PR
            uses: actions/github-script@v5
            with:
               script: |
-                 const body = `E2E Testing Deployment\n\n- Preview: ${{ steps.deploy.outputs.url }}`;
+                 const body = `E2E Testing Deployment\n\n- Preview: ${{ steps.deploy.outputs.url }}\n- Preview Storybook: ${{ steps.deploy-storybook.outputs.url }}`;
 
                  github.rest.issues.createComment({
                     issue_number: context.issue.number,

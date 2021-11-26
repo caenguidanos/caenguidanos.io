@@ -8,8 +8,17 @@ const customJestConfig = {
    errorOnDeprecated: true,
    extensionsToTreatAsEsm: [".ts", ".tsx"],
    extraGlobals: ["Math"],
-   testMatch: ["**/src/lib/**/*.spec.{ts,tsx}"],
+   testMatch: ["**/src/libs/**/*.spec.{ts,tsx}"],
    collectCoverage: true,
+   collectCoverageFrom: [
+      "src/libs/**/*.{ts,tsx}",
+      "!**/*.entity.ts",
+      "!**/*.page.{ts,tsx}",
+      "!**/*.stories.{ts,tsx}",
+      "!**/index.ts",
+      "!**/*.e2e.{ts,tsx}",
+      "!**/.*.{ts,tsx}"
+   ],
    coverageDirectory: "./dist/tests/unit/reports",
    coverageReporters: ["json", "lcov", "text", "html-spa"],
    coverageThreshold: {
@@ -21,13 +30,12 @@ const customJestConfig = {
       }
    },
    moduleNameMapper: {
-      "^\\$shared/styles/(.*)$": ["<rootDir>/src/lib/shared/styles/$1"],
-      "^\\$shared/layout$": ["<rootDir>/src/lib/shared/layout/index.ts"],
-      "^\\$shared/markdown$": ["<rootDir>/src/lib/shared/markdown/index.ts"],
-      "^\\$shared/constants$": ["<rootDir>/src/lib/shared/constants/index.ts"],
-      "^\\$shared/io$": ["<rootDir>/src/lib/shared/io/index.ts"],
-      "^\\$tests/e2e/(.*)$": ["<rootDir>/tests/e2e/.config/$1"],
-      "^\\$pages/(.*)$": ["<rootDir>/src/lib/$1"]
+      "^\\$shared/styles/(.*)$": ["<rootDir>/src/libs/shared/styles/$1"],
+      "^\\$shared/layout$": ["<rootDir>/src/libs/shared/layout/index.ts"],
+      "^\\$shared/markdown$": ["<rootDir>/src/libs/shared/markdown/index.ts"],
+      "^\\$shared/constants$": ["<rootDir>/src/libs/shared/constants/index.ts"],
+      "^\\$shared/io$": ["<rootDir>/src/libs/shared/io/index.ts"],
+      "^\\$pages/(.*)$": ["<rootDir>/src/libs/pages/$1"]
    },
    verbose: true
 };

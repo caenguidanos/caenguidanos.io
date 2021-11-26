@@ -11,20 +11,19 @@
    "author": {
       "name": "Cristian A. Enguídanos Nebot"
    },
-   "engineStrict": true,
    "scripts": {
       "dev": "next dev",
       "start": "next start",
       "build": "next build",
       "lint": "next lint",
-      "test": "NODE_OPTIONS=--experimental-vm-modules jest",
-      "e2e": "playwright test",
+      "test": "NODE_OPTIONS=--experimental-vm-modules jest --no-cache",
+      "e2e": "PLAYWRIGHT_MODE='native' playwright test",
+      "e2e-storybook": "PLAYWRIGHT_MODE='storybook' playwright test",
       "format": "prettier --write .",
-      "playwright": "playwright",
-      "commitlint": "commitlint",
       "prepare": "husky install",
       "storybook": "start-storybook -p 6006 -s public",
-      "build-storybook": "build-storybook -s public"
+      "build-storybook": "build-storybook -s public",
+      "commitlint": "commitlint"
    },
    "dependencies": {
       "nanoid": "3.1.30",

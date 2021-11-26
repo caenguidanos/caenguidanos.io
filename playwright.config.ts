@@ -4,22 +4,49 @@ import { PlaywrightTestConfig, devices } from "@playwright/test";
 
 const resolve = (...args: string[]): string => path.resolve(process.cwd(), ...args);
 
-const baseURL: string = process.env.PLAYWRIGHT_BASE_URL || "http://localhost:3000";
+let baseURL: string;
+let webServer: PlaywrightTestConfig["webServer"];
+let testDir: string;
+let outputDir: string;
+let reporterDir: string;
+
+if (process.env.PLAYWRIGHT_MODE === "native") {
+   testDir = resolve("src-e2e");
+   outputDir = resolve("dist", "tests", "e2e", "results");
+   reporterDir = resolve("dist", "tests", "e2e", "reports");
+
+   // CI-CD Environment
+   if (process.env.PLAYWRIGHT_BASE_URL) {
+      baseURL = process.env.PLAYWRIGHT_BASE_URL;
+   } else {
+      // Local Environment
+      baseURL = "http://localhost:3000";
+      webServer = {
+         command: "pnpm dev",
+         port: 3000,
+         timeout: 120 * 1000,
+         reuseExistingServer: true
+      };
+   }
+}
+
+// Both Environments
+if (process.env.PLAYWRIGHT_MODE === "storybook") {
+   baseURL = "http://localhost:6006";
+   testDir = resolve("src");
+   outputDir = resolve("dist", "tests", "e2e-storybook", "results");
+   reporterDir = resolve("dist", "tests", "e2e-storybook", "reports");
+   webServer = {
+      command: "pnpm storybook",
+      port: 6006,
+      timeout: 120 * 1000,
+      reuseExistingServer: true
+   };
+}
 
 if (!baseURL) {
    throw new EvalError("Base URL don't exists in scope");
 }
-
-const testDir: string = resolve("tests", "e2e");
-const outputDir: string = resolve("dist", "tests", "e2e", "results", "local");
-const reporterDir = resolve("dist", "tests", "e2e", "reports", "local");
-
-const webServer = {
-   command: "./node_modules/next/dist/bin/next dev",
-   port: 3000,
-   timeout: 120 * 1000,
-   reuseExistingServer: true
-};
 
 const config: PlaywrightTestConfig = {
    outputDir,
@@ -101,7 +128,7 @@ const config: PlaywrightTestConfig = {
    reporter: [["html", { outputFolder: reporterDir, open: "never" }], ["list"]],
    retries: 0,
    testDir,
-   testMatch: "**/*.spec.ts",
+   testMatch: "**/*.e2e.ts",
    timeout: 30000,
    use: { baseURL, trace: { mode: "on" } },
    webServer
