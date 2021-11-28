@@ -3,9 +3,9 @@
  */
 import { render } from "@testing-library/react";
 
-import { PageWithLayout } from "../../entity/shared-layout.entity";
-import { DefaultLayout } from "../../feature/default/shared-layout-feature-default";
-import { getLayout } from "./shared-layout-util-get-layout";
+import { PageWithLayout } from "./shared-ui-layout.entity";
+import { DefaultLayout } from "./shared-ui-layout-default";
+import { getLayout } from "./shared-ui-layout-get-layout";
 
 const PageMock: PageWithLayout = () => {
    return (

@@ -159,7 +159,7 @@ jobs:
 
          - name: Run E2E Tests
            run: |
-              PLAYWRIGHT_BASE_URL=$(cat preview-url.txt) pnpm e2e
+              PLAYWRIGHT_BASE_URL=$(cat preview-url.txt) pnpm e2e-cicd
 
          - name: Run E2E-Storybook Tests
            run: |

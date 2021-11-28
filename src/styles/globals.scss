@@ -11,11 +11,6 @@
 
 html {
    min-width: 360px;
-   scroll-behavior: smooth;
-}
-
-pre {
-   @apply text-sm leading-relaxed font-medium font-mono;
-
-   filter: saturate(1.2);
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
 }

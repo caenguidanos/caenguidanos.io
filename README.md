@@ -20,8 +20,9 @@ Welcome to my [personal site](https://caenguidanos-io.vercel.app) `0.0.4`.
 -  :zap: [typescript](https://www.typescriptlang.org/)
 -  :zap: [storybook](https://storybook.js.org/)
 
-#### CSS
+#### Style
 
+-  :zap: [stitchesjs](https://stitches.dev/)
 -  :zap: [tailwindcss](https://tailwindcss.com/)
 
 #### Lint

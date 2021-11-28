@@ -1,4 +1,4 @@
-import { getLayout, AppPropsWithLayout } from "$shared/layout";
+import { getLayout, AppPropsWithLayout } from "$shared/ui";
 
 import "$shared/styles/globals.scss";
 

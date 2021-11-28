@@ -13,6 +13,7 @@
       "moduleResolution": "node",
       "resolveJsonModule": true,
       "isolatedModules": true,
+      "importHelpers": true,
       "jsx": "preserve",
       "incremental": true,
       "noImplicitAny": false,
@@ -23,14 +24,14 @@
       "noImplicitReturns": false,
       "noFallthroughCasesInSwitch": true,
       "paths": {
-         "$shared/styles/*": ["src/libs/shared/styles/*"],
-         "$shared/layout": ["src/libs/shared/layout/index.ts"],
+         "$shared/styles/*": ["src/styles/*"],
          "$shared/markdown": ["src/libs/shared/markdown/index.ts"],
          "$shared/constants": ["src/libs/shared/constants/index.ts"],
          "$shared/io": ["src/libs/shared/io/index.ts"],
+         "$shared/ui": ["src/libs/shared/ui/index.ts"],
          "$pages/*": ["src/libs/pages/*"]
       }
    },
-   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-   "exclude": [".github", ".vscode", "dist", "node_modules"]
+   "include": ["**.d.ts", "**/*.ts", "**/*.tsx"],
+   "exclude": ["node_modules"]
 }
