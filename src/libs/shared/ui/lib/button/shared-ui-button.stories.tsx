@@ -2,6 +2,7 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Button } from "./shared-ui-button";
+import { styled } from "../../stitches.config";
 
 export default {
    title: "UI/Button",
@@ -10,7 +11,7 @@ export default {
       size: {
          name: "size",
          type: { name: "string" },
-         options: ["md"],
+         options: ["sm", "base", "md"],
          control: {
             type: "radio"
          }
@@ -18,7 +19,7 @@ export default {
       color: {
          name: "color",
          type: { name: "string" },
-         options: ["primary"],
+         options: ["default", "primary"],
          control: {
             type: "radio"
          }
@@ -68,16 +69,25 @@ export default {
    }
 } as ComponentMeta<typeof Button>;
 
-const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+const Container = styled("div", {
+   display: "grid",
+   gridCols: 10
+});
 
-export const Primary = Template.bind({});
+const Template: ComponentStory<typeof Button> = (args) => (
+   <Container>
+      <Button {...args} />
+   </Container>
+);
 
-Primary.args = {
-   id: "testingPrimaryButton",
-   onClick: () => console.log("Button primary clicked"),
-   children: "Primary",
-   color: "primary",
-   size: "md",
+export const Base = Template.bind({});
+Base.args = {
+   id: "testingBaseButton",
+   onClick: () => console.log("Button Base clicked"),
+   children: "Button",
+   color: "default",
+   size: "base",
    disabled: false,
-   load: false
+   load: false,
+   type: "button"
 };

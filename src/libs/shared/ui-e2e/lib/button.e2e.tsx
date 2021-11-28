@@ -7,7 +7,7 @@ test.describe("UI Button", () => {
     * {FOR} to get standard quality code;
     */
    test("should render the button", async ({ page }) => {
-      const response = await page.goto(`/iframe.html?id=UI-button--primary`);
+      const response = await page.goto(`/iframe.html?id=ui-button--base`);
 
       expect(response.ok()).toBeTruthy();
    });

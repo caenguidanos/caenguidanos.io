@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { DefaultLayout, PageWithLayout } from "$shared/ui";
+import { DefaultLayout, PageWithLayout, Button } from "$shared/ui";
 
 import type { IndexPageProps } from "../entity/pages-index-feature.entity";
 
@@ -31,14 +31,9 @@ const IndexPage: PageWithLayout<IndexPageProps> = ({ html }) => {
             </div>
          ) : null}
 
-         <button
-            id="indexPageApiFetchButton"
-            type="button"
-            onClick={handleCallApiButtonClick}
-            className="p-3 rounded bg-neutral-900 text-white hover:bg-neutral-800 active:bg-neutral-700"
-         >
+         <Button id="indexPageApiFetchButton" onClick={handleCallApiButtonClick} color="primary">
             Fetch
-         </button>
+         </Button>
       </div>
    );
 };
