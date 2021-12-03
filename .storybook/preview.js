@@ -1,6 +1,6 @@
 import * as NextImage from "next/image";
 
-import "../src/styles/globals.scss";
+import "../src/lib/client/shared/styles/globals.scss";
 
 const OriginalNextImage = NextImage.default;
 

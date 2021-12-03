@@ -91,7 +91,7 @@ const storybookConfig: PlaywrightTestConfig = {
       ["list"]
    ],
    retries: 0,
-   testDir: resolve("src", "libs"),
+   testDir: resolve("src", "libs", "clients"),
    testMatch: "**/*.e2e.ts",
    timeout: 30000,
    use: { baseURL: "http://localhost:6006", trace: { mode: "on" } },
@@ -112,7 +112,7 @@ const defaultConfig: PlaywrightTestConfig = {
       ["list"]
    ],
    retries: 0,
-   testDir: resolve("src", "pages-e2e"),
+   testDir: resolve("src-e2e"),
    testMatch: "**/*.e2e.ts",
    timeout: 30000,
    use: { baseURL: "http://localhost:3000", trace: { mode: "on" } },
@@ -133,7 +133,7 @@ const cicdConfig: PlaywrightTestConfig = {
       ["list"]
    ],
    retries: 0,
-   testDir: resolve("src", "pages-e2e"),
+   testDir: resolve("src-e2e"),
    testMatch: "**/*.e2e.ts",
    timeout: 30000,
    use: { baseURL: process.env.PLAYWRIGHT_BASE_URL, trace: { mode: "on" } }

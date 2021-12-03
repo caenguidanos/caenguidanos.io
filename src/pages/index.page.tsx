@@ -1,9 +1,9 @@
 import fs from "fs";
 
-import { resolve } from "$shared/io";
-import { transformToHtml } from "$shared/markdown";
+import { resolve } from "$lib/server/shared/io";
+import { transformToHtml } from "$lib/server/markdown";
 
-import IndexPage from "$pages/index";
+import { IndexPage } from "$lib/client/pages";
 
 import type { GetStaticProps, GetStaticPropsContext } from "next";
 

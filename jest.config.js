@@ -11,14 +11,15 @@ const customJestConfig = {
    testMatch: ["**/src/libs/**/*.spec.{ts,tsx}"],
    collectCoverage: true,
    collectCoverageFrom: [
-      "src/libs/**/*.{ts,tsx}",
-      "!**/*.entity.ts",
-      "!**/*.page.{ts,tsx}",
-      "!**/*.stories.{ts,tsx}",
-      "!**/index.ts",
-      "!**/*.e2e.{ts,tsx}",
-      "!**/.*.{ts,tsx}",
-      "!**/*-e2e/*"
+      "src/lib/**/*.{ts,tsx}",
+
+      "!**/*.entity.ts", // Lib typescript entities
+      "!**/*.stories.tsx", // Storybook files
+
+      "!**/*-e2e/**", // E2E testing folders
+
+      "!**/index.ts", // Lib entrypoints
+      "!**/stitches.config.ts" // Stitches config
    ],
    coverageDirectory: "./dist/tests/unit/reports",
    coverageReporters: ["json", "lcov", "text", "html-spa"],
@@ -31,12 +32,11 @@ const customJestConfig = {
       }
    },
    moduleNameMapper: {
-      "^\\$shared/styles/(.*)$": ["<rootDir>/src/styles/$1"],
-      "^\\$shared/markdown$": ["<rootDir>/src/libs/shared/markdown/index.ts"],
-      "^\\$shared/constants$": ["<rootDir>/src/libs/shared/constants/index.ts"],
-      "^\\$shared/io$": ["<rootDir>/src/libs/shared/io/index.ts"],
-      "^\\$shared/ui$": ["<rootDir>/src/libs/shared/ui/index.ts"],
-      "^\\$pages/(.*)$": ["<rootDir>/src/libs/pages/$1"]
+      "^\\$lib/shared/(.*)$": ["<rootDir>/src/lib/shared/$1"],
+      "^\\$lib/client/(.*)$": ["<rootDir>/src/lib/client/core/$1"],
+      "^\\$lib/server/(.*)$": ["<rootDir>/src/lib/server/core/$1"],
+      "^\\$lib/client/shared/(.*)$": ["<rootDir>/src/lib/client/shared/$1"],
+      "^\\$lib/server/shared/(.*)$": ["<rootDir>/src/lib/server/shared/$1"]
    },
    verbose: true
 };

@@ -24,12 +24,11 @@
       "noImplicitReturns": false,
       "noFallthroughCasesInSwitch": true,
       "paths": {
-         "$shared/styles/*": ["src/styles/*"],
-         "$shared/markdown": ["src/libs/shared/markdown/index.ts"],
-         "$shared/constants": ["src/libs/shared/constants/index.ts"],
-         "$shared/io": ["src/libs/shared/io/index.ts"],
-         "$shared/ui": ["src/libs/shared/ui/index.ts"],
-         "$pages/*": ["src/libs/pages/*"]
+         "$lib/shared/*": ["src/lib/shared/*"],
+         "$lib/client/*": ["src/lib/client/core/*"],
+         "$lib/client/shared/*": ["src/lib/client/shared/*"],
+         "$lib/server/*": ["src/lib/server/core/*"],
+         "$lib/server/shared/*": ["src/lib/server/shared/*"]
       }
    },
    "include": ["**.d.ts", "**/*.ts", "**/*.tsx"],
