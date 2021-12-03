@@ -1,7 +1,13 @@
+/**
+ * @jest-environment jsdom
+ */
+
+import "@testing-library/jest-dom";
+
 import { Button } from "./client-shared-ui-button";
 
-describe("Button", () => {
-   it("TODO", () => {
+describe("Client::UI::Button", () => {
+   it("should render", () => {
       expect(Button).toBeTruthy();
    });
 });

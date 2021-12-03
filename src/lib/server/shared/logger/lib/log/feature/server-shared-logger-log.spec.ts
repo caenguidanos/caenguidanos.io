@@ -2,7 +2,7 @@ import { jest } from "@jest/globals";
 
 import { log } from "./server-shared-logger-log";
 
-describe("shared-logger log", () => {
+describe("Server::Logger::log", () => {
    it("should log successfully", () => {
       console.log = jest.fn();
 

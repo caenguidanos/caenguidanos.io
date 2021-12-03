@@ -15,7 +15,7 @@ const PageMock: PageWithLayout = () => {
    );
 };
 
-describe("shared-layout-get-layout", () => {
+describe("Client::UI::Layout::getLayout", () => {
    beforeEach(() => {
       // Remove layout
       PageMock.layout = undefined;

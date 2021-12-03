@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 import { render } from "@testing-library/react";
+import "@testing-library/jest-dom";
 
 import { DefaultLayout } from "./client-shared-ui-layout-default";
 import { PageWithLayout } from "../entity/client-shared-ui-layout.entity";
@@ -14,7 +15,7 @@ const PageMock: PageWithLayout = () => {
    );
 };
 
-describe("shared-layout-default-layout", () => {
+describe("Client::UI::Layout::Default", () => {
    it("should render", async () => {
       const { findAllByTestId } = render(<DefaultLayout page={<PageMock />} />);
 

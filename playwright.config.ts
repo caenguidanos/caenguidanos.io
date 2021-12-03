@@ -91,8 +91,8 @@ const storybookConfig: PlaywrightTestConfig = {
       ["list"]
    ],
    retries: 0,
-   testDir: resolve("src", "libs", "clients"),
-   testMatch: "**/*.e2e.ts",
+   testDir: resolve("src"),
+   testMatch: "**/*.stories-e2e.ts",
    timeout: 30000,
    use: { baseURL: "http://localhost:6006", trace: { mode: "on" } },
    webServer: {
@@ -112,7 +112,7 @@ const defaultConfig: PlaywrightTestConfig = {
       ["list"]
    ],
    retries: 0,
-   testDir: resolve("src-e2e"),
+   testDir: resolve("src"),
    testMatch: "**/*.e2e.ts",
    timeout: 30000,
    use: { baseURL: "http://localhost:3000", trace: { mode: "on" } },
@@ -124,7 +124,7 @@ const defaultConfig: PlaywrightTestConfig = {
    }
 };
 
-const cicdConfig: PlaywrightTestConfig = {
+const defaultCiConfig: PlaywrightTestConfig = {
    outputDir: resolve("dist", "tests", "e2e", "results"),
    preserveOutput: "always",
    projects: commonConfigProjects,
@@ -133,7 +133,7 @@ const cicdConfig: PlaywrightTestConfig = {
       ["list"]
    ],
    retries: 0,
-   testDir: resolve("src-e2e"),
+   testDir: resolve("src"),
    testMatch: "**/*.e2e.ts",
    timeout: 30000,
    use: { baseURL: process.env.PLAYWRIGHT_BASE_URL, trace: { mode: "on" } }
@@ -156,7 +156,7 @@ if (isDefaultConfig) {
 }
 
 if (isCiCdConfig) {
-   config = cicdConfig;
+   config = defaultCiConfig;
 
    if (process.env.PLAYWRIGHT_BASE_URL) {
       throw new Error("Playwright URL is required");

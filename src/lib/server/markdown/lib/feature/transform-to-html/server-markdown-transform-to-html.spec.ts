@@ -19,7 +19,7 @@ export const content = {
    `
 };
 
-describe("shared-markdown-util-transform-to-html", () => {
+describe("Server::Markdown::transformToHTML", () => {
    it("should transform markdown to HTML", async () => {
       const result = await transformToHtml({ input: content.default });
 

@@ -1,7 +1,7 @@
 import fs from "fs";
 
 import { resolve } from "$lib/server/shared/io";
-import { transformToHtml } from "$lib/server/markdown";
+import { transformToHtml } from "src/lib/server/markdown";
 
 import { IndexPage } from "$lib/client/pages";
 

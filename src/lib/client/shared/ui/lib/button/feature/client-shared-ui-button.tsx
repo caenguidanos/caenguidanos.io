@@ -1,11 +1,8 @@
-import { styled, keyframes } from "../../../stitches.config";
+import { styled } from "../../../stitches.config";
+
+import { useButton } from "../util/use-button/client-shared-ui-button-util-use-button";
 
 import type { ButtonProps } from "../entity/client-shared-ui-button.entity";
-
-const rotate = keyframes({
-   "0%": { transform: "rotate(0deg)" },
-   "100%": { transform: "rotate(360deg)" }
-});
 
 const ButtonPrimitive = styled("button", {
    userSelect: "none",
@@ -88,88 +85,20 @@ const ButtonPrimitive = styled("button", {
    }
 });
 
-const ButtonSpinnerPrimitive = styled("span", {
-   display: "block",
-   userSelect: "none",
-
-   borderStyle: "solid",
-   borderRadius: "50%",
-
-   animationName: `${rotate}`,
-   animationDuration: "700ms",
-   animationTimingFunction: "linear",
-   animationIterationCount: "infinite",
-
-   pointerEvents: "none",
-
-   variants: {
-      color: {
-         default: {
-            borderColor: "$neutral300",
-            borderLeftColor: "$neutral900"
-         },
-         primary: {
-            borderColor: "$blue700",
-            borderLeftColor: "$blue300"
-         },
-         muted: {
-            borderColor: "$neutral300",
-            borderLeftColor: "$neutral500"
-         }
-      },
-      size: {
-         sm: {
-            width: "$4",
-            height: "$4",
-            borderWidth: "$px",
-            my: "2px"
-         },
-         base: {
-            width: "$5",
-            height: "$5",
-            borderWidth: "2px",
-            my: "2px"
-         },
-         md: {
-            width: "$6",
-            height: "$6",
-            borderWidth: "$2px",
-            my: "2px"
-         }
-      }
-   },
-   defaultVariants: {
-      color: "default",
-      size: "base"
-   }
-});
-
 export const Button: React.FunctionComponent<ButtonProps> = (props) => {
-   const isLoading: boolean = props.load === true;
-   const isDisabled: boolean = props.disabled === true;
-
-   const buttonMuted = isDisabled || isLoading;
-   const buttonOnClick = buttonMuted ? undefined : props.onClick;
-   const buttonStatus = isLoading ? "loading" : isDisabled ? "disabled" : "normal";
-   const buttonType = props.type ?? "button";
-   const buttonColor = isDisabled ? "muted" : props.color;
-   const buttonChildren = isLoading ? (
-      <ButtonSpinnerPrimitive id={`${props.id}Spinner`} size={props.size} color={buttonColor} />
-   ) : (
-      props.children
-   );
+   const { id, type, color, size, onClick, disabled, status, children } = useButton(props);
 
    return (
       <ButtonPrimitive
-         id={props.id}
-         type={buttonType}
-         color={buttonColor}
-         size={props.size}
-         onClick={buttonOnClick}
-         disabled={buttonMuted}
-         status={buttonStatus}
+         id={id}
+         type={type}
+         color={color}
+         size={size}
+         onClick={onClick}
+         disabled={disabled}
+         status={status}
       >
-         {buttonChildren}
+         {children}
       </ButtonPrimitive>
    );
 };

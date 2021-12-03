@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("Index page", () => {
+test.describe("Pages::Index", () => {
    /*
     * {AS} navigator;
     * {WANT} to render the page;

@@ -25,10 +25,8 @@
       "noFallthroughCasesInSwitch": true,
       "paths": {
          "$lib/shared/*": ["src/lib/shared/*"],
-         "$lib/client/*": ["src/lib/client/core/*"],
-         "$lib/client/shared/*": ["src/lib/client/shared/*"],
-         "$lib/server/*": ["src/lib/server/core/*"],
-         "$lib/server/shared/*": ["src/lib/server/shared/*"]
+         "$lib/client/*": ["src/lib/client/*"],
+         "$lib/server/*": ["src/lib/server/*"]
       }
    },
    "include": ["**.d.ts", "**/*.ts", "**/*.tsx"],

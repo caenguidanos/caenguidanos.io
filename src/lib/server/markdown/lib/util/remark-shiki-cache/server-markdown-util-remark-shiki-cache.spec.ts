@@ -11,7 +11,7 @@ import {
    remarkShikiCreateHighlighter
 } from "./server-markdown-util-remark-shiki-cache";
 
-describe("shared-markdown-util-plugins-remark-shiki-util-cache", () => {
+describe("Server::Markdown::RemarkShiki::Cache", () => {
    it("should create new highlighter", async () => {
       const result: Highlighter = await remarkShikiCreateHighlighter({
          theme: remarkShikiThemes.github.light

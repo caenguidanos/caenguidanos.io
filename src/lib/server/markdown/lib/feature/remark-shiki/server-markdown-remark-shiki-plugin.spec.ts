@@ -1,6 +1,6 @@
 import { remarkShiki } from "./server-markdown-remark-shiki-plugin";
 
-describe("shared-markdown-util-plugins-remark-shiki-plugin", () => {
+describe("Server::Markdown::RemarkShiki", () => {
    it("TODO", () => {
       expect(remarkShiki).toBeTruthy();
    });
