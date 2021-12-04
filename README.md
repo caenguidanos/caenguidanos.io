@@ -22,7 +22,7 @@ Welcome to my [personal site](https://caenguidanos-io.vercel.app) `0.0.4`.
 
 #### Style
 
--  :zap: [stitchesjs](https://stitches.dev/)
+-  :zap: [stitches](https://stitches.dev/)
 -  :zap: [tailwindcss](https://tailwindcss.com/)
 
 #### Lint
@@ -33,7 +33,8 @@ Welcome to my [personal site](https://caenguidanos-io.vercel.app) `0.0.4`.
 #### Testing
 
 -  :zap: [playwright](https://playwright.dev/)
--  :zap: [jest](https://jestjs.io/es-ES/)
+-  :zap: [jest](https://jestjs.io/)
+-  :zap: [msw](https://mswjs.io/)
 
 #### Hosting:
 

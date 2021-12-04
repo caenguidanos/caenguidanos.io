@@ -1,8 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { render } from "@testing-library/react";
-import "@testing-library/jest-dom";
+import { render, screen } from "@testing-library/react";
 
 import { DefaultLayout } from "./client-shared-ui-layout-default";
 import { PageWithLayout } from "../entity/client-shared-ui-layout.entity";
@@ -17,10 +16,10 @@ const PageMock: PageWithLayout = () => {
 
 describe("Client::UI::Layout::Default", () => {
    it("should render", async () => {
-      const { findAllByTestId } = render(<DefaultLayout page={<PageMock />} />);
+      render(<DefaultLayout page={<PageMock />} />);
 
-      const layout = await findAllByTestId("__layout__");
-      const page = await findAllByTestId("page");
+      const layout = await screen.findAllByTestId("__layout__");
+      const page = await screen.findAllByTestId("page");
 
       expect(layout).toBeTruthy();
       expect(page).toBeTruthy();

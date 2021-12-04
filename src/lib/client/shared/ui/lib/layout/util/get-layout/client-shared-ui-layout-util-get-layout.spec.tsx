@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
 import { PageWithLayout } from "../../entity/client-shared-ui-layout.entity";
 import { DefaultLayout } from "../../feature/client-shared-ui-layout-default";
@@ -26,10 +26,10 @@ describe("Client::UI::Layout::getLayout", () => {
 
       const DynamicLayout = getLayout(PageMock);
 
-      const { findAllByTestId } = render(<DynamicLayout page={<PageMock />} />);
+      render(<DynamicLayout page={<PageMock />} />);
 
-      const layout = await findAllByTestId("__layout__");
-      const page = await findAllByTestId("page");
+      const layout = await screen.findAllByTestId("__layout__");
+      const page = await screen.findAllByTestId("page");
 
       expect(layout).toBeTruthy();
       expect(page).toBeTruthy();
@@ -38,9 +38,9 @@ describe("Client::UI::Layout::getLayout", () => {
    it("should get without layout", async () => {
       const DynamicLayout = getLayout(PageMock);
 
-      const { findAllByTestId } = render(<DynamicLayout page={<PageMock />} />);
+      render(<DynamicLayout page={<PageMock />} />);
 
-      const page = await findAllByTestId("page");
+      const page = await screen.findAllByTestId("page");
 
       expect(page).toBeTruthy();
    });

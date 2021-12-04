@@ -1,9 +1,6 @@
 /**
  * @jest-environment jsdom
  */
-
-import "@testing-library/jest-dom";
-
 import { Button } from "./client-shared-ui-button";
 
 describe("Client::UI::Button", () => {

@@ -9,13 +9,14 @@ const customJestConfig = {
    extensionsToTreatAsEsm: [".ts", ".tsx"],
    extraGlobals: ["Math"],
    testMatch: ["**/src/lib/**/*.spec.{ts,tsx}"],
+   setupFilesAfterEnv: ["./jest.setup.ts"],
    collectCoverage: true,
    collectCoverageFrom: [
       "src/lib/**/*.{ts,tsx}",
 
       "!**/*.entity.ts", // Lib typescript entities
       "!**/*.stories.tsx", // Storybook files
-      "!**/*.stories-e2e.tsx", // Storybook E2E files
+      "!**/*.stories-e2e.{ts,tsx}", // Storybook E2E files
 
       "!**/*-e2e/**", // E2E testing folders
 
@@ -33,6 +34,7 @@ const customJestConfig = {
       }
    },
    moduleNameMapper: {
+      "^\\$config/(.*)$": ["<rootDir>/src/config/$1"],
       "^\\$lib/shared/(.*)$": ["<rootDir>/src/lib/shared/$1"],
       "^\\$lib/client/(.*)$": ["<rootDir>/src/lib/client/$1"],
       "^\\$lib/server/(.*)$": ["<rootDir>/src/lib/server/$1"]

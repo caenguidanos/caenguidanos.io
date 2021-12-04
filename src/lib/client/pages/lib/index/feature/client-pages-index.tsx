@@ -8,7 +8,7 @@ const IndexPage: PageWithLayout<IndexPageProps> = ({ html }) => {
    const [apiState, setApiState] = useState<string | undefined>();
 
    const handleCallApiButtonClick = async (): Promise<void> => {
-      const request = await fetch("/api/hello");
+      const request = await fetch("https://jsonplaceholder.typicode.com/todos/1");
 
       if (request.ok) {
          const json = await request.json();
