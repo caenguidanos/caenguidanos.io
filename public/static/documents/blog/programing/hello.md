@@ -24,7 +24,9 @@ const IndexPage: PageWithLayout<IndexPageProps> = ({ html }) => {
    );
 };
 
-export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext) => {
+export const getStaticProps: GetStaticProps = async (
+   ctx: GetStaticPropsContext
+) => {
    const src = fs.readFileSync(
       path.resolve(process.cwd(), "data/blog/programing/hello_ES.md"),
       "utf8"

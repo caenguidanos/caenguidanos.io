@@ -1,4 +1,7 @@
-import { AppPropsWithLayout, Layout } from "../../entity/client-shared-ui-layout.entity";
+import {
+   AppPropsWithLayout,
+   Layout
+} from "../../entity/page-layout/client-shared-next-page-layout.entity";
 
 export const NoLayout: Layout = ({ page }) => {
    return <>{page}</>;

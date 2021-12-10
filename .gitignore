@@ -7,6 +7,7 @@
 pnpm-lock.yaml
 package-lock.json
 .migration
+/storybook-static
 
 # next.js
 /.next/
@@ -19,6 +20,7 @@ package-lock.json
 # misc
 .DS_Store
 *.pem
+/.idea
 
 # debug
 npm-debug.log*

@@ -1,0 +1,38 @@
+name: "E2E"
+description: "Run E2E testing to preview url with Playwright"
+runs:
+   using: "composite"
+   steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+           node-version: "16.13.0"
+
+      - name: Install Pnpm and Dependencies
+        uses: pnpm/action-setup@v2.0.1
+        with:
+           version: 6.22.2
+           run_install: true
+
+      - name: Install Playwright OS Dependncies
+        run: pnpm e2e -- install-deps
+
+      - name: Install Playwright OS Browsers
+        run: pnpm e2e -- install
+
+      - name: Download Preview-Url from Deploy
+        uses: actions/download-artifact@v2
+        with:
+           name: preview-url
+
+      - name: Run E2E Tests
+        run: |
+           PLAYWRIGHT_BASE_URL='$(cat preview-url.txt)' PLAYWRIGHT_MODE='ci' pnpm e2e
+
+      - name: Save E2E Results
+        uses: actions/upload-artifact@v2
+        with:
+           name: e2e-testing-report
+           path: dist/tests/e2e/reports

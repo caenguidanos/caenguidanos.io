@@ -8,9 +8,9 @@ test.describe("API hello", () => {
     */
    test("should retrieve data", async ({ request }) => {
       const response = await request.get("/api/hello");
-      const repsonseBody = await response.json();
+      const responseBody = await response.json();
 
       expect(response.ok()).toBeTruthy();
-      expect(repsonseBody.name).toBe("John Doe2");
+      expect(responseBody.name).toBe("John Doe2");
    });
 });

@@ -1,4 +1,4 @@
-import { remarkShiki } from "./server-markdown-remark-shiki-plugin";
+import { remarkShiki } from "$lib/server/markdown";
 
 describe("Server::Markdown::RemarkShiki", () => {
    it("TODO", () => {

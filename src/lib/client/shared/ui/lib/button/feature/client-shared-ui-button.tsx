@@ -86,7 +86,8 @@ const ButtonPrimitive = styled("button", {
 });
 
 export const Button: React.FunctionComponent<ButtonProps> = (props) => {
-   const { id, type, color, size, onClick, disabled, status, children } = useButton(props);
+   const { id, type, color, size, onClick, disabled, status, children } =
+      useButton(props);
 
    return (
       <ButtonPrimitive

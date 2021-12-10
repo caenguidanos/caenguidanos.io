@@ -1,4 +1,4 @@
-import { transformToHtml } from "./server-markdown-transform-to-html";
+import { transformToHtml } from "$lib/server/markdown";
 
 export const content = {
    default: `
@@ -25,11 +25,15 @@ describe("Server::Markdown::transformToHTML", () => {
 
       expect(result).toMatch(`<h1>Hello</h1>`);
       expect(result).toMatch(`<p>This is a mock content for unit testing.</p>`);
-      expect(result).toMatch(`<pre class="shiki" style="background-color: #fff">`);
+      expect(result).toMatch(
+         `<pre class="shiki" style="background-color: #fff">`
+      );
    });
 
    it("should not transform markdown to HTML if invalid input", async () => {
-      const result = await transformToHtml({} as unknown as Record<"input", string>);
+      const result = await transformToHtml(
+         {} as unknown as Record<"input", string>
+      );
 
       expect(result).toBe("");
    });

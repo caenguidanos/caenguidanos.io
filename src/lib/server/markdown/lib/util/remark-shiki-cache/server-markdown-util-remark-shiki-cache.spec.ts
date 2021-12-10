@@ -1,6 +1,6 @@
 import { Highlighter } from "shiki";
 
-import { remarkShikiThemes } from "../remark-shiki-themes/server-markdown-util-remark-shiki-themes";
+import { remarkShikiThemes } from "$lib/server/markdown";
 
 import {
    HighlighterWithCache,
@@ -9,7 +9,7 @@ import {
    remarkShikiCacheHighlighterID,
    remarkShikiComposeHighlighterCache,
    remarkShikiCreateHighlighter
-} from "./server-markdown-util-remark-shiki-cache";
+} from "$lib/server/markdown";
 
 describe("Server::Markdown::RemarkShiki::Cache", () => {
    it("should create new highlighter", async () => {
@@ -43,7 +43,8 @@ describe("Server::Markdown::RemarkShiki::Cache", () => {
          theme: remarkShikiThemes.github.light
       });
 
-      const result: HighlighterWithCache = remarkShikiComposeHighlighterCache(highlighter);
+      const result: HighlighterWithCache =
+         remarkShikiComposeHighlighterCache(highlighter);
 
       expect(result).toHaveProperty("codeToHtml");
       expect(result).toHaveProperty("codeToThemedTokens");
@@ -58,9 +59,9 @@ describe("Server::Markdown::RemarkShiki::Cache", () => {
    });
 
    it("should not assign cache property to highlighter and throw TypeError", () => {
-      expect(() => remarkShikiComposeHighlighterCache(77 as unknown as Highlighter)).toThrowError(
-         RemarkShikiCacheErrors.InvalidType
-      );
+      expect(() =>
+         remarkShikiComposeHighlighterCache(77 as unknown as Highlighter)
+      ).toThrowError(RemarkShikiCacheErrors.InvalidType);
    });
 
    it("should cache shiki highlighter", async () => {

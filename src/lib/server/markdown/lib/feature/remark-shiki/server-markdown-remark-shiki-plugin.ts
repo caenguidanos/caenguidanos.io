@@ -21,7 +21,10 @@ export const remarkShiki = <Tree extends Node<Data> & RemarkShikiPluginNode>(
    const visitor: BuildVisitor<Tree, "code"> = (node) => {
       const metadata = { lang: node.lang, code: node.value };
 
-      const tokens = options.highlighter.codeToThemedTokens(metadata.code, metadata.lang);
+      const tokens = options.highlighter.codeToThemedTokens(
+         metadata.code,
+         metadata.lang
+      );
 
       Object.assign(node, { type: "html", value: renderToHtml(tokens) });
    };

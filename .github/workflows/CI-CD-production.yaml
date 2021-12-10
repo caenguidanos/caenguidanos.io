@@ -151,23 +151,13 @@ jobs:
 
          - name: Run E2E Tests
            run: |
-              PLAYWRIGHT_BASE_URL=$(cat production-url.txt) pnpm e2e-ci
-
-         - name: Run E2E-Storybook Tests
-           run: |
-              pnpm e2e-storybook
+              PLAYWRIGHT_BASE_URL=$(cat production-url.txt) PLAYWRIGHT_MODE='ci' pnpm e2e
 
          - name: Save E2E Results
            uses: actions/upload-artifact@v2
            with:
               name: e2e-testing-report
               path: dist/tests/e2e/reports
-
-         - name: Save E2E-Storybook Results
-           uses: actions/upload-artifact@v2
-           with:
-              name: e2e-storybook-testing-report
-              path: dist/tests/e2e-storybook/reports
 
          - name: Setup Google Cloud Platform SDK
            uses: google-github-actions/setup-gcloud@master
@@ -181,31 +171,57 @@ jobs:
 
          - name: Build Production Container
            run: |
-              docker build -f tools/images/e2e-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }} .
-              docker build -f tools/images/e2e-storybook-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-storybook-${{ needs.prepare.outputs.branch }}:${{ github.sha }} .
+              docker build -f tools/images/e2e-report/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }} .
 
          - name: Push Production Container
            run: |
-              docker push ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
-              docker push ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-storybook-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
+              docker push ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
 
          - name: Deploy Production Container to Cloud Run
            uses: google-github-actions/deploy-cloudrun@main
            with:
               service: ${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}
-              image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
-              region: ${{ env.GCP_REGION }}
-              flags: --max-instances=2 --port=9323 --allow-unauthenticated --concurrency=20
-
-         - name: Deploy Production Storybook Container to Cloud Run
-           uses: google-github-actions/deploy-cloudrun@main
-           with:
-              service: ${{ env.GCP_CLOUD_RUN_SERVICE }}-storybook-${{ needs.prepare.outputs.branch }}
-              image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-storybook-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
+              image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
               region: ${{ env.GCP_REGION }}
               flags: --max-instances=2 --port=9323 --allow-unauthenticated --concurrency=20
 
          - name: Remove Deployed Production Container from Registry
            run: |
-              gcloud artifacts docker images delete ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
-              gcloud artifacts docker images delete ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}-storybook-${{ needs.prepare.outputs.branch }}:${{ github.sha }}
+              gcloud artifacts docker images delete ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }}
+
+   storybook:
+      needs: [e2e-testing]
+      runs-on: ubuntu-latest
+      env:
+         GCP_CLOUD_RUN_SERVICE: storybook
+      steps:
+         - uses: actions/checkout@v2
+
+         - name: Install Node
+           uses: actions/setup-node@v2
+           with:
+              node-version: "16.13.0"
+
+         - name: Install Pnpm and Dependencies
+           uses: pnpm/action-setup@v2.0.1
+           with:
+              version: 6.22.2
+              run_install: true
+
+         - name: Run Storybook Build
+           run: |
+              pnpm storybook:build
+
+         - name: Setup Google Cloud Platform SDK
+           uses: google-github-actions/setup-gcloud@master
+           with:
+              project_id: ${{ env.GCP_PROJECT_ID }}
+              service_account_key: ${{ secrets.GCP_SA_KEY }}
+              export_default_credentials: true
+
+         - name: Authorize Docker Configuration for Artifact Registry
+           run: gcloud auth configure-docker ${{ env.GCP_REGION }}-docker.pkg.dev
+
+         - name: Build Release Container
+           run: |
+              docker build -f tools/images/storybook/Dockerfile -t ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPOSITORY }}/${{ env.GCP_CLOUD_RUN_SERVICE }}:${{ github.sha }} .

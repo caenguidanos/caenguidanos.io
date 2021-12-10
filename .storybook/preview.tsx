@@ -1,9 +1,10 @@
 import * as NextImage from "next/image";
+import { inspect } from "@xstate/inspect";
 
-import { worker } from "../src/config/msw/browser.msw";
+import { worker } from "../src/lib/shared/config/msw/lib/browser.msw";
 
 // Styles
-import "../src/lib/client/shared/styles/lib/globals.scss";
+import "../src/lib/client/shared/styles/index.scss";
 
 export const decorators = [];
 
@@ -14,6 +15,11 @@ if (typeof window !== "undefined") {
       worker.resetHandlers();
       return <>{story()}</>;
    });
+}
+
+// XState
+if (typeof window !== "undefined") {
+   inspect({ iframe: false, url: "https://stately.ai/viz?inspect" });
 }
 
 // Next Image

@@ -7,172 +7,29 @@ name: CI/CD
 jobs:
    prepare:
       runs-on: ubuntu-latest
-      outputs:
-         branch: ${{ steps.clean-branch-name.outputs.result }}
       steps:
-         - name: Print Branch Target
-           run: echo "The target branch name is ${{ github.event.pull_request.base.ref }}"
-
-         - name: Check Branch Name
-           uses: actions/github-script@v5
+         - name: Check Branch
+           uses: ./.github/actions/check-branch-name
            with:
-              script: |
-                 const originBranch = "${{ github.head_ref }}";
-                 const regexp = /^(feature|hotfix|bugfix|experimental)\/(issue-[0-9]+)$/g;
-                 const matches = originBranch.match(regexp);
-
-                 if (!matches) {
-                     throw new Error("You only can push from [feature/hotfix/bugfix/experimental] branch to release/**");
-                     process.exit(1);
-                 }
+              type: release
 
    unit-testing:
       runs-on: ubuntu-latest
       needs: [prepare]
-      env:
-         GCP_CLOUD_RUN_SERVICE: unit-jest-reports
       steps:
-         - uses: actions/checkout@v2
-
-         - name: Install Node
-           uses: actions/setup-node@v2
-           with:
-              node-version: "16.13.0"
-
-         - name: Configure Pnpm Cache
-           uses: actions/cache@v2
-           with:
-              path: ~/.pnpm-store
-              key: ${{ runner.os }}-node16-${{ hashFiles('**/package.json') }}
-              restore-keys: ${{ runner.os }}-node16-
-
-         - name: Install Pnpm and Dependencies
-           uses: pnpm/action-setup@v2.0.1
-           with:
-              version: 6.22.2
-              run_install: true
-
-         - name: Run Unit Testing
-           run: pnpm test
-
-         - name: Save Unit Testing Coverage Reports
-           uses: actions/upload-artifact@v2
-           with:
-              name: unit-testing-report
-              path: dist/tests/unit/reports
-
-         - name: Save Unit Testing Coverage LCOV
-           uses: actions/upload-artifact@v2
-           with:
-              name: unit-testing-report-lcov
-              path: dist/tests/unit/reports/lcov.info
+         - name: Run unit tests
+           uses: ./.github/actions/unit-testing
 
    deploy:
       needs: [unit-testing]
       runs-on: ubuntu-latest
       steps:
-         - uses: actions/checkout@v2
-
-         - name: Install Node
-           uses: actions/setup-node@v2
-           with:
-              node-version: "16.13.0"
-
-         - name: Configure Pnpm Cache
-           uses: actions/cache@v2
-           with:
-              path: ~/.pnpm-store
-              key: ${{ runner.os }}-node16-${{ hashFiles('**/package.json') }}
-              restore-keys: ${{ runner.os }}-node16-
-
-         - name: Install Pnpm and Dependencies
-           uses: pnpm/action-setup@v2.0.1
-           with:
-              version: 6.22.2
-              run_install: false
-
-         - name: Deploy Preview to Vercel
-           id: vercel-deploy
-           run: |
-              pnpx vercel -t ${VERCEL_TOKEN} > preview-url.txt
-           env:
-              VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-              VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-              VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-
-         - name: Comment PR
-           uses: actions/github-script@v5
-           with:
-              script: |
-                 const path = require('path');
-                 const fs = require('fs');
-
-                 const resolve = (...args) => path.resolve(process.cwd(), ...args);
-
-                 const filePath = resolve('preview-url.txt');
-                 const fileContent = fs.readFileSync(filePath, 'utf8').trim();
-
-                 const body = `Vercel Deployment\n\n- Preview: ${fileContent}`;
-
-                 github.rest.issues.createComment({
-                    issue_number: context.issue.number,
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    body,
-                 })
-
-         - name: Save Preview-Url
-           uses: actions/upload-artifact@v2
-           with:
-              name: preview-url
-              path: preview-url.txt
+         - name: Run deploy
+           uses: ./.github/actions/deploy
 
    e2e-testing:
-      needs: [deploy, prepare]
+      needs: [deploy]
       runs-on: ubuntu-latest
-      env:
-         GCP_CLOUD_RUN_SERVICE: e2e-playwright-reports
       steps:
-         - uses: actions/checkout@v2
-
-         - name: Install Node
-           uses: actions/setup-node@v2
-           with:
-              node-version: "16.13.0"
-
-         - name: Install Pnpm and Dependencies
-           uses: pnpm/action-setup@v2.0.1
-           with:
-              version: 6.22.2
-              run_install: true
-
-         - name: Install Playwright OS Dependncies
-           run: pnpm e2e -- install-deps
-
-         - name: Install Playwright OS Browsers
-           run: pnpm e2e -- install
-
-         - name: Download Preview-Url from Deploy
-           uses: actions/download-artifact@v2
-           with:
-              name: preview-url
-
-         - name: Run E2E Tests
-           run: |
-              PLAYWRIGHT_BASE_URL=$(cat preview-url.txt) pnpm e2e-ci
-
-         - name: Run E2E-Storybook Tests
-           run: |
-              pnpm e2e-storybook
-
-         - name: Save E2E Results
-           uses: actions/upload-artifact@v2
-           with:
-              name: e2e-testing-report
-              path: dist/tests/e2e/reports
-
-         - name: Save E2E-Storybook Results
-           uses: actions/upload-artifact@v2
-           with:
-              name: e2e-storybook-testing-report
-              path: dist/tests/e2e-storybook/reports
+         - name: Run e2e tests
+           uses: ./.github/actions/e2e-testing

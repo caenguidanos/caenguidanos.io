@@ -24,7 +24,6 @@
       "noImplicitReturns": false,
       "noFallthroughCasesInSwitch": true,
       "paths": {
-         "$config/*": ["src/config/*"],
          "$lib/shared/*": ["src/lib/shared/*"],
          "$lib/client/*": ["src/lib/client/*"],
          "$lib/server/*": ["src/lib/server/*"]

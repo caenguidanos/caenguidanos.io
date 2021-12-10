@@ -1,0 +1,60 @@
+name: "Deploy"
+description: "Vercel deployment"
+runs:
+   using: "composite"
+   steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+           node-version: "16.13.0"
+
+      - name: Configure Pnpm Cache
+        uses: actions/cache@v2
+        with:
+           path: ~/.pnpm-store
+           key: ${{ runner.os }}-node16-${{ hashFiles('**/package.json') }}
+           restore-keys: ${{ runner.os }}-node16-
+
+      - name: Install Pnpm and Dependencies
+        uses: pnpm/action-setup@v2.0.1
+        with:
+           version: 6.22.2
+           run_install: false
+
+      - name: Deploy Preview to Vercel
+        id: vercel-deploy
+        run: |
+           pnpx vercel -t ${VERCEL_TOKEN} > preview-url.txt
+        env:
+           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+
+      - name: Comment PR
+        uses: actions/github-script@v5
+        with:
+           script: |
+              const path = require('path');
+              const fs = require('fs');
+
+              const resolve = (...args) => path.resolve(process.cwd(), ...args);
+
+              const filePath = resolve('preview-url.txt');
+              const fileContent = fs.readFileSync(filePath, 'utf8').trim();
+
+              const body = `Vercel Deployment\n\n- Preview: ${fileContent}`;
+
+              github.rest.issues.createComment({
+                 issue_number: context.issue.number,
+                 owner: context.repo.owner,
+                 repo: context.repo.repo,
+                 body,
+              })
+
+      - name: Save Preview-Url
+        uses: actions/upload-artifact@v2
+        with:
+           name: preview-url
+           path: preview-url.txt

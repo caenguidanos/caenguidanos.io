@@ -1,43 +1,54 @@
-import { useState } from "react";
-
-import { DefaultLayout, PageWithLayout, Button } from "$lib/client/shared/ui";
+import { Button } from "$lib/client/shared/ui";
+import { PageWithLayout } from "$lib/client/shared/next";
+import { useStateMachine } from "$lib/client/shared/global-state";
 
 import type { IndexPageProps } from "../entity/client-pages-index.entity";
 
-const IndexPage: PageWithLayout<IndexPageProps> = ({ html }) => {
-   const [apiState, setApiState] = useState<string | undefined>();
+const Navbar = () => {
+   const [state] = useStateMachine("auth");
 
-   const handleCallApiButtonClick = async (): Promise<void> => {
-      const request = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+   return (
+      <pre className="text-blue-500">
+         <code>From Navbar:</code>
+         <code>{JSON.stringify(state.context, null, 4)}</code>
+      </pre>
+   );
+};
 
-      if (request.ok) {
-         const json = await request.json();
-         setApiState(JSON.stringify(json, undefined, 3));
-      }
-   };
+const IndexPage: PageWithLayout<IndexPageProps> = () => {
+   const [state, send] = useStateMachine("auth");
 
    return (
       <div className="grid gap-10 max-w-7xl m-20">
-         <h1 className="text-neutral-800 text-7xl font-black">Blog</h1>
+         <Navbar />
+         <pre className="text-red-500">
+            <code>From Index Page:</code>
+            <code>{JSON.stringify(state.context, null, 4)}</code>
+         </pre>
+         <Button
+            id="indexPageApiFetchButton"
+            onClick={() =>
+               send({
+                  type: "LOGIN",
+                  payload: {
+                     user: "caenguidanos@github.com"
+                  }
+               })
+            }
+            color="primary"
+         >
+            LogIn
+         </Button>
 
-         <div
-            className="border rounded p-5 text-neutral-700"
-            dangerouslySetInnerHTML={{ __html: html }}
-         ></div>
-
-         {apiState ? (
-            <div id="indexPageApiStateVisualizer" className="border rounded p-5 text-neutral-700">
-               {apiState}
-            </div>
-         ) : null}
-
-         <Button id="indexPageApiFetchButton" onClick={handleCallApiButtonClick} color="primary">
-            Fetch
+         <Button
+            id="indexPageApiFetchButton"
+            onClick={() => send("LOGOUT")}
+            color="primary"
+         >
+            LogOut
          </Button>
       </div>
    );
 };
-
-IndexPage.layout = DefaultLayout;
 
 export default IndexPage;

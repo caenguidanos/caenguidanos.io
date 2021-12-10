@@ -9,14 +9,20 @@ export function useButton(props: PropsWithChildren<ButtonProps>) {
 
    const buttonMuted = isDisabled || isLoading;
    const buttonOnClick = buttonMuted ? undefined : props.onClick;
+   const buttonColor = isDisabled ? "muted" : props.color;
+
    const buttonStatus: "normal" | "disabled" | "loading" = isLoading
       ? "loading"
       : isDisabled
       ? "disabled"
       : "normal";
-   const buttonColor = isDisabled ? "muted" : props.color;
+
    const buttonChildren = isLoading ? (
-      <ButtonSpinner id={`${props.id}Spinner`} size={props.size} color={buttonColor} />
+      <ButtonSpinner
+         id={`${props.id}Spinner`}
+         size={props.size}
+         color={buttonColor}
+      />
    ) : (
       props.children
    );

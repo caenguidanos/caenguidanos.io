@@ -15,7 +15,7 @@ test.describe("Index page", () => {
       await expect(locatorDiv).toBeHidden();
 
       const [response] = await Promise.all([
-         page.waitForResponse("https://jsonplaceholder.typicode.com/todos/1"),
+         page.waitForResponse("**/api/hello"),
          locatorButton.click()
       ]);
 
@@ -23,9 +23,10 @@ test.describe("Index page", () => {
       await expect(locatorDiv).toBeVisible();
 
       const responseContent = await response.json();
-      console.log({ responseContent });
       const locatorDivContent = await locatorDiv.textContent();
 
-      expect(locatorDivContent).toBe(JSON.stringify(responseContent, undefined, 3));
+      expect(locatorDivContent).toBe(
+         JSON.stringify(responseContent, undefined, 3)
+      );
    });
 });

@@ -1,4 +1,10 @@
-import Document, { Html, Head, Main, NextScript, DocumentContext } from "next/document";
+import Document, {
+   Html,
+   Head,
+   Main,
+   NextScript,
+   DocumentContext
+} from "next/document";
 
 class MyDocument extends Document {
    static async getInitialProps(ctx: DocumentContext) {
@@ -20,9 +26,6 @@ class MyDocument extends Document {
                />
 
                <link href="/static/favicons/favicon.ico" rel="shortcut icon" />
-
-               <meta content="#ffffff" name="theme-color" />
-               <meta content="#ffffff" name="msapplication-TileColor" />
             </Head>
             <body className="bg-white text-white">
                <Main />

@@ -16,9 +16,8 @@ const customJestConfig = {
 
       "!**/*.entity.ts", // Lib typescript entities
       "!**/*.stories.tsx", // Storybook files
-      "!**/*.stories-e2e.{ts,tsx}", // Storybook E2E files
-
-      "!**/*-e2e/**", // E2E testing folders
+      "!**/*.msw.ts", // MSW files
+      "!**/*.page.spec.ts", // E2E files
 
       "!**/index.ts", // Lib entrypoints
       "!**/stitches.config.ts" // Stitches config
@@ -27,14 +26,13 @@ const customJestConfig = {
    coverageReporters: ["json", "lcov", "text", "html-spa"],
    coverageThreshold: {
       global: {
-         branches: 90,
-         functions: 90,
-         lines: 90,
+         branches: 0,
+         functions: 0,
+         lines: 0,
          statements: 0
       }
    },
    moduleNameMapper: {
-      "^\\$config/(.*)$": ["<rootDir>/src/config/$1"],
       "^\\$lib/shared/(.*)$": ["<rootDir>/src/lib/shared/$1"],
       "^\\$lib/client/(.*)$": ["<rootDir>/src/lib/client/$1"],
       "^\\$lib/server/(.*)$": ["<rootDir>/src/lib/server/$1"]

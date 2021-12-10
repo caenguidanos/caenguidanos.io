@@ -14,9 +14,13 @@ export interface TransformToHtmlOptions {
    input: string;
 }
 
-const getHighlighterCache = remarkShikiCacheHighlighter({ theme: remarkShikiThemes.github.light });
+const getHighlighterCache = remarkShikiCacheHighlighter({
+   theme: remarkShikiThemes.github.light
+});
 
-export async function transformToHtml(options: TransformToHtmlOptions): Promise<string> {
+export async function transformToHtml(
+   options: TransformToHtmlOptions
+): Promise<string> {
    try {
       const highlighter: Highlighter = await getHighlighterCache();
 

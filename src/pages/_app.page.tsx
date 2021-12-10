@@ -1,22 +1,27 @@
 import Script from "next/script";
 import { RecoilRoot } from "recoil";
 
-import { getLayout, AppPropsWithLayout } from "$lib/client/shared/ui";
+import { StateMachinesRoot } from "$lib/client/shared/global-state";
+import { getLayout, AppPropsWithLayout } from "$lib/client/shared/next";
 
-import "$config/msw";
+import "$lib/shared/config/msw";
 
-import "$lib/client/shared/styles/lib/globals.scss";
+import "$lib/client/shared/config/xstate";
+import "$lib/client/shared/styles/index.scss";
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
    const dynamicLayout = getLayout(Component);
 
    return dynamicLayout({
       page: (
-         <RecoilRoot>
+         <>
             <Script src="https://unpkg.com/spacingjs" strategy="lazyOnload" />
-
-            <Component {...pageProps} />
-         </RecoilRoot>
+            <RecoilRoot>
+               <StateMachinesRoot>
+                  <Component {...pageProps} />
+               </StateMachinesRoot>
+            </RecoilRoot>
+         </>
       )
    });
 }

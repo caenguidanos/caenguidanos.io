@@ -2,10 +2,15 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@import "./fonts/jetbrains-mono.scss";
+@import "./lib/fonts/jetbrains-mono.scss";
+
+:root {
+   --theme-primary: #1a73e8;
+   --theme-accent: #fbff0d;
+}
 
 ::selection {
-   background-color: #fbff0d;
+   background-color: var(--theme-accent);
    color: black;
 }
 

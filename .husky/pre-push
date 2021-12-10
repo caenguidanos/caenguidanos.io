@@ -12,5 +12,4 @@ else
 
    # Run Playwright local E2E tests
    pnpm e2e
-   pnpm e2e-storybook
 fi
