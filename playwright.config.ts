@@ -72,7 +72,7 @@ const playwrightConfig: PlaywrightConfig = {
          ["list"]
       ],
       retries: 0,
-      testDir: resolve("src"),
+      testDir: resolve("pages"),
       testMatch: "**/*.page.spec.ts",
       timeout: 30000,
       use: { baseURL: "http://localhost:3000", trace: { mode: "on" } },
@@ -98,7 +98,7 @@ const playwrightConfig: PlaywrightConfig = {
          ["list"]
       ],
       retries: 0,
-      testDir: resolve("src"),
+      testDir: resolve("pages"),
       testMatch: "**/*.page.spec.ts",
       timeout: 30000,
       use: { baseURL: process.env.PLAYWRIGHT_BASE_URL, trace: { mode: "on" } }
