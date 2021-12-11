@@ -14,7 +14,7 @@
    "scripts": {
       "dev": "next dev",
       "start": "next start",
-      "build": "next build",
+      "build": "NEXT_PUBLIC_APP='production' next build",
       "lint": "eslint .",
       "test": "NODE_OPTIONS=--experimental-vm-modules jest --no-cache",
       "e2e": "playwright test",

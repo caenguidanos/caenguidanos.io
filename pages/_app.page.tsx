@@ -3,8 +3,11 @@ import { RecoilRoot } from "recoil";
 
 import { getLayout, AppPropsWithLayout } from "$lib/framework";
 
-import "$msw";
 import "$styles";
+
+if (process.env.NEXT_PUBLIC_APP !== "production") {
+   require("$msw");
+}
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
    const dynamicLayout = getLayout(Component);
@@ -13,6 +16,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       page: (
          <>
             <Script src="https://unpkg.com/spacingjs" strategy="lazyOnload" />
+
             <RecoilRoot>
                <Component {...pageProps} />
             </RecoilRoot>
