@@ -1,4 +1,4 @@
-import { transformToHtml } from "$lib/server/markdown";
+import { transformToHtml } from "$libs/server/markdown";
 
 export const content = {
    default: `

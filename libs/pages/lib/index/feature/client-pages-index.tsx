@@ -1,5 +1,5 @@
-import { Button, Color } from "$lib/ui";
-import { PageWithLayout } from "$lib/framework";
+import { Button, Color } from "$libs/ui";
+import { PageWithLayout } from "$libs/framework";
 
 import type { IndexPageProps } from "../entity/client-pages-index.entity";
 

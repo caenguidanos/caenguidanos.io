@@ -27,7 +27,7 @@
          "$stitches": ["stitches.config.ts"],
          "$msw": ["specs/msw/index.ts"],
          "$styles": ["styles/index.scss"],
-         "$lib/*": ["lib/*"]
+         "$libs/*": ["libs/*"]
       }
    },
    "include": ["**.d.ts", "**/*.ts", "**/*.tsx"],

@@ -1,4 +1,4 @@
-import { remarkShiki } from "$lib/server/markdown";
+import { remarkShiki } from "$libs/server/markdown";
 
 describe("Server::Markdown::RemarkShiki", () => {
    it("TODO", () => {

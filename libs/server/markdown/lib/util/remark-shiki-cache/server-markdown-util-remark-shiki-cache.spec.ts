@@ -1,6 +1,6 @@
 import { Highlighter } from "shiki";
 
-import { remarkShikiThemes } from "$lib/server/markdown";
+import { remarkShikiThemes } from "$libs/server/markdown";
 
 import {
    HighlighterWithCache,
@@ -9,7 +9,7 @@ import {
    remarkShikiCacheHighlighterID,
    remarkShikiComposeHighlighterCache,
    remarkShikiCreateHighlighter
-} from "$lib/server/markdown";
+} from "$libs/server/markdown";
 
 describe("Server::Markdown::RemarkShiki::Cache", () => {
    it("should create new highlighter", async () => {

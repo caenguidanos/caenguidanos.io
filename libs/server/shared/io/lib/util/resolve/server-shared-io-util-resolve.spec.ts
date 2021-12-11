@@ -1,4 +1,4 @@
-import { resolve } from "$lib/server/shared/io";
+import { resolve } from "$libs/server/shared/io";
 
 describe("Server::IO::resolve", () => {
    it("should build correct path", () => {

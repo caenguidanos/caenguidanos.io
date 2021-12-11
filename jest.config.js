@@ -34,7 +34,7 @@ const customJestConfig = {
       "^\\$stitches$": ["<rootDir>/stitches.config.ts"],
       "^\\$msw$": ["<rootDir>/specs/msw/index.ts"],
       "^\\$styles$": ["<rootDir>/styles/index.scss"],
-      "^\\$lib/(.*)$": ["<rootDir>/lib/$1"]
+      "^\\$libs/(.*)$": ["<rootDir>/libs/$1"]
    },
    verbose: true
 };

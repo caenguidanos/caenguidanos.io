@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
 
-import { log } from "$lib/server/shared/logger";
+import { log } from "$libs/server/shared/logger";
 
 describe("Server::Logger::log", () => {
    it("should log successfully", () => {

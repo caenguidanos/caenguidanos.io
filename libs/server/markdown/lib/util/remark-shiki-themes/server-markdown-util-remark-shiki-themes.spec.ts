@@ -1,4 +1,4 @@
-import { remarkShikiThemes } from "$lib/server/markdown";
+import { remarkShikiThemes } from "$libs/server/markdown";
 
 describe("Server::Markdown::RemarkShiki::Theme", () => {
    it("should get GithubLight theme", () => {
