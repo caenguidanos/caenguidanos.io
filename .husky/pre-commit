@@ -1,7 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# Check first if we are commiting to protected
 BRANCH="$(git branch --show-current)"
 
 if [ "$SKIP_CHECK" == "true" ]; then
@@ -15,10 +14,7 @@ else
    # Lint github/workflows yaml files
    sh "$PWD"/tools/scripts/linter/yaml.sh
 
-   # Lint app
    pnpm lint
-
-   # Format workspace
    pnpm format
 
    # Add changes to commit

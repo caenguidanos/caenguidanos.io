@@ -1,15 +1,17 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# Check first if we are pushing to protected
 BRANCH="$(git branch --show-current)"
 
 if [ "$SKIP_CHECK" == "true" ]; then
    echo "CAUTION: Skipping pre-push hook"
 else
-   # Run Jest tests with coverage
-   pnpm test
+   if [ "$BRANCH" == "main" ]; then
+      echo "ERROR: You can't commit to protected main"
+      exit 1
+   fi
 
-   # Run Playwright local E2E tests
+   pnpm test
    pnpm e2e
+   pnpm build
 fi

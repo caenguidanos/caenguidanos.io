@@ -1,4 +1,4 @@
-import { IndexPage } from "$lib/client/pages";
+import { IndexPage } from "$lib/pages";
 
 import type { GetStaticProps, GetStaticPropsContext } from "next";
 

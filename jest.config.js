@@ -31,10 +31,10 @@ const customJestConfig = {
       }
    },
    moduleNameMapper: {
+      "^\\$stitches$": ["<rootDir>/stitches.config.ts"],
       "^\\$msw$": ["<rootDir>/specs/msw/index.ts"],
       "^\\$styles$": ["<rootDir>/styles/index.scss"],
-      "^\\$lib/client/(.*)$": ["<rootDir>/lib/client/$1"],
-      "^\\$lib/server/(.*)$": ["<rootDir>/lib/server/$1"]
+      "^\\$lib/(.*)$": ["<rootDir>/lib/$1"]
    },
    verbose: true
 };

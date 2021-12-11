@@ -1,7 +1,7 @@
 import Script from "next/script";
 import { RecoilRoot } from "recoil";
 
-import { getLayout, AppPropsWithLayout } from "$lib/client/shared/next";
+import { getLayout, AppPropsWithLayout } from "$lib/framework";
 
 import "$msw";
 import "$styles";

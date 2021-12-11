@@ -24,10 +24,10 @@
       "noImplicitReturns": false,
       "noFallthroughCasesInSwitch": true,
       "paths": {
+         "$stitches": ["stitches.config.ts"],
          "$msw": ["specs/msw/index.ts"],
          "$styles": ["styles/index.scss"],
-         "$lib/client/*": ["lib/client/*"],
-         "$lib/server/*": ["lib/server/*"]
+         "$lib/*": ["lib/*"]
       }
    },
    "include": ["**.d.ts", "**/*.ts", "**/*.tsx"],
