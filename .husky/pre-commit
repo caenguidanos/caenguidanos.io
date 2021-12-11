@@ -12,7 +12,9 @@ else
    fi
 
    # Lint github/workflows yaml files
-   sh "$PWD"/tools/scripts/linter/yaml.sh
+   node ./node_modules/yaml-lint/cli.js "$PWD"/.github/workflows/CI-CD.yaml
+   node ./node_modules/yaml-lint/cli.js "$PWD"/.github/workflows/CI-CD-release.yaml
+   node ./node_modules/yaml-lint/cli.js "$PWD"/.github/workflows/CI-CD-production.yaml
 
    pnpm lint
    pnpm format

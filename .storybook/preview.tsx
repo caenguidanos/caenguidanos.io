@@ -1,6 +1,6 @@
 import * as NextImage from "next/image";
 
-import { worker } from "../specs/msw/lib/browser.msw";
+import { worker } from "../config/tests/msw/browser.msw";
 
 import "../styles/index.scss";
 

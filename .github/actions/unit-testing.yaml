@@ -1,4 +1,4 @@
-name: "Unit"
+name: "Jest"
 description: "Run unit testing with Jest"
 runs:
    using: "composite"
@@ -21,40 +21,19 @@ runs:
         uses: pnpm/action-setup@v2.0.1
         with:
            version: 6.22.2
-           run_install: false
+           run_install: true
 
-      - name: Deploy Preview to Vercel
-        id: vercel-deploy
-        run: |
-           pnpx vercel -t ${VERCEL_TOKEN} > preview-url.txt
-        env:
-           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      - name: Run Unit Testing
+        run: pnpm test
 
-      - name: Comment PR
-        uses: actions/github-script@v5
-        with:
-           script: |
-              const path = require('path');
-              const fs = require('fs');
-
-              const resolve = (...args) => path.resolve(process.cwd(), ...args);
-
-              const filePath = resolve('preview-url.txt');
-              const fileContent = fs.readFileSync(filePath, 'utf8').trim();
-
-              const body = `Vercel Deployment\n\n- Preview: ${fileContent}`;
-
-              github.rest.issues.createComment({
-                 issue_number: context.issue.number,
-                 owner: context.repo.owner,
-                 repo: context.repo.repo,
-                 body,
-              })
-
-      - name: Save Preview-Url
+      - name: Save Unit Testing Coverage Reports
         uses: actions/upload-artifact@v2
         with:
-           name: preview-url
-           path: preview-url.txt
+           name: unit-testing-report
+           path: dist/jest/coverage
+
+      - name: Save Unit Testing Coverage LCOV
+        uses: actions/upload-artifact@v2
+        with:
+           name: unit-testing-report-lcov
+           path: dist/jest/coverage/lcov.info

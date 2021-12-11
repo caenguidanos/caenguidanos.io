@@ -1,11 +1,11 @@
 import Script from "next/script";
 import { RecoilRoot } from "recoil";
 
-import { getLayout, AppPropsWithLayout } from "$libs/framework";
+import { getLayout, AppPropsWithLayout } from "$libs/framework/client-layout";
 
 import "$styles";
 
-if (process.env.NEXT_PUBLIC_APP !== "production") {
+if (process.env.NODE_ENV !== "production") {
    require("$msw");
 }
 

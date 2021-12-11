@@ -17,10 +17,7 @@ runs:
            run_install: true
 
       - name: Install Playwright OS Dependncies
-        run: pnpm e2e -- install-deps
-
-      - name: Install Playwright OS Browsers
-        run: pnpm e2e -- install
+        run: pnpm playwright:install
 
       - name: Download Preview-Url from Deploy
         uses: actions/download-artifact@v2
@@ -29,10 +26,10 @@ runs:
 
       - name: Run E2E Tests
         run: |
-           PLAYWRIGHT_BASE_URL='$(cat preview-url.txt)' PLAYWRIGHT_MODE='ci' pnpm e2e
+           PLAYWRIGHT_BASE_URL='$(cat preview-url.txt)' pnpm e2e:ci
 
       - name: Save E2E Results
         uses: actions/upload-artifact@v2
         with:
            name: e2e-testing-report
-           path: dist/tests/e2e/reports
+           path: dist/e2e/html

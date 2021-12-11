@@ -14,13 +14,15 @@
    "scripts": {
       "dev": "next dev",
       "start": "next start",
-      "build": "NEXT_PUBLIC_APP='production' next build",
+      "build": "next build",
       "lint": "eslint .",
       "test": "NODE_OPTIONS=--experimental-vm-modules jest --no-cache",
-      "e2e": "playwright test",
+      "e2e": "playwright test --config=config/tests/playwright/base.config.ts",
+      "e2e:ci": "playwright test --config=config/tests/playwright/ci.config.ts",
       "format": "prettier --write .",
       "storybook": "start-storybook -p 6006 -s public",
       "storybook:build": "build-storybook -s public",
+      "playwright:install": "playwright install-deps && playwright install",
       "prepare": "msw init public && husky install"
    },
    "resolutions": {

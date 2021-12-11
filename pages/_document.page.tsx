@@ -1,5 +1,7 @@
 import Document, { Html, Head, Main, NextScript, DocumentContext } from "next/document";
 
+import { getCssText } from "$stitches";
+
 class MyDocument extends Document {
    static async getInitialProps(ctx: DocumentContext) {
       const initialProps = await Document.getInitialProps(ctx);
@@ -11,6 +13,8 @@ class MyDocument extends Document {
       return (
          <Html lang="es">
             <Head>
+               <style id="stitches" dangerouslySetInnerHTML={{ __html: getCssText() }} />
+
                <link
                   rel="preload"
                   href="/static/fonts/JetBrainsMono/JetBrainsMono-Medium.woff2"

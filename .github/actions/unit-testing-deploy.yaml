@@ -1,0 +1,62 @@
+name: "Unit Deploy"
+description: "Run Unit testing deploy to GCP"
+inputs:
+   key:
+      description: "GCP Service Account key"
+      required: true
+   service:
+      description: "GCP Run service name"
+      required: true
+   region:
+      description: "GCP region"
+      required: true
+   image:
+      description: "Docker image name"
+      required: true
+runs:
+   using: "composite"
+   steps:
+      - uses: actions/checkout@v2
+      - name: Setup Google Cloud Platform SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+           project_id: ${{ inputs.project }}
+           service_account_key: ${{ inputs.key }}
+           export_default_credentials: true
+
+      - name: Authorize Docker Configuration for Artifact Registry
+        run: gcloud auth configure-docker ${{ inputs.region }}-docker.pkg.dev
+
+      - name: Build Release Container
+        run: |
+           docker build -f .github/images/unit-report/Dockerfile -t ${{ inputs.image }} .
+
+      - name: Push Release Container
+        run: |
+           docker push ${{ inputs.image }}
+
+      - name: Deploy Release Container to Cloud Run
+        id: deploy
+        uses: google-github-actions/deploy-cloudrun@main
+        with:
+           service: ${{ inputs.service }}-${{ inputs.branch }}
+           image: ${{ inputs.image }}
+           region: ${{ inputs.region }}
+           flags: --max-instances=2 --port=3000 --allow-unauthenticated --concurrency=20
+
+      - name: Remove Deployed Release Container from Registry
+        run: |
+           gcloud artifacts docker images delete ${{ inputs.image }}
+
+      - name: Comment PR
+        uses: actions/github-script@v5
+        with:
+           script: |
+              const body = `Unit Testing Deployment\n\n- Preview: ${{ steps.deploy.outputs.url }}`;
+
+              github.rest.issues.createComment({
+                 issue_number: context.issue.number,
+                 owner: context.repo.owner,
+                 repo: context.repo.repo,
+                 body,
+              })

@@ -5,38 +5,29 @@ const createJestConfig = nextJest({ dir: process.cwd() });
 /** @type {import('@jest/types').Config.InitialOptions} */
 const customJestConfig = {
    bail: 1,
+   verbose: true,
    errorOnDeprecated: true,
    extensionsToTreatAsEsm: [".ts", ".tsx"],
-   extraGlobals: ["Math"],
-   testMatch: ["**/lib/**/*.spec.{ts,tsx}"],
-   setupFilesAfterEnv: ["./jest.setup.ts"],
+   testMatch: ["**/libs/**/*.spec.{ts,tsx}"],
+   setupFilesAfterEnv: ["./config/tests/jest/jest.setup.ts"],
    collectCoverage: true,
-   collectCoverageFrom: [
-      "lib/**/*.{ts,tsx}",
-      "!**/*.entity.ts", // Lib typescript entities
-      "!**/*.stories.tsx", // Storybook files
-      "!**/*.msw.ts", // MSW files
-      "!**/*.page.spec.ts", // E2E files
-      "!**/index.ts", // Lib entrypoints
-      "!**/stitches.config.ts" // Stitches config
-   ],
-   coverageDirectory: "./dist/tests/unit/reports",
+   collectCoverageFrom: ["libs/**/*.{ts,tsx}", "!**/entity-*/*.ts", "!**/*.stories.tsx", "!**/index.ts"],
+   coverageDirectory: "./dist/jest/coverage",
    coverageReporters: ["json", "lcov", "text", "html-spa"],
    coverageThreshold: {
       global: {
-         branches: 0,
-         functions: 0,
-         lines: 0,
-         statements: 0
+         branches: 0, // 🔥
+         functions: 0, // 🔥
+         lines: 0, // 🔥
+         statements: 0 // 🔥
       }
    },
    moduleNameMapper: {
-      "^\\$stitches$": ["<rootDir>/stitches.config.ts"],
       "^\\$msw$": ["<rootDir>/specs/msw/index.ts"],
       "^\\$styles$": ["<rootDir>/styles/index.scss"],
+      "^\\$stitches$": ["<rootDir>/stitches.config.ts"],
       "^\\$libs/(.*)$": ["<rootDir>/libs/$1"]
-   },
-   verbose: true
+   }
 };
 
 module.exports = createJestConfig(customJestConfig);

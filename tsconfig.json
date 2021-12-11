@@ -25,7 +25,7 @@
       "noFallthroughCasesInSwitch": true,
       "paths": {
          "$stitches": ["stitches.config.ts"],
-         "$msw": ["specs/msw/index.ts"],
+         "$msw": ["config/tests/msw/main.msw.ts"],
          "$styles": ["styles/index.scss"],
          "$libs/*": ["libs/*"]
       }
