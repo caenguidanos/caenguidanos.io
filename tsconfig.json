@@ -24,9 +24,10 @@
       "noImplicitReturns": false,
       "noFallthroughCasesInSwitch": true,
       "paths": {
-         "$lib/shared/*": ["src/lib/shared/*"],
-         "$lib/client/*": ["src/lib/client/*"],
-         "$lib/server/*": ["src/lib/server/*"]
+         "$msw": ["specs/msw/index.ts"],
+         "$styles": ["styles/index.scss"],
+         "$lib/client/*": ["lib/client/*"],
+         "$lib/server/*": ["lib/server/*"]
       }
    },
    "include": ["**.d.ts", "**/*.ts", "**/*.tsx"],

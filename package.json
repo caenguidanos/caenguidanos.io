@@ -19,8 +19,6 @@
       "test": "NODE_OPTIONS=--experimental-vm-modules jest --no-cache",
       "e2e": "playwright test",
       "format": "prettier --write .",
-      "deps:check": "ncu --peer --target latest > .migration",
-      "deps:write": "ncu -u --target latest",
       "storybook": "start-storybook -p 6006 -s public",
       "storybook:build": "build-storybook -s public",
       "prepare": "msw init public && husky install"
@@ -30,8 +28,6 @@
    },
    "dependencies": {
       "@stitches/react": "1.2.6",
-      "@xstate/inspect": "0.5.2",
-      "@xstate/react": "1.6.3",
       "nanoid": "3.1.30",
       "next": "12.0.6",
       "preact": "10.6.2",
@@ -39,8 +35,7 @@
       "react-dom": "17.0.2",
       "recoil": "0.5.2",
       "rxjs": "7.4.0",
-      "undici": "4.11.0",
-      "xstate": "4.26.1"
+      "undici": "4.11.0"
    },
    "peerDependencies": {
       "postcss": "8.4.4"
@@ -79,7 +74,6 @@
       "husky": "7.0.4",
       "jest": "27.4.3",
       "msw": "0.36.0",
-      "npm-check-updates": "12.0.2",
       "postcss": "8.4.4",
       "prettier": "2.5.1",
       "rehype-raw": "6.1.0",
@@ -91,7 +85,7 @@
       "serve": "13.0.2",
       "shiki": "0.9.14",
       "storybook-addon-sass-postcss": "0.1.0",
-      "tailwindcss": "3.0.0-alpha.2",
+      "tailwindcss": "3.0.0",
       "tsconfig-paths-webpack-plugin": "3.5.2",
       "tslib": "2.3.1",
       "typescript": "4.5.2",

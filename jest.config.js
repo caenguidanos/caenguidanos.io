@@ -8,17 +8,15 @@ const customJestConfig = {
    errorOnDeprecated: true,
    extensionsToTreatAsEsm: [".ts", ".tsx"],
    extraGlobals: ["Math"],
-   testMatch: ["**/src/lib/**/*.spec.{ts,tsx}"],
+   testMatch: ["**/lib/**/*.spec.{ts,tsx}"],
    setupFilesAfterEnv: ["./jest.setup.ts"],
    collectCoverage: true,
    collectCoverageFrom: [
-      "src/lib/**/*.{ts,tsx}",
-
+      "lib/**/*.{ts,tsx}",
       "!**/*.entity.ts", // Lib typescript entities
       "!**/*.stories.tsx", // Storybook files
       "!**/*.msw.ts", // MSW files
       "!**/*.page.spec.ts", // E2E files
-
       "!**/index.ts", // Lib entrypoints
       "!**/stitches.config.ts" // Stitches config
    ],
@@ -33,9 +31,10 @@ const customJestConfig = {
       }
    },
    moduleNameMapper: {
-      "^\\$lib/shared/(.*)$": ["<rootDir>/src/lib/shared/$1"],
-      "^\\$lib/client/(.*)$": ["<rootDir>/src/lib/client/$1"],
-      "^\\$lib/server/(.*)$": ["<rootDir>/src/lib/server/$1"]
+      "^\\$msw$": ["<rootDir>/specs/msw/index.ts"],
+      "^\\$styles$": ["<rootDir>/styles/index.scss"],
+      "^\\$lib/client/(.*)$": ["<rootDir>/lib/client/$1"],
+      "^\\$lib/server/(.*)$": ["<rootDir>/lib/server/$1"]
    },
    verbose: true
 };

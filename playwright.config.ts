@@ -1,8 +1,7 @@
 import path from "path";
 import { PlaywrightTestConfig, devices } from "@playwright/test";
 
-const resolve = (...args: string[]): string =>
-   path.resolve(process.cwd(), ...args);
+const resolve = (...args: string[]): string => path.resolve(process.cwd(), ...args);
 
 const commonConfigProjects = [
    {
