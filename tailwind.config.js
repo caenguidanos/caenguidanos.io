@@ -1,3 +1,3 @@
 module.exports = {
-   content: ["./src/**/*.{ts,tsx,js,jsx}", "./lib/**/*.{ts,tsx,js,jsx}"]
+   content: ["./pages/**/*.{ts,tsx,js,jsx}", "./core/**/*.{ts,tsx,js,jsx}"]
 };
