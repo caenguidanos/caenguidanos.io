@@ -4,13 +4,8 @@
 
 @import "./fonts/jetbrains-mono.scss";
 
-:root {
-   --theme-primary: #1a73e8;
-   --theme-accent: #fbff0d;
-}
-
 ::selection {
-   background-color: var(--theme-accent);
+   background-color: var(--colors-accent);
    color: black;
 }
 

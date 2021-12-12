@@ -34,7 +34,6 @@ export const Button: React.FunctionComponent<ButtonProps> = (props) => {
          color={color}
          onClick={onClick}
          size={props.size}
-         type={props.type || "button"}
          disabled={isDisabled || isLoading}
          status={status}
       >

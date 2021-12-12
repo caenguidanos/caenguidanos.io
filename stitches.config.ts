@@ -6,6 +6,7 @@ export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme
    theme: {
       colors: {
          primary: "#1a73e8",
+         accent: "#fbff0d",
 
          black: "#000",
          white: "#fff",
