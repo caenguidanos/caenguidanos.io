@@ -92,19 +92,47 @@ Run **Playwright** tests:
 pnpm e2e
 ```
 
+## Libs organization
+
+-  **view**
+   -  **pages**: Implements the ui to the app
+-  **[domain]**
+   -  **state**: Implements state management
+      -  **facade**: Implements access to state management
+   -  **feature**: Implements a use case
+   -  **data-access**: Implements data accesses, e.g. via HTTP or WebSockets
+   -  **ui**: Provides use case agnostic and thus reusable components (dumb components)
+   -  **util**: Provides helper functions
+   -  **entity**: Provides models, interfaces or classes
+   -  **api**: Provides functionalities exposed for other domains
+   -  **story**: Implements e2e testing
+
+See: [Angular Architects](https://www.angulararchitects.io/en/aktuelles/sustainable-angular-architectures-2/)
+
 ## Branch
 
-### Type
+### Type branch preffix
+
+Example:
+
+```
+feature/issue-43
+```
 
 -  **feature**
 -  **bugfix**
 -  **hotfix**
 -  **experimental**
--  **release**
 
 ## Commit
 
-### Type
+### Type message head
+
+Example:
+
+```bash
+build: add new config to webpack
+```
 
 -  **build**
 -  **ci**

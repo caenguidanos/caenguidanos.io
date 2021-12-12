@@ -1,6 +1,6 @@
-import { IndexPage } from "$libs/pages/index";
+import { GetStaticProps, GetStaticPropsContext } from "next";
 
-import type { GetStaticProps, GetStaticPropsContext } from "next";
+import { IndexPage } from "$caenguidanos.io/pages/index";
 
 export const getStaticProps: GetStaticProps = async (_ctx: GetStaticPropsContext) => {
    return {

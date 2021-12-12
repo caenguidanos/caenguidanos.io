@@ -1,6 +1,6 @@
 import Document, { Html, Head, Main, NextScript, DocumentContext } from "next/document";
 
-import { getCssText } from "$stitches";
+import { getCssText } from "$caenguidanos.io/stitches";
 
 class MyDocument extends Document {
    static async getInitialProps(ctx: DocumentContext) {

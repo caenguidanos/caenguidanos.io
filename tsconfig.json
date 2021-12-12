@@ -23,11 +23,17 @@
       "noUnusedParameters": true,
       "noImplicitReturns": false,
       "noFallthroughCasesInSwitch": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
       "paths": {
-         "$stitches": ["stitches.config.ts"],
-         "$msw": ["config/tests/msw/main.msw.ts"],
-         "$styles": ["styles/index.scss"],
-         "$libs/*": ["libs/*"]
+         "$caenguidanos.io/stitches": ["stitches.config.ts"],
+         "$caenguidanos.io/msw": ["config/msw/main.msw.ts"],
+         "$caenguidanos.io/styles": ["core/view/styles/index.scss"],
+         "$caenguidanos.io/simple-ui": ["core/domain/shared/simple-ui/api/shared-simple-ui-api.ts"],
+         "$caenguidanos.io/framework": ["core/domain/shared/framework/api/shared-framework-api.ts"],
+         "$caenguidanos.io/markdown": ["core/domain/shared/markdown/api/shared-markdown-api.ts"],
+         "$caenguidanos.io/typescript": ["core/domain/shared/typescript/api/shared-typescript-api.ts"],
+         "$caenguidanos.io/pages/index": ["core/view/pages/index/api/view-pages-index-api.ts"]
       }
    },
    "include": ["**.d.ts", "**/*.ts", "**/*.tsx"],

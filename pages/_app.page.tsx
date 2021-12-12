@@ -1,13 +1,10 @@
 import Script from "next/script";
 import { RecoilRoot } from "recoil";
 
-import { getLayout, AppPropsWithLayout } from "$libs/framework/client-layout";
+import "$caenguidanos.io/msw";
+import "$caenguidanos.io/styles";
 
-import "$styles";
-
-if (process.env.NODE_ENV !== "production") {
-   require("$msw");
-}
+import { getLayout, AppPropsWithLayout } from "$caenguidanos.io/framework";
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
    const dynamicLayout = getLayout(Component);

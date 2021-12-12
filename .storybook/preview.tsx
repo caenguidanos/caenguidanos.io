@@ -2,7 +2,7 @@ import * as NextImage from "next/image";
 
 import { worker } from "../config/tests/msw/browser.msw";
 
-import "../styles/index.scss";
+import "../core/view/styles/index.scss";
 
 export const decorators = [];
 
