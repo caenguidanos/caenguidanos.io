@@ -11,7 +11,7 @@ describe("ViewPagesIndexUsersRepository", () => {
       usersRepository.cleanCache();
    });
 
-   it("should create repo", async () => {
+   it("should fetch user", async () => {
       const response = await usersRepository.queryUserById(1, { ttl: 3000 });
       expect(response).toBeTruthy();
    });

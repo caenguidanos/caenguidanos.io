@@ -1,12 +1,12 @@
 import { PageWithLayout } from "$caenguidanos.io/framework";
 import { Button, ThemeColor } from "$caenguidanos.io/simple-ui";
 
+import { UsersRepository } from "../../data-access/users/view-pages-index-data-access-users";
 import { IndexPageProps } from "../../entity/page/view-pages-index-entity-page";
-import { useUsersRepository } from "../../util/use-users-repository/view-pages-index-util-use-users-repository";
+
+const usersRepository = new UsersRepository();
 
 export const IndexPage: PageWithLayout<IndexPageProps> = () => {
-   const usersRepository = useUsersRepository();
-
    return (
       <div className="grid gap-10 max-w-7xl m-20">
          <Button
