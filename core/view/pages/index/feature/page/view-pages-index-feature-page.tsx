@@ -1,29 +1,34 @@
-import { useState } from "react";
-
 import { PageWithLayout } from "$caenguidanos.io/framework";
 import { Button, ThemeColor } from "$caenguidanos.io/simple-ui";
 
-import { useUsersRepository } from "../../data-access/users/view-pages-index-data-access-users";
 import { IndexPageProps } from "../../entity/page/view-pages-index-entity-page";
+import { useUsersRepository } from "../../util/use-users-repository/view-pages-index-util-use-users-repository";
 
 export const IndexPage: PageWithLayout<IndexPageProps> = () => {
-   const [state, setState] = useState<string>("");
-
    const usersRepository = useUsersRepository();
-
-   const onClick = async (): Promise<void> => {
-      const user = await usersRepository.usersByIdQuery(1, { ttl: 2000 });
-      setState(user);
-   };
 
    return (
       <div className="grid gap-10 max-w-7xl m-20">
-         <pre>
-            <code>{state}</code>
-         </pre>
+         <Button
+            id="indexPageApiFetchButton"
+            color={ThemeColor.Primary}
+            onClick={async () => {
+               const data = await usersRepository.queryUserById(2, { ttl: 1000 });
+               console.log(data);
+            }}
+         >
+            ById
+         </Button>
 
-         <Button id="indexPageApiFetchButton" color={ThemeColor.Primary} onClick={onClick}>
-            LogIn
+         <Button
+            id="indexPageApiFetchButton"
+            color={ThemeColor.Primary}
+            onClick={async () => {
+               const data = await usersRepository.queryUsers({ ttl: 2000 });
+               console.log(data);
+            }}
+         >
+            All
          </Button>
       </div>
    );

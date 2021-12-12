@@ -1,47 +1,36 @@
 import { Singleton } from "$caenguidanos.io/typescript";
+import { Repository, RepositoryQueryOptions, RepositoryResponse } from "$caenguidanos.io/framework";
 
 @Singleton()
-export class UsersRepository {
-   private usersByIdCache = new Map<number, { ttl: number; data: string }>();
+export class UsersRepository extends Repository {
+   public async queryUsers(options?: Partial<RepositoryQueryOptions>): Promise<RepositoryResponse<string>> {
+      const requestContext = this.composeRequestContext("Users", options);
 
-   public usersByIdCacheRefresh() {
-      this.usersByIdCache = new Map<number, { ttl: number; data: string }>();
-   }
-
-   public async usersByIdQuery(id: number, options?: { ttl?: number }): Promise<string> {
-      if (options?.ttl) {
-         const t1: number = Date.now();
-         const userCachedById = this.usersByIdCache.get(id);
-
-         if (userCachedById) {
-            const timeElapsed: number = t1 - userCachedById.ttl;
-
-            if (timeElapsed < options.ttl) {
-               return userCachedById.data;
-            }
+      return this.cacheRequest<string>(requestContext, async () => {
+         const url: RequestInfo = `https://jsonplaceholder.typicode.com/users`;
+         const response = await fetch(url);
+         if (response.ok) {
+            const responseBody = await response.json();
+            return JSON.stringify(responseBody, undefined, 4);
          }
-
-         const data = await this.usersByIdQueryRequest(id);
-         this.usersByIdCache.set(id, { ttl: t1, data });
-         return data;
-      }
-
-      return this.usersByIdQueryRequest(id);
+         return response.statusText;
+      });
    }
 
-   private async usersByIdQueryRequest(id: number) {
-      const response = await fetch("https://jsonplaceholder.typicode.com/users/".concat(`${id}`));
+   public async queryUserById(
+      id: number,
+      options?: Partial<RepositoryQueryOptions>
+   ): Promise<RepositoryResponse<string>> {
+      const requestContext = this.composeRequestContext(`UserById${id}`, options);
 
-      if (response.ok) {
-         const responseBody = await response.json();
-         const stringifiedUser = JSON.stringify(responseBody, undefined, 4);
-         return stringifiedUser;
-      }
-
-      return "";
+      return this.cacheRequest<string>(requestContext, async () => {
+         const url: RequestInfo = `https://jsonplaceholder.typicode.com/users/${id}`;
+         const response = await fetch(url);
+         if (response.ok) {
+            const responseBody = await response.json();
+            return JSON.stringify(responseBody, undefined, 4);
+         }
+         return response.statusText;
+      });
    }
-}
-
-export function useUsersRepository(): UsersRepository {
-   return new UsersRepository();
 }
